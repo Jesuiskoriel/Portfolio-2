@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jhawad.dev/sitemap.xml

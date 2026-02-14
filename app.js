@@ -1,0 +1,1230 @@
+    const { useEffect, useMemo, useRef, useState } = React;
+
+    const translations = {
+      fr: {
+        nav: ["Accueil", "Projets", "Services", "Competences", "Veille", "Contact"],
+        heroTitle: "Lajimi Jhawad\nPortfolio Digital",
+        heroText: "Je conçois des experiences web modernes, fluides et performantes, en combinant design visuel, logique produit et developpement front-end.",
+        seeProjects: "Voir mes projets",
+        downloadCv: "Telecharger mon CV",
+        sceneTitle: "Des idees claires, un code solide.",
+        sceneText: "Faites defiler pour ouvrir l'ordinateur et decouvrir mon univers.",
+        projectsTitle: "Mes Projets et Experience",
+        projectsText: "Une selection de projets concrets et de retours d'experience, avec une approche orientee qualite, lisibilite et resultat.",
+        aboutTitle: "A propos de moi",
+        aboutText: "Curieux, autonome et rigoureux, je transforme des idees en experiences web utiles et bien executees.",
+        aboutP1: "Je m'appelle Jhawad Lajimi. Ma passion pour le web a commence avec des projets visuels personnels, puis s'est transformee en pratique quotidienne du design et du developpement.",
+        aboutP2: "Je conçois des interfaces en pensant produit: clarte, performance, maintenabilite et personnalite.",
+        aboutP3: "En dehors du code, je suis passionne de jeux video et joueur competitif sur Super Smash Bros Ultimate.",
+        aboutGoalTitle: "Objectif professionnel",
+        aboutGoalText: "Contribuer a des produits web ambitieux avec un haut niveau d'exigence technique et visuelle.",
+        aboutFocusTitle: "Focus actuel",
+        aboutFocusText: "React, animations d'interface et architecture front-end propre.",
+        aboutSoftTitle: "Soft skills",
+        aboutSoftText: "Autonomie, curiosite, adaptation rapide et sens du travail d'equipe.",
+        servicesTitle: "Services",
+        servicesText: "Ce que je peux livrer en freelance, en stage ou en alternance.",
+        skillsTitle: "Competences",
+        skillsText: "Stack principale pour concevoir des produits web fiables et evolutifs.",
+        techTitle: "Technos Favorites 2026",
+        techText: "Outils et technologies sur lesquels je continue d'investir.",
+        journeyTitle: "Mon Parcours",
+        journeyText: "Une synthese claire de mon evolution.",
+        goalTitle: "Objectif Actuel",
+        goalText: "Je recherche une opportunite pour continuer a progresser en front-end, UI engineering et experiences interactives. Disponible en alternance, stage ou mission freelance.",
+        veilleTitle: "Veille Technologique",
+        veilleText: "Veille sur l'ensemble de la tech, avec priorite aux sources en francais: developpement, IA, securite, cloud, hardware et open source.",
+        veilleLoading: "Chargement des articles tech...",
+        veilleFrontTitle: "Veille Front-End et Design d'Interface",
+        veilleFrontText: "Focus specialise sur l'evolution du CSS, des frameworks front-end, de l'UI engineering, des design systems et de l'integration moderne.",
+        veilleFrontLoading: "Chargement des articles front...",
+        contactTitle: "Contact",
+        contactText: "Vous pouvez me contacter directement via ce formulaire.",
+        contactFoot: "Contact: lajimijhawad@gmail.com",
+        visitorLabel: "Vous etes le visiteur n°",
+        visitorTopLabel: "Nombre de visites",
+        konamiText: "↑ ↑ ↓ ↓ ← → ← → B A",
+        formName: "Nom",
+        formMail: "Email",
+        formMsg: "Message",
+        formSend: "Envoyer",
+        formNote: "Formulaire de demonstration: l'envoi final sera relie a un endpoint dedie."
+      },
+      en: {
+        nav: ["Home", "Projects", "Services", "Skills", "Watch", "Contact"],
+        heroTitle: "Lajimi Jhawad\nDigital Portfolio",
+        heroText: "I craft modern, fluid, and reliable web experiences by combining visual design, product thinking, and front-end engineering.",
+        seeProjects: "See projects",
+        downloadCv: "Download CV",
+        sceneTitle: "Sharp ideas, impactful code.",
+        sceneText: "Scroll to open the laptop and discover my work.",
+        projectsTitle: "Projects and Experience",
+        projectsText: "A curated selection of concrete projects and hands-on experience, with a strong focus on quality and execution.",
+        aboutTitle: "About me",
+        aboutText: "Curious, autonomous, and rigorous, I turn ideas into useful and polished web experiences.",
+        aboutP1: "I am Jhawad Lajimi. My interest in web started with personal visual projects and evolved into a daily practice of design and development.",
+        aboutP2: "I build interfaces with product thinking in mind: clarity, performance, maintainability, and personality.",
+        aboutP3: "Outside of coding, I am passionate about video games and I compete on Super Smash Bros Ultimate.",
+        aboutGoalTitle: "Career goal",
+        aboutGoalText: "Contribute to ambitious web products with strong technical and visual standards.",
+        aboutFocusTitle: "Current focus",
+        aboutFocusText: "React, interface motion, and clean front-end architecture.",
+        aboutSoftTitle: "Soft skills",
+        aboutSoftText: "Autonomy, curiosity, fast adaptation, and teamwork.",
+        servicesTitle: "Services",
+        servicesText: "What I can deliver in freelance, internship, or apprenticeship contexts.",
+        skillsTitle: "Skills",
+        skillsText: "Core stack I use to build robust and scalable web products.",
+        techTitle: "Favorite Tech 2026",
+        techText: "Tools and technologies I keep investing in.",
+        journeyTitle: "My Journey",
+        journeyText: "A concise overview of my progression.",
+        goalTitle: "Current Goal",
+        goalText: "I am looking for an opportunity to keep growing in front-end, UI engineering, and interactive experiences. Available for apprenticeship, internship, or freelance work.",
+        veilleTitle: "Tech Watch",
+        veilleText: "Tech watch across software, AI, security, cloud, hardware, and open source.",
+        veilleLoading: "Loading tech articles...",
+        veilleFrontTitle: "Front-End and Interface Design Watch",
+        veilleFrontText: "Specialized focus on CSS evolution, front-end frameworks, UI engineering, design systems and modern web integration.",
+        veilleFrontLoading: "Loading front-end articles...",
+        contactTitle: "Contact",
+        contactText: "You can contact me directly through this form.",
+        contactFoot: "Contact: lajimijhawad@gmail.com",
+        visitorLabel: "You are visitor #",
+        visitorTopLabel: "Visit count",
+        konamiText: "↑ ↑ ↓ ↓ ← → ← → B A",
+        formName: "Name",
+        formMail: "Email",
+        formMsg: "Message",
+        formSend: "Send",
+        formNote: "Demo form: final submission can be connected to a dedicated endpoint."
+      }
+    };
+
+    const projectCards = [
+      {
+        title: "Application Web Carte Interactive",
+        description: "Application web de carte interactive en cours de developpement avec interface moderne et navigation dynamique.",
+        tags: ["JavaScript", "HTML", "PHP", "SQL", "CSS", "WIP"],
+        cover: "stage",
+        localImage: "Carte_des_maries.png",
+        links: { github: "", demo: "", caseStudy: "" }
+      },
+      {
+        title: "Hell Ladder",
+        description: "Plateforme de classement competitif pour suivre joueurs, matchs et progression en ladder avec une interface claire et rapide.",
+        tags: ["JavaScript", "PHP", "SQL", "UI", "WIP"],
+        cover: "hellladder",
+        links: {
+          github: "https://github.com/Jesuiskoriel/Metal-K.O.R.I.E.L",
+          demo: "",
+          caseStudy: ""
+        }
+      },
+      {
+        title: "Projet de Billetterie",
+        description: "Application de billetterie avec consultation d'evenements, reservation de places et base evolutive pour paiement en ligne.",
+        tags: ["PHP", "SQL", "UX", "Back Office", "WIP"],
+        cover: "billetterie",
+        links: {
+          github: "https://github.com/Jesuiskoriel/Clientlourdv2",
+          demo: "",
+          caseStudy: ""
+        }
+      },
+      {
+        title: "Tenta Whiskers - Projet Personnel",
+        description: "Creation d'une equipe e-sport, animation communautaire Discord et organisation de tournois reguliers.",
+        tags: ["Leadership", "Discord", "Tournois"],
+        cover: "community",
+        links: { github: "", demo: "", caseStudy: "" }
+      },
+      {
+        title: "To-Do Mailer - Projet Personnel",
+        description: "Gestion de taches en PHP/MySQL avec rappels automatiques par email avant echeance.",
+        tags: ["PHP", "MySQL", "Automation", "WIP"],
+        cover: "todo",
+        links: {
+          github: "https://github.com/Jesuiskoriel/To-Do-Mailer",
+          demo: "",
+          caseStudy: ""
+        }
+      },
+      {
+        title: "Projet VR - Meta Quest",
+        description: "Conception d'une experience immersive avec iteration sur confort utilisateur et fluidite.",
+        tags: ["VR", "Meta Quest", "Prototype"],
+        cover: "vr",
+        links: { github: "", demo: "", caseStudy: "" }
+      },
+      {
+        title: "Stage Universite Paris 8",
+        description: "Support technique, reseau, administration et resolution de problemes en environnement universitaire.",
+        tags: ["Stage", "Reseau", "Administration"],
+        cover: "stage",
+        localImage: "logo-paris8-couleurs-officielles.jpg",
+        links: { github: "", demo: "", caseStudy: "" }
+      },
+      {
+        title: "Stage PC Market",
+        description: "Diagnostic et reparation de PC/smartphones avec priorite sur qualite d'intervention et relation client.",
+        tags: ["Stage", "Diagnostic", "Maintenance"],
+        cover: "stage",
+        links: { github: "", demo: "", caseStudy: "" }
+      },
+      {
+        title: "Benevolat Autism'Action 95",
+        description: "Ateliers robotique et Scratch pour accompagner des enfants autistes via l'apprentissage par la pratique.",
+        tags: ["Robotique", "Scratch", "Inclusion"],
+        cover: "benevolat",
+        localImage: "autism.png",
+        links: { github: "", demo: "", caseStudy: "" }
+      }
+    ];
+
+    const projectCardsEn = [
+      {
+        title: "Interactive Map Web App",
+        description: "In-progress interactive map web application built with a modern UI and dynamic navigation.",
+        tags: ["JavaScript", "HTML", "PHP", "SQL", "CSS", "WIP"],
+        cover: "stage",
+        localImage: "Carte_des_maries.png",
+        links: { github: "", demo: "", caseStudy: "" }
+      },
+      {
+        title: "Hell Ladder",
+        description: "Competitive ranking platform to track players, matches and ladder progression through a clean and fast interface.",
+        tags: ["JavaScript", "PHP", "SQL", "UI", "WIP"],
+        cover: "hellladder",
+        links: {
+          github: "https://github.com/Jesuiskoriel/Metal-K.O.R.I.E.L",
+          demo: "",
+          caseStudy: ""
+        }
+      },
+      {
+        title: "Ticketing Project",
+        description: "Ticketing web app with event discovery, seat booking, and a scalable foundation for online payments.",
+        tags: ["PHP", "SQL", "UX", "Back Office", "WIP"],
+        cover: "billetterie",
+        links: {
+          github: "https://github.com/Jesuiskoriel/Clientlourdv2",
+          demo: "",
+          caseStudy: ""
+        }
+      },
+      {
+        title: "Tenta Whiskers - Personal Project",
+        description: "Created an e-sports team, managed a Discord community, and organized regular tournaments.",
+        tags: ["Leadership", "Discord", "Tournaments"],
+        cover: "community",
+        links: { github: "", demo: "", caseStudy: "" }
+      },
+      {
+        title: "To-Do Mailer - Personal Project",
+        description: "PHP/MySQL task manager with automatic email reminders before due dates.",
+        tags: ["PHP", "MySQL", "Automation", "WIP"],
+        cover: "todo",
+        links: {
+          github: "https://github.com/Jesuiskoriel/To-Do-Mailer",
+          demo: "",
+          caseStudy: ""
+        }
+      },
+      {
+        title: "VR Project - Meta Quest",
+        description: "Built an immersive VR experience with iterative work on user comfort and fluid interactions.",
+        tags: ["VR", "Meta Quest", "Prototype"],
+        cover: "vr",
+        links: { github: "", demo: "", caseStudy: "" }
+      },
+      {
+        title: "Paris 8 University Internship",
+        description: "Technical support, networking, administration, and troubleshooting in a university environment.",
+        tags: ["Internship", "Networking", "Administration"],
+        cover: "stage",
+        localImage: "logo-paris8-couleurs-officielles.jpg",
+        links: { github: "", demo: "", caseStudy: "" }
+      },
+      {
+        title: "PC Market Internship",
+        description: "Diagnosed and repaired PCs/smartphones with strong focus on quality intervention and customer support.",
+        tags: ["Internship", "Diagnostics", "Maintenance"],
+        cover: "stage",
+        links: { github: "", demo: "", caseStudy: "" }
+      },
+      {
+        title: "Autism'Action 95 Volunteering",
+        description: "Led robotics and Scratch workshops to support autistic children through hands-on learning.",
+        tags: ["Robotics", "Scratch", "Inclusion"],
+        cover: "benevolat",
+        localImage: "autism.png",
+        links: { github: "", demo: "", caseStudy: "" }
+      }
+    ];
+
+    const services = [
+      { title: "UI Front-end", text: "Integration React/HTML/CSS avec design propre, responsive et performant." },
+      { title: "Prototype Produit", text: "MVP rapide pour valider une idee ou une feature avant industrialisation." },
+      { title: "Refonte Interface", text: "Amelioration UX/UI pour clarte, conversion et confort d'utilisation." }
+    ];
+
+    const skillGroups = [
+      { title: "Frontend", items: ["JavaScript", "React / Vue.js", "HTML5 / CSS3", "Responsive Design"] },
+      { title: "Backend", items: ["Node.js", "Python", "Docker"] },
+      { title: "Outils", items: ["Git / GitHub", "VS Code / PHPStorm", "Figma / Photoshop"] }
+    ];
+
+    const favoriteTech = [
+      { title: "Front", items: ["React", "TypeScript", "Vite", "GSAP"] },
+      { title: "Design", items: ["Figma", "Framer", "Design Tokens", "A11y"] },
+      { title: "Infra", items: ["Docker", "Linux", "GitHub Actions", "SQL"] }
+    ];
+
+    const veilleItems = [
+      "Suivi des actualites IA et outils d'automatisation.",
+      "Veille securite informatique et cybermenaces.",
+      "Nouveautes cloud, devops et infrastructures.",
+      "Materiel, open source et ecosysteme developpeur."
+    ];
+
+    const veilleItemsEn = [
+      "Tracking AI news and automation tools.",
+      "Cybersecurity watch and emerging threats.",
+      "Cloud, devops and infrastructure updates.",
+      "Hardware, open source and developer ecosystem trends."
+    ];
+
+    const veilleFrontFallbackFr = [
+      "Nouveautes CSS: selectors, layout, performance visuelle et accessibilite.",
+      "Sorties et evolutions des frameworks front-end (React, Vue, Next.js, etc.).",
+      "Bonnes pratiques UI engineering: design systems, tokens, architecture componentielle.",
+      "Techniques d'integration moderne: responsive avance, motion et optimisation Core Web Vitals."
+    ];
+
+    const veilleFrontFallbackEn = [
+      "CSS updates: selectors, layout, visual performance and accessibility.",
+      "Front-end framework releases and evolution (React, Vue, Next.js, etc.).",
+      "UI engineering best practices: design systems, tokens and component architecture.",
+      "Modern integration techniques: advanced responsive patterns, motion and Core Web Vitals optimization."
+    ];
+
+    function parseUnixDate(value) {
+      if (!value) return null;
+      const ms = Date.parse(value);
+      if (!Number.isFinite(ms)) return null;
+      const sec = Math.floor(ms / 1000);
+      return sec > 0 ? sec : null;
+    }
+
+    function isCleanTitle(title) {
+      if (!title) return false;
+      return !title.includes("�");
+    }
+
+    async function fetchFromRssSources(rssSources, idPrefix) {
+      const parseFromRss2Json = (json, sourceName) => {
+        const items = (json?.items || []).slice(0, 8);
+        return items.map((item, idx) => {
+          const title = item?.title?.trim();
+          const link = item?.link?.trim();
+          const date = parseUnixDate(item?.pubDate);
+          if (!isCleanTitle(title) || !link) return null;
+          return {
+            id: sourceName + "-" + idPrefix + "-r2j-" + idx + "-" + title,
+            title,
+            url: link,
+            date,
+            source: sourceName
+          };
+        }).filter(Boolean);
+      };
+
+      const parseItems = (xmlText, sourceName) => {
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(xmlText, "application/xml");
+        const items = Array.from(xml.querySelectorAll("item")).slice(0, 8);
+        return items.map((item, idx) => {
+          const title = item.querySelector("title")?.textContent?.trim();
+          const link = item.querySelector("link")?.textContent?.trim();
+          const dateRaw = item.querySelector("pubDate")?.textContent?.trim();
+          const date = parseUnixDate(dateRaw);
+          if (!isCleanTitle(title) || !link) return null;
+          return {
+            id: sourceName + "-" + idPrefix + "-" + idx + "-" + title,
+            title,
+            url: link,
+            date,
+            source: sourceName
+          };
+        }).filter(Boolean);
+      };
+
+      const responses = await Promise.all(
+        rssSources.map(async (src) => {
+          try {
+            const rss2jsonUrl = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(src.url);
+            const rssJson = await fetch(rss2jsonUrl).then((r) => r.json()).catch(() => null);
+            const parsedR2J = parseFromRss2Json(rssJson, src.source);
+            if (parsedR2J.length) return parsedR2J;
+
+            const proxyUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(src.url);
+            const xml = await fetch(proxyUrl).then((r) => r.text());
+            return parseItems(xml, src.source);
+          } catch (e) {
+            return [];
+          }
+        })
+      );
+
+      return responses
+        .flat()
+        .filter((item) => item && item.date)
+        .sort((a, b) => b.date - a.date)
+        .slice(0, 10);
+    }
+
+    async function fetchFrenchTechWatch() {
+      const rssSources = [
+        { url: "https://www.lemondeinformatique.fr/flux-rss/thematique/toutes-les-actualites/rss.xml", source: "Le Monde Informatique" },
+        { url: "https://www.01net.com/actualites/feed/", source: "01net" },
+        { url: "https://www.usine-digitale.fr/rss/", source: "L'Usine Digitale" }
+      ];
+      return fetchFromRssSources(rssSources, "fr-tech");
+    }
+
+    async function fetchEnglishTechWatch() {
+      const rssSources = [
+        { url: "https://techcrunch.com/feed/", source: "TechCrunch" },
+        { url: "https://www.theverge.com/rss/index.xml", source: "The Verge" },
+        { url: "https://www.wired.com/feed/category/gear/latest/rss", source: "WIRED" }
+      ];
+      return fetchFromRssSources(rssSources, "en-tech");
+    }
+
+    async function fetchTechWatchFallback() {
+      const queries = ["software", "artificial intelligence", "cybersecurity", "cloud", "hardware", "open source"];
+      const responses = await Promise.all(
+        queries.map((q) =>
+          fetch("https://hn.algolia.com/api/v1/search_by_date?tags=story&query=" + encodeURIComponent(q))
+            .then((r) => r.json())
+            .catch(() => ({ hits: [] }))
+        )
+      );
+
+      const map = new Map();
+      responses.forEach((res) => {
+        (res.hits || []).forEach((hit) => {
+          if (!hit || !hit.title) return;
+          const id = String(hit.objectID || hit.story_id || hit.created_at_i || hit.title);
+          if (map.has(id)) return;
+          map.set(id, {
+            id,
+            title: hit.title,
+            url: hit.url || ("https://news.ycombinator.com/item?id=" + hit.objectID),
+            date: hit.created_at_i || null,
+            source: "Hacker News"
+          });
+        });
+      });
+
+      return Array.from(map.values())
+        .filter((item) => item.date)
+        .sort((a, b) => b.date - a.date)
+        .slice(0, 10);
+    }
+
+    async function fetchFrontWatch(lang) {
+      const frontSourcesFr = [
+        { url: "https://www.alsacreations.com/rss/actualites.xml", source: "Alsacreations" },
+        { url: "https://www.grafikart.fr/blog/rss", source: "Grafikart" },
+        { url: "https://www.alsacreations.com/rss/tutos.xml", source: "Alsacreations Tutos" }
+      ];
+      const frontSourcesEn = [
+        { url: "https://css-tricks.com/feed/", source: "CSS-Tricks" },
+        { url: "https://www.smashingmagazine.com/feed/", source: "Smashing Magazine" },
+        { url: "https://dev.to/feed/tag/css", source: "DEV CSS" },
+        { url: "https://dev.to/feed/tag/frontend", source: "DEV Frontend" }
+      ];
+      const chosen = lang === "fr" ? frontSourcesFr : frontSourcesEn;
+      return fetchFromRssSources(chosen, lang + "-front");
+    }
+
+    const journey = [
+      "Premiers projets visuels sur Photoshop, puis transition vers le developpement web.",
+      "Conception de projets personnels: Hell Ladder, To-Do Mailer et Billetterie.",
+      "Experiences terrain en stage: support, reseau, administration et maintenance.",
+      "Focus actuel: UI engineering, front-end moderne et experiences interactives."
+    ];
+
+    function trackEvent() {
+      // Hook d'analytics optionnel.
+    }
+
+    function useReveal() {
+      const refs = useRef([]);
+      useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        }, { threshold: 0.2 });
+        refs.current.forEach((node) => node && observer.observe(node));
+        return () => observer.disconnect();
+      }, []);
+      return refs;
+    }
+
+    function SectionTitle({ title, text }) {
+      const ref = useRef(null);
+      useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) el.classList.add("visible");
+          });
+        }, { threshold: 0.5 });
+        obs.observe(el);
+        return () => obs.disconnect();
+      }, []);
+      return (
+        <div className="section-title" ref={ref}>
+          <h2>{title}</h2>
+          <p>{text}</p>
+        </div>
+      );
+    }
+
+    function Nav({ t, lang, setLang, theme, setTheme }) {
+      return (
+        <nav className="nav">
+          <div className="brand">LAJIMI JHAWAD</div>
+          <ul className="links">
+            <li><a href="#accueil">{t.nav[0]}</a></li>
+            <li><a href="#projets">{t.nav[1]}</a></li>
+            <li><a href="#services">{t.nav[2]}</a></li>
+            <li><a href="#competences">{t.nav[3]}</a></li>
+            <li><a href="#veille">{t.nav[4]}</a></li>
+            <li><a href="#contact">{t.nav[5]}</a></li>
+          </ul>
+          <div className="lang-switch">
+            <button className={lang === "fr" ? "active" : ""} onClick={() => setLang("fr")}>FR</button>
+            <button className={lang === "en" ? "active" : ""} onClick={() => setLang("en")}>EN</button>
+          </div>
+          <button
+            className="theme-toggle"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            aria-label="Toggle dark mode"
+          >
+            {theme === "dark" ? "☀ Light" : "🌙 Dark"}
+          </button>
+        </nav>
+      );
+    }
+
+    function Hero({ t, visitCount }) {
+      const [l1, l2] = t.heroTitle.split("\n");
+      return (
+        <header id="accueil" className="hero container">
+          <div>
+            <div className="hero-visit-counter">
+              <div className="hero-visit-label">{t.visitorTopLabel}</div>
+              <div className="hero-visit-value">{visitCount}</div>
+            </div>
+            <h1>
+              <span className="hero-line">{l1}</span>
+              <span className="hero-line">{l2}</span>
+            </h1>
+            <p>{t.heroText}</p>
+            <div className="hero-actions">
+              <a href="#projets" className="btn btn-primary">{t.seeProjects}</a>
+              <a href="./Lajimi_Jhawad_CV%20(2).pdf.pdf" download className="btn btn-ghost">{t.downloadCv}</a>
+            </div>
+            <div className="konami-promo">
+              <div>
+                <span>{t.konamiText}</span>
+              </div>
+            </div>
+          </div>
+        </header>
+      );
+    }
+
+    function LaptopScene({ t }) {
+      const sceneRef = useRef(null);
+      const wrapRef = useRef(null);
+
+      useEffect(() => {
+        let rafId = null;
+        let current = 0;
+        let target = 0;
+
+        const getProgress = () => {
+          const el = sceneRef.current;
+          if (!el) return 0;
+          const rect = el.getBoundingClientRect();
+          const total = rect.height - window.innerHeight;
+          const raw = total <= 0 ? 1 : -rect.top / total;
+          return Math.max(0, Math.min(1, raw));
+        };
+
+        const apply = () => {
+          current += (target - current) * 0.12;
+          if (Math.abs(target - current) < 0.0008) current = target;
+          document.documentElement.style.setProperty("--scene-progress", current.toFixed(4));
+          if (wrapRef.current) wrapRef.current.style.setProperty("--p", current.toFixed(4));
+          rafId = window.requestAnimationFrame(apply);
+        };
+
+        const syncTarget = () => { target = getProgress(); };
+        syncTarget();
+        apply();
+        window.addEventListener("scroll", syncTarget, { passive: true });
+        window.addEventListener("resize", syncTarget);
+        return () => {
+          window.removeEventListener("scroll", syncTarget);
+          window.removeEventListener("resize", syncTarget);
+          if (rafId) window.cancelAnimationFrame(rafId);
+          document.documentElement.style.setProperty("--scene-progress", "0");
+        };
+      }, []);
+
+      return (
+        <section className="scene" ref={sceneRef}>
+          <div className="scene-wrap" ref={wrapRef}>
+            <div className="scene-copy">
+              <h2>{t.sceneTitle}</h2>
+              <p>{t.sceneText}</p>
+            </div>
+            <div className="scene-glow" />
+            <div className="laptop">
+              <div className="lid">
+                <div className="screen">
+                  <div className="screen-content">
+                    <div className="screen-brand">
+                      <div className="screen-brand-main">Jhawad.dev</div>
+                      <div className="screen-brand-sub">Code • Design • Impact</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="lid-thickness" />
+              </div>
+              <div className="hinge" />
+              <div className="base">
+                <div className="keyboard-plane" />
+                <div className="base-front" />
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function IconExternal() {
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M14 5h5v5"></path>
+          <path d="M10 14L19 5"></path>
+          <path d="M19 13v6H5V5h6"></path>
+        </svg>
+      );
+    }
+
+    function IconDocument() {
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path>
+          <path d="M14 3v5h5"></path>
+          <path d="M9 13h6"></path>
+          <path d="M9 17h6"></path>
+        </svg>
+      );
+    }
+
+    function IconGithub() {
+      return (
+        <svg className="fill" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.18-3.37-1.18-.45-1.14-1.1-1.45-1.1-1.45-.9-.61.07-.6.07-.6 1 .08 1.52 1.03 1.52 1.03.89 1.53 2.33 1.09 2.89.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.95 0-1.09.39-1.98 1.02-2.68-.1-.25-.44-1.28.1-2.66 0 0 .84-.27 2.75 1.02a9.47 9.47 0 0 1 5 0c1.9-1.3 2.74-1.02 2.74-1.02.54 1.38.2 2.41.1 2.66.64.7 1.02 1.6 1.02 2.68 0 3.85-2.33 4.7-4.56 4.95.36.31.68.92.68 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2z"></path>
+        </svg>
+      );
+    }
+
+    function IconLinkedin() {
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="8" width="4" height="13"></rect>
+          <circle cx="5" cy="4.5" r="1.7"></circle>
+          <path d="M11 21v-7a3 3 0 0 1 3-3h0a3 3 0 0 1 3 3v7"></path>
+          <path d="M11 12v-4h4"></path>
+        </svg>
+      );
+    }
+
+    function Projects({ t, lang }) {
+      const refs = useReveal();
+      const cards = lang === "en" ? projectCardsEn : projectCards;
+      const labels = lang === "en"
+        ? {
+          demo: "Demo",
+          demoSoon: "Demo - Soon",
+          github: "GitHub",
+          githubSoon: "GitHub - Soon",
+          caseStudy: "Case Study",
+          caseSoon: "Case Study - Soon"
+        }
+        : {
+          demo: "Demo",
+          demoSoon: "Demo - Bientot",
+          github: "GitHub",
+          githubSoon: "GitHub - Bientot",
+          caseStudy: "Case Study",
+          caseSoon: "Case Study - Bientot"
+        };
+      return (
+        <section id="projets" className="container">
+          <SectionTitle title={t.projectsTitle} text={t.projectsText} />
+          <div className="grid">
+            {cards.map((project, i) => (
+              <article className="card" key={project.title} ref={(node) => { refs.current[i] = node; }}>
+                <div
+                  className={"mockup " + (project.localImage ? "mockup-local" : "mockup-" + (project.cover || "stage"))}
+                  style={project.localImage ? { backgroundImage: "url('" + project.localImage + "')" } : undefined}
+                />
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+                <div className="meta">{project.tags.map((tag) => <span className="chip" key={tag + i}>{tag}</span>)}</div>
+                <div className="project-links">
+                  {project.links.demo
+                    ? <a href={project.links.demo} target="_blank" rel="noreferrer" className="project-link"><span className="platform-icon"><IconExternal /></span>{labels.demo}</a>
+                    : <span className="project-link"><span className="platform-icon"><IconExternal /></span>{labels.demoSoon}</span>}
+                  {project.links.github
+                    ? <a href={project.links.github} target="_blank" rel="noreferrer" className="project-link"><span className="platform-icon"><IconGithub /></span>{labels.github}</a>
+                    : <span className="project-link"><span className="platform-icon"><IconGithub /></span>{labels.githubSoon}</span>}
+                  {project.links.caseStudy
+                    ? <a href={project.links.caseStudy} target="_blank" rel="noreferrer" className="project-link"><span className="platform-icon"><IconDocument /></span>{labels.caseStudy}</a>
+                    : <span className="project-link"><span className="platform-icon"><IconDocument /></span>{labels.caseSoon}</span>}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    function About({ t }) {
+      const refs = useReveal();
+      return (
+        <section className="container">
+          <SectionTitle title={t.aboutTitle} text={t.aboutText} />
+          <div className="split">
+            <article className="card" ref={(node) => { refs.current[0] = node; }}>
+              <p>{t.aboutP1}</p>
+              <p>{t.aboutP2}</p>
+              <p>{t.aboutP3}</p>
+            </article>
+            <div className="timeline" ref={(node) => { refs.current[1] = node; }}>
+              <div className="timeline-item"><h4>{t.aboutGoalTitle}</h4><p>{t.aboutGoalText}</p></div>
+              <div className="timeline-item"><h4>{t.aboutFocusTitle}</h4><p>{t.aboutFocusText}</p></div>
+              <div className="timeline-item"><h4>{t.aboutSoftTitle}</h4><p>{t.aboutSoftText}</p></div>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function Services({ t }) {
+      const refs = useReveal();
+      return (
+        <section id="services" className="container">
+          <SectionTitle title={t.servicesTitle} text={t.servicesText} />
+          <div className="services">
+            {services.map((item, i) => (
+              <article className="card" key={item.title} ref={(node) => { refs.current[i] = node; }}>
+                <p className="service-title">{item.title}</p>
+                <p>{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    function Skills({ t }) {
+      const refs = useReveal();
+      return (
+        <section id="competences" className="container">
+          <SectionTitle title={t.skillsTitle} text={t.skillsText} />
+          <div className="skills">
+            {skillGroups.map((group, i) => (
+              <article className="card" key={group.title} ref={(node) => { refs.current[i] = node; }}>
+                <h3>{group.title}</h3>
+                <ul>{group.items.map((item) => <li key={item}>{item}</li>)}</ul>
+              </article>
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    function FavoriteTech({ t }) {
+      const refs = useReveal();
+      return (
+        <section className="container">
+          <SectionTitle title={t.techTitle} text={t.techText} />
+          <div className="favorite-tech">
+            {favoriteTech.map((group, i) => (
+              <article className="card" key={group.title} ref={(node) => { refs.current[i] = node; }}>
+                <h3>{group.title}</h3>
+                <ul>{group.items.map((item) => <li key={item}>• {item}</li>)}</ul>
+              </article>
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    function Journey({ t }) {
+      const refs = useReveal();
+      return (
+        <section className="container">
+          <SectionTitle title={t.journeyTitle} text={t.journeyText} />
+          <div className="journey">
+            {journey.map((step, i) => (
+              <article className="step" key={step} ref={(node) => { refs.current[i] = node; }}>
+                <div><p>{step}</p></div>
+              </article>
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    function Goal({ t }) {
+      const refs = useReveal();
+      return (
+        <section className="container">
+          <article className="goal-banner card" ref={(node) => { refs.current[0] = node; }}>
+            <h3>{t.goalTitle}</h3>
+            <p>{t.goalText}</p>
+          </article>
+        </section>
+      );
+    }
+
+    function Veille({ t, lang }) {
+      const refs = useReveal();
+      const [items, setItems] = useState([]);
+      const [loading, setLoading] = useState(true);
+      const [feedLang, setFeedLang] = useState(lang);
+      useEffect(() => { setFeedLang(lang); }, [lang]);
+      const formatDate = (epoch) => {
+        if (!epoch) return feedLang === "fr" ? "Date inconnue" : "Unknown date";
+        return new Date(epoch * 1000).toLocaleDateString(feedLang === "fr" ? "fr-FR" : "en-US");
+      };
+
+      useEffect(() => {
+        let active = true;
+
+        const load = async () => {
+          if (active) setLoading(true);
+          try {
+            let fresh = feedLang === "fr" ? await fetchFrenchTechWatch() : await fetchEnglishTechWatch();
+            if (!fresh.length && feedLang === "en") {
+              fresh = await fetchTechWatchFallback();
+            }
+            if (!active) return;
+            setItems(fresh);
+          } catch (e) {
+            if (!active) return;
+            setItems([]);
+          } finally {
+            if (active) setLoading(false);
+          }
+        };
+
+        load();
+        const timer = window.setInterval(load, 15 * 60 * 1000);
+        return () => {
+          active = false;
+          window.clearInterval(timer);
+        };
+      }, [feedLang]);
+
+      return (
+        <section id="veille" className="container">
+          <SectionTitle title={t.veilleTitle} text={t.veilleText} />
+          <article className="card" ref={(node) => { refs.current[0] = node; }}>
+            <div className="veille-toolbar">
+              <div className="veille-lang-switch">
+                <button className={feedLang === "fr" ? "active" : ""} onClick={() => setFeedLang("fr")}>FR</button>
+                <button className={feedLang === "en" ? "active" : ""} onClick={() => setFeedLang("en")}>EN</button>
+              </div>
+            </div>
+            <div className="veille-feed">
+              {loading && <p>{t.veilleLoading}</p>}
+              {!loading && items.length > 0 && items.map((item) => (
+                <div className="veille-item" key={item.id}>
+                  <a href={item.url} target="_blank" rel="noreferrer">{item.title}</a>
+                  <div className="veille-meta">
+                    {item.source} • {formatDate(item.date)}
+                  </div>
+                </div>
+              ))}
+              {!loading && items.length === 0 && (feedLang === "fr" ? veilleItems : veilleItemsEn).map((item) => (
+                <div className="veille-item" key={item}>
+                  <p>{item}</p>
+                </div>
+              ))}
+            </div>
+          </article>
+        </section>
+      );
+    }
+
+    function VeilleFront({ t, lang }) {
+      const refs = useReveal();
+      const [items, setItems] = useState([]);
+      const [loading, setLoading] = useState(true);
+      const [feedLang, setFeedLang] = useState(lang);
+      useEffect(() => { setFeedLang(lang); }, [lang]);
+      const formatDate = (epoch) => {
+        if (!epoch) return feedLang === "fr" ? "Date inconnue" : "Unknown date";
+        return new Date(epoch * 1000).toLocaleDateString(feedLang === "fr" ? "fr-FR" : "en-US");
+      };
+
+      useEffect(() => {
+        let active = true;
+
+        const load = async () => {
+          if (active) setLoading(true);
+          try {
+            const fresh = await fetchFrontWatch(feedLang);
+            if (!active) return;
+            setItems(fresh);
+          } catch (e) {
+            if (!active) return;
+            setItems([]);
+          } finally {
+            if (active) setLoading(false);
+          }
+        };
+
+        load();
+        const timer = window.setInterval(load, 15 * 60 * 1000);
+        return () => {
+          active = false;
+          window.clearInterval(timer);
+        };
+      }, [feedLang]);
+
+      const fallbackItems = feedLang === "fr" ? veilleFrontFallbackFr : veilleFrontFallbackEn;
+
+      return (
+        <section className="container">
+          <SectionTitle title={t.veilleFrontTitle} text={t.veilleFrontText} />
+          <article className="card" ref={(node) => { refs.current[0] = node; }}>
+            <div className="veille-toolbar">
+              <div className="veille-lang-switch">
+                <button className={feedLang === "fr" ? "active" : ""} onClick={() => setFeedLang("fr")}>FR</button>
+                <button className={feedLang === "en" ? "active" : ""} onClick={() => setFeedLang("en")}>EN</button>
+              </div>
+            </div>
+            <div className="veille-feed">
+              {loading && <p>{t.veilleFrontLoading}</p>}
+              {!loading && items.length > 0 && items.map((item) => (
+                <div className="veille-item" key={item.id}>
+                  <a href={item.url} target="_blank" rel="noreferrer">{item.title}</a>
+                  <div className="veille-meta">
+                    {item.source} • {formatDate(item.date)}
+                  </div>
+                </div>
+              ))}
+              {!loading && items.length === 0 && fallbackItems.map((item) => (
+                <div className="veille-item" key={item}>
+                  <p>{item}</p>
+                </div>
+              ))}
+            </div>
+          </article>
+        </section>
+      );
+    }
+
+    function Contact({ t }) {
+      const refs = useReveal();
+      return (
+        <section id="contact" className="container">
+          <SectionTitle title={t.contactTitle} text={t.contactText} />
+          <div className="contact-wrap">
+            <article className="card" ref={(node) => { refs.current[0] = node; }}>
+              <h3>Reach out</h3>
+              <p>Mail direct: lajimijhawad@gmail.com</p>
+              <div className="socials">
+                <a href="https://github.com/Jesuiskoriel" target="_blank" rel="noreferrer"><span className="platform-icon"><IconGithub /></span>GitHub</a>
+                <a href="#"><span className="platform-icon"><IconLinkedin /></span>LinkedIn</a>
+                <a href="#"><span className="platform-icon"><IconDocument /></span>Portfolio PDF</a>
+              </div>
+            </article>
+            <article className="card" ref={(node) => { refs.current[1] = node; }}>
+              <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
+                <input type="text" placeholder={t.formName} />
+                <input type="email" placeholder={t.formMail} />
+                <textarea placeholder={t.formMsg}></textarea>
+                <button className="btn btn-primary" type="submit">{t.formSend}</button>
+              </form>
+              <p className="contact-note">{t.formNote}</p>
+            </article>
+          </div>
+        </section>
+      );
+    }
+
+    function DiscordPresence() {
+      const DISCORD_USER_ID = "540915499698225162"; // Renseignez votre ID Discord numerique ici
+      const [state, setState] = useState({
+        loading: true,
+        ok: false,
+        username: "Discord",
+        rawUsername: "",
+        avatar: "",
+        banner: "",
+        status: "offline",
+        customStatus: "",
+        activityName: "",
+        activityDetails: "",
+        activityState: ""
+      });
+
+      useEffect(() => {
+        if (!DISCORD_USER_ID) {
+          setState({
+            loading: false,
+            ok: false,
+            username: "Discord",
+            rawUsername: "",
+            avatar: "",
+            banner: "",
+            status: "offline",
+            customStatus: "",
+            activityName: "",
+            activityDetails: "",
+            activityState: ""
+          });
+          return;
+        }
+
+        let active = true;
+        const load = async () => {
+          try {
+            const url = "https://api.lanyard.rest/v1/users/" + DISCORD_USER_ID;
+            const res = await fetch(url).then((r) => r.json());
+            if (!active || !res?.success || !res?.data) return;
+            const data = res.data;
+            const user = data.discord_user || {};
+            const avatar = user.avatar
+              ? "https://cdn.discordapp.com/avatars/" + user.id + "/" + user.avatar + ".png?size=128"
+              : "";
+            const banner = user.banner
+              ? "https://cdn.discordapp.com/banners/" + user.id + "/" + user.banner + (user.banner.startsWith("a_") ? ".gif?size=480" : ".png?size=480")
+              : "";
+            const activities = Array.isArray(data.activities) ? data.activities : [];
+            const custom = activities.find((a) => a.type === 4);
+            const main = activities.find((a) => a.type === 0);
+            const statusText = (custom?.emoji?.name ? custom.emoji.name + " " : "") + (custom?.state || "");
+            setState({
+              loading: false,
+              ok: true,
+              username: user.username ? user.username + (user.discriminator && user.discriminator !== "0" ? "#" + user.discriminator : "") : "Discord",
+              rawUsername: user.username || "",
+              avatar,
+              banner,
+              status: data.discord_status || "offline",
+              customStatus: statusText.trim(),
+              activityName: main?.name || "",
+              activityDetails: main?.details || "",
+              activityState: main?.state || ""
+            });
+          } catch (e) {
+            if (!active) return;
+            setState((prev) => ({ ...prev, loading: false, ok: false }));
+          }
+        };
+
+        load();
+        const timer = window.setInterval(load, 30000);
+        return () => {
+          active = false;
+          window.clearInterval(timer);
+        };
+      }, []);
+
+      return (
+        <section className="container discord-wrap">
+          <article className="discord-card">
+            <div className="discord-banner" style={state.banner ? { backgroundImage: "url('" + state.banner + "')", backgroundSize: "cover", backgroundPosition: "center" } : undefined}></div>
+            <div className="discord-profile">
+              <div className="discord-live-badge">Discord Live</div>
+              <div className="discord-head">
+                <div className="discord-avatar-wrap">
+                  {state.avatar
+                    ? <img src={state.avatar} alt="Discord avatar" className="discord-avatar" />
+                    : <div className="discord-avatar"></div>}
+                  <span className={"discord-status-dot discord-status-" + state.status}></span>
+                </div>
+                <div>
+                  <div className="discord-name">{state.rawUsername || state.username}</div>
+                  <div className="discord-id-line">{state.username}</div>
+                </div>
+              </div>
+              <div className={"discord-status-pill " + state.status}>{state.status}</div>
+              {state.customStatus && <div className="discord-bubble">{state.customStatus}</div>}
+              {(state.activityName || state.activityDetails || state.activityState) && (
+                <div className="discord-activity">
+                  <div className="discord-activity-title">{state.activityName || "Activity"}</div>
+                  {state.activityDetails && <div className="discord-activity-sub">{state.activityDetails}</div>}
+                  {state.activityState && <div className="discord-activity-sub">{state.activityState}</div>}
+                </div>
+              )}
+              {!DISCORD_USER_ID && <div className="discord-note">Ajoutez votre Discord User ID dans `DISCORD_USER_ID` pour activer le live.</div>}
+              {DISCORD_USER_ID && !state.loading && !state.ok && <div className="discord-note">Impossible de charger le profil pour le moment.</div>}
+            </div>
+          </article>
+        </section>
+      );
+    }
+
+    function SonicEaster({ lang, open, onClose }) {
+      if (!open) return null;
+      const text = lang === "fr"
+        ? {
+          title: "Easter egg Sonic debloque",
+          collect: "Sonic CD - joue directement ici",
+          hint: "Code: ↑ ↑ ↓ ↓ ← → ← → B A",
+          close: "Fermer"
+        }
+        : {
+          title: "Sonic easter egg unlocked",
+          collect: "Sonic CD - play directly here",
+          hint: "Code: ↑ ↑ ↓ ↓ ← → ← → B A",
+          close: "Close"
+        };
+
+      return (
+        <div className="sonic-easter">
+          <div className="sonic-easter-head">
+            <strong>{text.title}</strong>
+            <button className="sonic-close" onClick={onClose}>{text.close}</button>
+          </div>
+          <div className="ring-row">
+            <span>{text.collect}</span>
+          </div>
+          <div className="sonic-frame-wrap">
+            <iframe
+              className="sonic-frame"
+              src="https://www.retrogames.cc/embed/40754-sonic-cd.html"
+              width="600"
+              height="450"
+              frameBorder="no"
+              allowFullScreen={true}
+              webkitAllowFullScreen={true}
+              mozAllowFullScreen={true}
+              scrolling="no"
+              title="Sonic CD"
+            />
+          </div>
+          <div className="sonic-hint">{text.hint}</div>
+        </div>
+      );
+    }
+
+    function Footer({ t, visitCount }) {
+      return (
+        <footer className="contact container">
+          <div>{t.contactFoot}</div>
+          <div>{t.visitorLabel} {visitCount}</div>
+        </footer>
+      );
+    }
+
+    function App() {
+      const [lang, setLang] = useState("fr");
+      const [theme, setTheme] = useState(() => localStorage.getItem("portfolio_theme") || "light");
+      const [sonicOpen, setSonicOpen] = useState(false);
+      const [visitCount, setVisitCount] = useState(1);
+      const t = useMemo(() => translations[lang], [lang]);
+      useEffect(() => { document.documentElement.lang = lang; }, [lang]);
+      useEffect(() => {
+        document.documentElement.setAttribute("data-theme", theme);
+        localStorage.setItem("portfolio_theme", theme);
+      }, [theme]);
+      useEffect(() => {
+        const key = "portfolio_visit_count";
+        const current = Number(localStorage.getItem(key) || "0");
+        const next = Number.isFinite(current) ? current + 1 : 1;
+        localStorage.setItem(key, String(next));
+        setVisitCount(next);
+      }, []);
+      useEffect(() => {
+        const sequence = ["up", "up", "down", "down", "left", "right", "left", "right", "b", "a"];
+        let index = 0;
+        let lastTs = 0;
+        const normalizeKey = (raw) => {
+          const key = String(raw || "").toLowerCase();
+          if (key === "arrowup" || key === "w" || key === "z") return "up";
+          if (key === "arrowdown" || key === "s") return "down";
+          if (key === "arrowleft" || key === "q") return "left";
+          if (key === "arrowright" || key === "d") return "right";
+          return key;
+        };
+
+        const onKey = (e) => {
+          const now = Date.now();
+          if (now - lastTs > 3500) index = 0;
+          lastTs = now;
+          const key = normalizeKey(e.key);
+          if (key === sequence[index]) {
+            index += 1;
+            if (index === sequence.length) {
+              setSonicOpen(true);
+              trackEvent("sonic_easter_open");
+              index = 0;
+            }
+          } else {
+            index = key === sequence[0] ? 1 : 0;
+          }
+        };
+
+        window.addEventListener("keydown", onKey);
+        return () => window.removeEventListener("keydown", onKey);
+      }, []);
+
+      return (
+        <>
+          <SonicEaster
+            lang={lang}
+            open={sonicOpen}
+            onClose={() => setSonicOpen(false)}
+          />
+          <Nav t={t} lang={lang} setLang={setLang} theme={theme} setTheme={setTheme} />
+          <Hero t={t} visitCount={visitCount} />
+          <LaptopScene t={t} />
+          <div className="flow-stack">
+            <div className="flow-item" style={{ "--i": 1 }}><About t={t} /></div>
+            <div className="flow-item" style={{ "--i": 2 }}><Projects t={t} lang={lang} /></div>
+            <div className="flow-item" style={{ "--i": 3 }}><Services t={t} /></div>
+            <div className="flow-item" style={{ "--i": 4 }}><Skills t={t} /></div>
+            <div className="flow-item" style={{ "--i": 5 }}><FavoriteTech t={t} /></div>
+            <div className="flow-item" style={{ "--i": 6 }}><Journey t={t} /></div>
+            <div className="flow-item" style={{ "--i": 7 }}><Goal t={t} /></div>
+            <div className="flow-item" style={{ "--i": 8 }}><Veille t={t} lang={lang} /></div>
+            <div className="flow-item" style={{ "--i": 9 }}><VeilleFront t={t} lang={lang} /></div>
+            <div className="flow-item" style={{ "--i": 10 }}><Contact t={t} /></div>
+            <div className="flow-item" style={{ "--i": 11 }}><DiscordPresence /></div>
+            <div className="flow-item" style={{ "--i": 12 }}><Footer t={t} visitCount={visitCount} /></div>
+          </div>
+        </>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
