@@ -43,8 +43,8 @@
         skillsText: "Stack principale pour concevoir des produits web fiables et evolutifs.",
         techTitle: "Technos Favorites 2026",
         techText: "Outils et technologies sur lesquels je continue d'investir.",
-        journeyTitle: "Mon Parcours",
-        journeyText: "Une synthese claire de mon evolution.",
+        journeyTitle: "Ce qui me distingue",
+        journeyText: "4 points cles qui definissent ma facon de travailler.",
         goalTitle: "Objectif Actuel",
         goalText: "Je recherche une opportunite pour continuer a progresser en front-end, UI engineering et experiences interactives. Disponible en alternance, stage ou mission freelance.",
         veilleTitle: "Veille Technologique",
@@ -56,8 +56,6 @@
         contactTitle: "Contact",
         contactText: "Vous pouvez me contacter directement via ce formulaire.",
         contactFoot: "Contact: lajimijhawad@gmail.com",
-        visitorLabel: "Vous etes le visiteur n°",
-        visitorTopLabel: "Nombre de visites",
         konamiText: "↑ ↑ ↓ ↓ ← → ← → B A",
         formName: "Nom",
         formMail: "Email",
@@ -92,8 +90,8 @@
         skillsText: "Core stack I use to build robust and scalable web products.",
         techTitle: "Favorite Tech 2026",
         techText: "Tools and technologies I keep investing in.",
-        journeyTitle: "My Journey",
-        journeyText: "A concise overview of my progression.",
+        journeyTitle: "What Sets Me Apart",
+        journeyText: "4 key points that define how I work.",
         goalTitle: "Current Goal",
         goalText: "I am looking for an opportunity to keep growing in front-end, UI engineering, and interactive experiences. Available for apprenticeship, internship, or freelance work.",
         veilleTitle: "Tech Watch",
@@ -105,8 +103,6 @@
         contactTitle: "Contact",
         contactText: "You can contact me directly through this form.",
         contactFoot: "Contact: lajimijhawad@gmail.com",
-        visitorLabel: "You are visitor #",
-        visitorTopLabel: "Visit count",
         konamiText: "↑ ↑ ↓ ↓ ← → ← → B A",
         formName: "Name",
         formMail: "Email",
@@ -466,10 +462,10 @@
     }
 
     const journey = [
-      "Premiers projets visuels sur Photoshop, puis transition vers le developpement web.",
-      "Conception de projets personnels: Hell Ladder, To-Do Mailer et Billetterie.",
-      "Experiences terrain en stage: support, reseau, administration et maintenance.",
-      "Focus actuel: UI engineering, front-end moderne et experiences interactives."
+      "Execution rapide: je transforme une idee en prototype fonctionnel en peu de temps.",
+      "Vision produit: je pense experience utilisateur, clarte et valeur metier avant tout.",
+      "Rigueur technique: code propre, structure maintenable et souci de performance.",
+      "Progression continue: veille active et experimentation reguliere sur les technos front-end."
     ];
 
     function trackEvent() {
@@ -490,7 +486,7 @@
       return refs;
     }
 
-    function SectionTitle({ title, text }) {
+    function SectionTitle({ title }) {
       const ref = useRef(null);
       useEffect(() => {
         const el = ref.current;
@@ -506,7 +502,6 @@
       return (
         <div className="section-title" ref={ref}>
           <h2>{title}</h2>
-          <p>{text}</p>
         </div>
       );
     }
@@ -514,6 +509,39 @@
     function Nav({ t, lang, setLang, theme, setTheme }) {
       const toOption = (value) => (value === "dark" ? "2" : value === "dim" ? "3" : "1");
       const [previousOption, setPreviousOption] = useState(toOption(theme));
+      const [activeHref, setActiveHref] = useState("#accueil");
+      const [hoverHref, setHoverHref] = useState(null);
+      const [pill, setPill] = useState({ left: 0, width: 0, visible: false });
+      const [isPillMoving, setIsPillMoving] = useState(false);
+      const linksRef = useRef(null);
+      const linkRefs = useRef({});
+      const moveTimeoutRef = useRef(null);
+      const navItems = useMemo(() => [
+        { href: "#accueil", id: "accueil", label: t.nav[0] },
+        { href: "#projets", id: "projets", label: t.nav[1] },
+        { href: "#services", id: "services", label: t.nav[2] },
+        { href: "#competences", id: "competences", label: t.nav[3] },
+        { href: "#veille", id: "veille", label: t.nav[4] },
+        { href: "#contact", id: "contact", label: t.nav[5] }
+      ], [t]);
+
+      const placePill = (href) => {
+        const linksEl = linksRef.current;
+        const linkEl = linkRefs.current[href];
+        if (!linksEl || !linkEl) {
+          setPill((prev) => (prev.visible ? { ...prev, visible: false } : prev));
+          return;
+        }
+
+        const linksRect = linksEl.getBoundingClientRect();
+        const linkRect = linkEl.getBoundingClientRect();
+        const left = Math.max(0, Math.round(linkRect.left - linksRect.left));
+        const width = Math.round(linkRect.width);
+        setPill((prev) => {
+          if (prev.left === left && prev.width === width && prev.visible) return prev;
+          return { left, width, visible: true };
+        });
+      };
 
       const onThemeChange = (nextTheme) => {
         if (nextTheme === theme) return;
@@ -521,16 +549,87 @@
         setTheme(nextTheme);
       };
 
+      useEffect(() => {
+        const marker = 180;
+        const onScroll = () => {
+          let current = navItems[0].href;
+          navItems.forEach((item) => {
+            const section = document.getElementById(item.id);
+            if (!section) return;
+            const top = section.getBoundingClientRect().top;
+            if (top <= marker) current = item.href;
+          });
+          setActiveHref((prev) => (prev === current ? prev : current));
+        };
+
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll);
+        return () => {
+          window.removeEventListener("scroll", onScroll);
+          window.removeEventListener("resize", onScroll);
+        };
+      }, [navItems]);
+
+      useEffect(() => {
+        placePill(hoverHref || activeHref);
+      }, [hoverHref, activeHref, lang]);
+
+      useEffect(() => {
+        const onResize = () => placePill(hoverHref || activeHref);
+        window.addEventListener("resize", onResize);
+        return () => window.removeEventListener("resize", onResize);
+      }, [hoverHref, activeHref, lang]);
+
+      useEffect(() => {
+        setIsPillMoving(true);
+        if (moveTimeoutRef.current) window.clearTimeout(moveTimeoutRef.current);
+        moveTimeoutRef.current = window.setTimeout(() => {
+          setIsPillMoving(false);
+          moveTimeoutRef.current = null;
+        }, 360);
+      }, [hoverHref, activeHref]);
+
+      useEffect(() => () => {
+        if (moveTimeoutRef.current) window.clearTimeout(moveTimeoutRef.current);
+      }, []);
+
       return (
         <nav className="nav liquid-nav">
           <div className="brand">LAJIMI JHAWAD</div>
-          <ul className="links">
-            <li><a href="#accueil">{t.nav[0]}</a></li>
-            <li><a href="#projets">{t.nav[1]}</a></li>
-            <li><a href="#services">{t.nav[2]}</a></li>
-            <li><a href="#competences">{t.nav[3]}</a></li>
-            <li><a href="#veille">{t.nav[4]}</a></li>
-            <li><a href="#contact">{t.nav[5]}</a></li>
+          <ul
+            className={`links${hoverHref ? " is-hovering" : ""}${isPillMoving ? " is-moving" : ""}`}
+            ref={linksRef}
+            onMouseLeave={() => setHoverHref(null)}
+            style={{
+              "--nav-pill-left": `${pill.left}px`,
+              "--nav-pill-width": `${pill.width}px`,
+              "--nav-pill-opacity": pill.visible ? 1 : 0,
+              "--nav-pill-scale": hoverHref ? 1.035 : 1,
+              "--nav-pill-sheen-opacity": hoverHref ? 0.92 : 0.72
+            }}
+          >
+            {navItems.map((item) => (
+              <li key={item.href}>
+                <a
+                  href={item.href}
+                  className={activeHref === item.href ? "is-active" : ""}
+                  ref={(node) => {
+                    if (node) linkRefs.current[item.href] = node;
+                    else delete linkRefs.current[item.href];
+                  }}
+                  onMouseEnter={() => setHoverHref(item.href)}
+                  onFocus={() => setHoverHref(item.href)}
+                  onBlur={() => setHoverHref(null)}
+                  onClick={() => {
+                    setHoverHref(null);
+                    setActiveHref(item.href);
+                  }}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
           </ul>
           <div className="lang-switch">
             <button className={lang === "fr" ? "active" : ""} onClick={() => setLang("fr")}>FR</button>
@@ -701,15 +800,11 @@
       return null;
     }
 
-    function Hero({ t, visitCount }) {
+    function Hero({ t }) {
       const [l1, l2] = t.heroTitle.split("\n");
       return (
         <header id="accueil" className="hero container">
           <div>
-            <div className="hero-visit-counter">
-              <div className="hero-visit-label">{t.visitorTopLabel}</div>
-              <div className="hero-visit-value">{visitCount}</div>
-            </div>
             <h1>
               <span className="hero-line">{l1}</span>
               <span className="hero-line">{l2}</span>
@@ -1316,11 +1411,10 @@
       );
     }
 
-    function Footer({ t, visitCount }) {
+    function Footer({ t }) {
       return (
         <footer className="contact container">
           <div>{t.contactFoot}</div>
-          <div>{t.visitorLabel} {visitCount}</div>
         </footer>
       );
     }
@@ -1329,20 +1423,12 @@
       const [lang, setLang] = useState("fr");
       const [theme, setTheme] = useState(() => localStorage.getItem("portfolio_theme") || "light");
       const [sonicOpen, setSonicOpen] = useState(false);
-      const [visitCount, setVisitCount] = useState(1);
       const t = useMemo(() => translations[lang], [lang]);
       useEffect(() => { document.documentElement.lang = lang; }, [lang]);
       useEffect(() => {
         document.documentElement.setAttribute("data-theme", theme);
         localStorage.setItem("portfolio_theme", theme);
       }, [theme]);
-      useEffect(() => {
-        const key = "portfolio_visit_count";
-        const current = Number(localStorage.getItem(key) || "0");
-        const next = Number.isFinite(current) ? current + 1 : 1;
-        localStorage.setItem(key, String(next));
-        setVisitCount(next);
-      }, []);
       useEffect(() => {
         const sequence = ["up", "up", "down", "down", "left", "right", "left", "right", "b", "a"];
         let index = 0;
@@ -1386,21 +1472,21 @@
             onClose={() => setSonicOpen(false)}
           />
           <Nav t={t} lang={lang} setLang={setLang} theme={theme} setTheme={setTheme} />
-          <Hero t={t} visitCount={visitCount} />
+          <Hero t={t} />
           <LaptopScene t={t} />
           <div className="flow-stack">
             <div className="flow-item" style={{ "--i": 1 }}><About t={t} /></div>
-            <div className="flow-item" style={{ "--i": 2 }}><Projects t={t} lang={lang} /></div>
-            <div className="flow-item" style={{ "--i": 3 }}><Services t={t} /></div>
-            <div className="flow-item" style={{ "--i": 4 }}><Skills t={t} /></div>
-            <div className="flow-item" style={{ "--i": 5 }}><FavoriteTech t={t} /></div>
-            <div className="flow-item" style={{ "--i": 6 }}><Journey t={t} /></div>
-            <div className="flow-item" style={{ "--i": 7 }}><Goal t={t} /></div>
+            <div className="flow-item" style={{ "--i": 2 }}><Goal t={t} /></div>
+            <div className="flow-item" style={{ "--i": 3 }}><Projects t={t} lang={lang} /></div>
+            <div className="flow-item" style={{ "--i": 4 }}><Services t={t} /></div>
+            <div className="flow-item" style={{ "--i": 5 }}><Skills t={t} /></div>
+            <div className="flow-item" style={{ "--i": 6 }}><FavoriteTech t={t} /></div>
+            <div className="flow-item" style={{ "--i": 7 }}><Journey t={t} /></div>
             <div className="flow-item" style={{ "--i": 8 }}><Veille t={t} lang={lang} /></div>
             <div className="flow-item" style={{ "--i": 9 }}><VeilleFront t={t} lang={lang} /></div>
             <div className="flow-item" style={{ "--i": 10 }}><Contact t={t} /></div>
             <div className="flow-item" style={{ "--i": 11 }}><DiscordPresence /></div>
-            <div className="flow-item" style={{ "--i": 12 }}><Footer t={t} visitCount={visitCount} /></div>
+            <div className="flow-item" style={{ "--i": 12 }}><Footer t={t} /></div>
           </div>
         </>
       );
