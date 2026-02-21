@@ -41,7 +41,6 @@
         contactTitle: "Contact",
         contactText: "Vous pouvez me contacter directement via ce formulaire.",
         contactFoot: "Contact: lajimijhawad@gmail.com",
-        konamiText: "↑ ↑ ↓ ↓ ← → ← → B A",
         formName: "Nom",
         formMail: "Email",
         formMsg: "Message",
@@ -88,7 +87,6 @@
         contactTitle: "Contact",
         contactText: "You can contact me directly through this form.",
         contactFoot: "Contact: lajimijhawad@gmail.com",
-        konamiText: "↑ ↑ ↓ ↓ ← → ← → B A",
         formName: "Name",
         formMail: "Email",
         formMsg: "Message",
@@ -453,10 +451,6 @@
       "Progression continue: veille active et experimentation reguliere sur les technos front-end."
     ];
 
-    function trackEvent() {
-      // Hook d'analytics optionnel.
-    }
-
     function useReveal() {
       const refs = useRef([]);
       useEffect(() => {
@@ -798,11 +792,6 @@
             <div className="hero-actions">
               <a href="#projets" className="btn btn-primary">{t.seeProjects}</a>
               <a href="./Lajimi_Jhawad_CV%20(2).pdf.pdf" download className="btn btn-ghost">{t.downloadCv}</a>
-            </div>
-            <div className="konami-promo">
-              <div>
-                <span>{t.konamiText}</span>
-              </div>
             </div>
           </div>
         </header>
@@ -1358,13 +1347,11 @@
         ? {
           title: "Easter egg Sonic debloque",
           collect: "Sonic CD - joue directement ici",
-          hint: "Code: ↑ ↑ ↓ ↓ ← → ← → B A",
           close: "Fermer"
         }
         : {
           title: "Sonic easter egg unlocked",
           collect: "Sonic CD - play directly here",
-          hint: "Code: ↑ ↑ ↓ ↓ ← → ← → B A",
           close: "Close"
         };
 
@@ -1391,7 +1378,6 @@
               title="Sonic CD"
             />
           </div>
-          <div className="sonic-hint">{text.hint}</div>
         </div>
       );
     }
@@ -1436,7 +1422,6 @@
             index += 1;
             if (index === sequence.length) {
               setSonicOpen(true);
-              trackEvent("sonic_easter_open");
               index = 0;
             }
           } else {
