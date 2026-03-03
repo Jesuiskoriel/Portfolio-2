@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lajimi Jhawad | Portfolio VR</title>
+  <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+  <style>
+    :root {
+      --bg: #07111f;
+      --panel: rgba(7, 18, 34, 0.86);
+      --line: rgba(132, 197, 255, 0.26);
+      --text: #f3f8ff;
+      --muted: #a3b8d4;
+      --accent: #59d4ff;
+      --accent-2: #ff8a5b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background:
+        radial-gradient(circle at top left, rgba(84, 181, 255, 0.18), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(255, 138, 91, 0.16), transparent 24%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      overflow: hidden;
+    }
+
+    .vr-hud {
+      position: fixed;
+      inset: 18px 18px auto 18px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .vr-panel,
+    .vr-actions {
+      pointer-events: auto;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--panel);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.28);
+    }
+
+    .vr-panel {
+      max-width: 720px;
+      padding: 18px 20px;
+    }
+
+    .vr-panel h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.4rem, 2vw, 2.1rem);
+      letter-spacing: -0.03em;
+    }
+
+    .vr-panel p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 62ch;
+    }
+
+    .vr-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+    }
+
+    .vr-link,
+    .vr-button {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      padding: 10px 14px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+      text-decoration: none;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .vr-button[data-active="true"] {
+      background: linear-gradient(135deg, var(--accent), #0da4ff);
+      color: #031320;
+      border-color: transparent;
+    }
+
+    .vr-note {
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      z-index: 10;
+      max-width: 520px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(6, 14, 28, 0.74);
+      padding: 12px 14px;
+      color: var(--muted);
+      backdrop-filter: blur(18px);
+    }
+
+    .vr-note strong {
+      color: var(--text);
+    }
+
+    #vr-scene {
+      width: 100vw;
+      height: 100vh;
+    }
+
+    @media (max-width: 860px) {
+      .vr-hud {
+        grid-template-columns: 1fr;
+      }
+
+      .vr-actions {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .vr-note {
+        right: 18px;
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="vr-hud">
+    <div class="vr-panel">
+      <h1>Portfolio VR</h1>
+      <p>Version WebXR du portfolio. Sur desktop: souris pour regarder, `WASD` pour avancer. Sur casque compatible: utilisez le bouton `Enter VR` d'A-Frame pour entrer en immersion.</p>
+    </div>
+    <div class="vr-actions">
+      <a class="vr-link" href="./index.html">Retour portfolio</a>
+      <button class="vr-button" id="lang-toggle" type="button" data-active="false">EN</button>
+    </div>
+  </div>
+
+  <div class="vr-note">
+    <strong>Conseil:</strong> cette page fonctionne mieux via `localhost` ou `https`, condition necessaire pour WebXR sur la plupart des navigateurs.
+  </div>
+
+  <a-scene
+    id="vr-scene"
+    background="color: #07111f"
+    renderer="colorManagement: true; physicallyCorrectLights: true"
+    vr-mode-ui="enabled: true"
+    webxr="optionalFeatures: local-floor, bounded-floor, hand-tracking"
+  >
+    <a-assets></a-assets>
+
+    <a-entity light="type: ambient; intensity: 0.72; color: #b8dcff"></a-entity>
+    <a-entity light="type: directional; intensity: 0.95; color: #fff0dc" position="2 6 1"></a-entity>
+    <a-entity light="type: point; intensity: 1.4; distance: 24; color: #59d4ff" position="0 3 -3"></a-entity>
+    <a-entity light="type: point; intensity: 0.85; distance: 18; color: #ff8a5b" position="5 2 -8"></a-entity>
+
+    <a-sky color="#081524"></a-sky>
+    <a-plane
+      rotation="-90 0 0"
+      width="42"
+      height="42"
+      color="#0a1728"
+      material="roughness: 0.95; metalness: 0.08"
+    ></a-plane>
+    <a-ring
+      position="0 0.04 -5"
+      rotation="-90 0 0"
+      radius-inner="5.6"
+      radius-outer="8.5"
+      color="#12304c"
+      material="emissive: #12304c; emissiveIntensity: 0.28"
+    ></a-ring>
+
+    <a-entity id="rig" position="0 0 4">
+      <a-entity id="camera" camera look-controls wasd-controls="acceleration: 16" position="0 1.6 0">
+        <a-entity
+          cursor="rayOrigin: mouse"
+          raycaster="objects: .clickable"
+          position="0 0 -1"
+          geometry="primitive: ring; radiusInner: 0.008; radiusOuter: 0.013"
+          material="color: #59d4ff; shader: flat"
+        ></a-entity>
+      </a-entity>
+      <a-entity laser-controls="hand: left" raycaster="objects: .clickable"></a-entity>
+      <a-entity laser-controls="hand: right" raycaster="objects: .clickable"></a-entity>
+    </a-entity>
+
+    <a-entity position="0 2.4 -5">
+      <a-cylinder height="0.22" radius="1.46" color="#10233a"></a-cylinder>
+      <a-cylinder height="0.24" radius="1.18" color="#173455" position="0 0.13 0"></a-cylinder>
+      <a-box width="2.4" height="1.3" depth="0.08" color="#0f243e" position="0 0.95 0"></a-box>
+      <a-entity
+        id="hero-title"
+        position="0 1.1 0.06"
+        text="value: Lajimi Jhawad\nPortfolio VR; align: center; width: 3.8; color: #f3f8ff; wrapCount: 18"
+      ></a-entity>
+      <a-entity
+        id="hero-subtitle"
+        position="0 0.52 0.06"
+        text="value: Front-end, design produit, experiences interactives; align: center; width: 3.6; color: #9dc7ef; wrapCount: 34"
+      ></a-entity>
+    </a-entity>
+
+    <a-entity position="-4 1.75 -7">
+      <a-box depth="0.2" height="2.2" width="2.7" color="#0f2034"></a-box>
+      <a-entity
+        id="projects-panel"
+        position="0 0.45 0.11"
+        text="value: Projets\n- Hell Ladder\n- Carte interactive\n- To-Do Mailer\n- Billetterie web; align: center; width: 3.1; color: #f3f8ff; wrapCount: 22"
+      ></a-entity>
+      <a-circle radius="0.25" color="#59d4ff" position="0 0.93 0.11"></a-circle>
+    </a-entity>
+
+    <a-entity position="0 1.75 -9">
+      <a-box depth="0.2" height="2.6" width="3.7" color="#122744"></a-box>
+      <a-entity
+        id="about-panel"
+        position="0 0.64 0.11"
+        text="value: Profil\nJe transforme des idees en interfaces nettes, performantes et lisibles.\nFocus 2026: React, architecture front-end, motion design, experiences immersives.; align: center; width: 4.3; color: #f3f8ff; wrapCount: 28"
+      ></a-entity>
+      <a-ring radius-inner="0.44" radius-outer="0.58" color="#ff8a5b" position="0 1.18 0.12"></a-ring>
+    </a-entity>
+
+    <a-entity position="4 1.75 -7">
+      <a-box depth="0.2" height="2.2" width="2.7" color="#0f2034"></a-box>
+      <a-entity
+        id="skills-panel"
+        position="0 0.46 0.11"
+        text="value: Stack\nReact\nJavaScript\nCSS / UI Engineering\nNode.js\nDocker / Git; align: center; width: 3.1; color: #f3f8ff; wrapCount: 20"
+      ></a-entity>
+      <a-sphere radius="0.24" color="#ff8a5b" position="0 0.94 0.12"></a-sphere>
+    </a-entity>
+
+    <a-entity position="-6 1 -4">
+      <a-cylinder height="2" radius="0.35" color="#11253c"></a-cylinder>
+      <a-box width="1.6" height="0.92" depth="0.12" color="#152e4b" position="0 1.24 0"></a-box>
+      <a-entity
+        id="contact-panel"
+        position="0 1.26 0.08"
+        text="value: Contact\nlajimijhawad@gmail.com\nGitHub: Jesuiskoriel; align: center; width: 2.1; color: #f3f8ff; wrapCount: 18"
+      ></a-entity>
+    </a-entity>
+
+    <a-entity position="6 1 -4">
+      <a-cylinder height="2" radius="0.35" color="#11253c"></a-cylinder>
+      <a-box width="1.8" height="1.02" depth="0.12" color="#152e4b" position="0 1.28 0"></a-box>
+      <a-entity
+        id="cta-panel"
+        position="0 1.31 0.08"
+        text="value: Explorer\nApprochez-vous des panneaux pour parcourir le portfolio en 3D.; align: center; width: 2.25; color: #f3f8ff; wrapCount: 18"
+      ></a-entity>
+    </a-entity>
+
+    <a-entity position="-2.3 1.15 -5.5" animation="property: rotation; to: 0 360 0; loop: true; dur: 14000; easing: linear">
+      <a-torus radius="0.58" radius-tubular="0.05" color="#59d4ff"></a-torus>
+      <a-sphere radius="0.18" color="#dff8ff"></a-sphere>
+    </a-entity>
+    <a-entity position="2.4 1.25 -6.1" animation="property: rotation; to: 360 0 360; loop: true; dur: 18000; easing: linear">
+      <a-octahedron radius="0.42" color="#ff8a5b"></a-octahedron>
+    </a-entity>
+
+    <a-entity
+      id="home-gateway"
+      class="clickable"
+      position="0 1.05 -3"
+      geometry="primitive: plane; width: 1.5; height: 0.44"
+      material="color: #59d4ff; opacity: 0.92"
+      text="value: Retour site; align: center; width: 3.2; color: #031320"
+    ></a-entity>
+  </a-scene>
+
+  <script>
+    const copy = {
+      fr: {
+        toggle: "EN",
+        home: "Retour site",
+        heroTitle: "Lajimi Jhawad\nPortfolio VR",
+        heroSubtitle: "Front-end, design produit, experiences interactives",
+        projects: "Projets\n- Hell Ladder\n- Carte interactive\n- To-Do Mailer\n- Billetterie web",
+        about: "Profil\nJe transforme des idees en interfaces nettes, performantes et lisibles.\nFocus 2026: React, architecture front-end, motion design, experiences immersives.",
+        skills: "Stack\nReact\nJavaScript\nCSS / UI Engineering\nNode.js\nDocker / Git",
+        contact: "Contact\nlajimijhawad@gmail.com\nGitHub: Jesuiskoriel",
+        cta: "Explorer\nApprochez-vous des panneaux pour parcourir le portfolio en 3D."
+      },
+      en: {
+        toggle: "FR",
+        home: "Back to site",
+        heroTitle: "Lajimi Jhawad\nVR Portfolio",
+        heroSubtitle: "Front-end, product design, interactive experiences",
+        projects: "Projects\n- Hell Ladder\n- Interactive map\n- To-Do Mailer\n- Ticketing app",
+        about: "Profile\nI turn ideas into sharp, readable and performant interfaces.\n2026 focus: React, front-end architecture, motion design, immersive experiences.",
+        skills: "Stack\nReact\nJavaScript\nCSS / UI Engineering\nNode.js\nDocker / Git",
+        contact: "Contact\nlajimijhawad@gmail.com\nGitHub: Jesuiskoriel",
+        cta: "Explore\nMove around the room to browse the portfolio in 3D."
+      }
+    };
+
+    const ids = {
+      heroTitle: document.getElementById("hero-title"),
+      heroSubtitle: document.getElementById("hero-subtitle"),
+      projects: document.getElementById("projects-panel"),
+      about: document.getElementById("about-panel"),
+      skills: document.getElementById("skills-panel"),
+      contact: document.getElementById("contact-panel"),
+      cta: document.getElementById("cta-panel")
+    };
+
+    const toggle = document.getElementById("lang-toggle");
+    const homeGateway = document.getElementById("home-gateway");
+    let lang = "fr";
+
+    function applyLang(nextLang) {
+      lang = nextLang;
+      const text = copy[nextLang];
+      ids.heroTitle.setAttribute("text", "value", text.heroTitle);
+      ids.heroSubtitle.setAttribute("text", "value", text.heroSubtitle);
+      ids.projects.setAttribute("text", "value", text.projects);
+      ids.about.setAttribute("text", "value", text.about);
+      ids.skills.setAttribute("text", "value", text.skills);
+      ids.contact.setAttribute("text", "value", text.contact);
+      ids.cta.setAttribute("text", "value", text.cta);
+      homeGateway.setAttribute("text", "value", text.home);
+      toggle.textContent = text.toggle;
+      toggle.dataset.active = nextLang === "en" ? "true" : "false";
+      document.documentElement.lang = nextLang;
+    }
+
+    toggle.addEventListener("click", () => {
+      applyLang(lang === "fr" ? "en" : "fr");
+    });
+
+    homeGateway.addEventListener("click", () => {
+      window.location.href = "./index.html";
+    });
+
+    homeGateway.addEventListener("mouseenter", () => {
+      homeGateway.setAttribute("material", "color", "#8be4ff");
+    });
+
+    homeGateway.addEventListener("mouseleave", () => {
+      homeGateway.setAttribute("material", "color", "#59d4ff");
+    });
+  </script>
+</body>
+</html>
