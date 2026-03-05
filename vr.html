@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lajimi Jhawad | Portfolio VR</title>
+  <title>Lajimi Jhawad | Portfolio VR Room</title>
   <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
   <style>
     :root {
-      --bg: #060d18;
-      --panel: rgba(8, 18, 34, 0.78);
-      --line: rgba(116, 198, 255, 0.24);
+      --bg: #070d16;
+      --panel: rgba(8, 18, 33, 0.82);
+      --line: rgba(118, 202, 255, 0.26);
       --text: #eef5ff;
-      --muted: #a5bad7;
-      --accent: #65d7ff;
-      --accent-2: #ff9a6b;
-      --accent-3: #8cffcb;
+      --muted: #aac0dd;
+      --accent: #6ad9ff;
+      --accent-2: #ff9c72;
+      --accent-3: #8afbd1;
     }
 
     * {
@@ -26,9 +26,8 @@
       min-height: 100%;
       color: var(--text);
       background:
-        radial-gradient(circle at top left, rgba(69, 182, 255, 0.16), transparent 30%),
-        radial-gradient(circle at 80% 20%, rgba(255, 154, 107, 0.12), transparent 28%),
-        radial-gradient(circle at bottom center, rgba(84, 255, 189, 0.08), transparent 24%),
+        radial-gradient(circle at 15% 0%, rgba(78, 185, 255, 0.16), transparent 34%),
+        radial-gradient(circle at 100% 12%, rgba(255, 156, 114, 0.14), transparent 32%),
         var(--bg);
       font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     }
@@ -39,157 +38,176 @@
 
     .vr-shell {
       position: fixed;
-      inset: 18px 18px auto 18px;
+      inset: 16px 16px auto 16px;
       z-index: 10;
       display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
-      gap: 14px;
+      grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+      gap: 12px;
       pointer-events: none;
     }
 
-    .vr-panel,
-    .vr-side,
-    .vr-badge {
+    .hud-main,
+    .hud-side,
+    .hud-bottom {
       pointer-events: auto;
       border: 1px solid var(--line);
       background: var(--panel);
-      backdrop-filter: blur(18px) saturate(1.2);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.34);
+      backdrop-filter: blur(16px) saturate(1.15);
+      box-shadow: 0 22px 54px rgba(0, 0, 0, 0.36);
     }
 
-    .vr-panel {
-      border-radius: 24px;
-      padding: 18px 20px;
-      overflow: hidden;
+    .hud-main {
+      border-radius: 22px;
+      padding: 16px 18px;
       position: relative;
+      overflow: hidden;
     }
 
-    .vr-panel::before {
+    .hud-main::before {
       content: "";
       position: absolute;
       inset: 0;
-      background:
-        radial-gradient(circle at top right, rgba(101, 215, 255, 0.18), transparent 30%),
-        linear-gradient(135deg, rgba(255, 255, 255, 0.04), transparent 55%);
       pointer-events: none;
+      background:
+        radial-gradient(circle at top right, rgba(106, 217, 255, 0.18), transparent 34%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.04), transparent 58%);
     }
 
-    .vr-kicker {
+    .kicker {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: 999px;
       padding: 6px 10px;
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--accent);
       background: rgba(255, 255, 255, 0.04);
     }
 
-    .vr-kicker::before {
+    .kicker::before {
       content: "";
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--accent-3));
-      box-shadow: 0 0 14px rgba(101, 215, 255, 0.8);
+      background: linear-gradient(140deg, var(--accent), var(--accent-3));
+      box-shadow: 0 0 12px rgba(106, 217, 255, 0.9);
     }
 
-    .vr-panel h1 {
-      margin: 14px 0 10px;
-      font-size: clamp(1.7rem, 2.8vw, 3rem);
+    .hud-main h1 {
+      margin: 12px 0 10px;
+      font-size: clamp(1.6rem, 2.8vw, 2.9rem);
       line-height: 1;
-      letter-spacing: -0.05em;
-      max-width: 10ch;
+      letter-spacing: -0.04em;
+      max-width: 12ch;
     }
 
-    .vr-panel p {
+    .hud-main p {
       margin: 0;
-      max-width: 58ch;
+      max-width: 60ch;
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.55;
     }
 
-    .vr-side {
-      border-radius: 22px;
+    .hud-side {
+      border-radius: 20px;
       padding: 12px;
       display: grid;
       gap: 10px;
       align-content: start;
     }
 
-    .vr-actions {
+    .actions {
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 10px;
+      gap: 9px;
     }
 
-    .vr-link,
-    .vr-button {
-      border: 1px solid rgba(255, 255, 255, 0.12);
+    .btn,
+    .btn-toggle {
+      border: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: 999px;
-      padding: 11px 14px;
+      padding: 10px 12px;
       background: rgba(255, 255, 255, 0.05);
       color: var(--text);
-      font: inherit;
       text-decoration: none;
+      font: inherit;
       cursor: pointer;
-      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
     }
 
-    .vr-link:hover,
-    .vr-button:hover {
+    .btn:hover,
+    .btn-toggle:hover {
       transform: translateY(-1px);
-      border-color: rgba(101, 215, 255, 0.38);
+      border-color: rgba(106, 217, 255, 0.4);
       background: rgba(255, 255, 255, 0.09);
     }
 
-    .vr-button[data-active="true"] {
-      background: linear-gradient(135deg, var(--accent), #1d9fff);
+    .btn-toggle[data-active="true"] {
+      background: linear-gradient(140deg, var(--accent), #1ea5ff);
       border-color: transparent;
-      color: #04111c;
+      color: #04111d;
     }
 
-    .vr-meta {
+    .tips {
       display: grid;
-      gap: 10px;
+      gap: 9px;
     }
 
-    .vr-meta-card {
+    .tip-card {
+      border-radius: 16px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .tip-card strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+    }
+
+    .tip-card span {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .hud-bottom {
+      position: fixed;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      z-index: 10;
       border-radius: 18px;
       padding: 12px 14px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      max-width: 760px;
     }
 
-    .vr-meta-card strong {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 0.9rem;
-      letter-spacing: -0.02em;
+    .hud-bottom.hidden {
+      display: none;
     }
 
-    .vr-meta-card span {
+    .hud-bottom-title {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .hud-bottom-meta {
+      color: var(--accent-2);
+      font-size: 0.88rem;
+    }
+
+    .hud-bottom-desc {
       color: var(--muted);
       font-size: 0.92rem;
       line-height: 1.5;
-    }
-
-    .vr-badge {
-      position: fixed;
-      left: 18px;
-      bottom: 18px;
-      z-index: 10;
-      max-width: 520px;
-      border-radius: 18px;
-      padding: 12px 14px;
-      color: var(--muted);
-    }
-
-    .vr-badge strong {
-      color: var(--text);
     }
 
     #vr-scene {
@@ -202,12 +220,11 @@
         grid-template-columns: 1fr;
       }
 
-      .vr-actions {
+      .actions {
         grid-template-columns: 1fr 1fr;
       }
 
-      .vr-badge {
-        right: 18px;
+      .hud-bottom {
         max-width: none;
       }
     }
@@ -215,37 +232,41 @@
 </head>
 <body>
   <div class="vr-shell">
-    <section class="vr-panel">
-      <div class="vr-kicker">Immersive Gallery</div>
-      <h1 id="hud-title">Portfolio VR</h1>
-      <p id="hud-copy">Visite une galerie immersive, approche les cartes projet, puis saisis-les avec les mains sur casque compatible. Sur desktop tu peux explorer a la souris et au clavier.</p>
+    <section class="hud-main">
+      <div class="kicker">VR Room</div>
+      <h1 id="hud-title">Portfolio VR Room</h1>
+      <p id="hud-copy">Tu es dans une chambre immersive. Les projets sont poses comme des plaques sur la table et les posters sont sur les murs. Prends une plaque pour voir une description plus grande.</p>
     </section>
-    <aside class="vr-side">
-      <div class="vr-actions">
-        <a class="vr-link" href="./index.html" id="hud-back">Retour portfolio</a>
-        <button class="vr-button" id="lang-toggle" type="button" data-active="false">EN</button>
+    <aside class="hud-side">
+      <div class="actions">
+        <a class="btn" href="./index.html" id="hud-back">Retour portfolio</a>
+        <button class="btn-toggle" id="lang-toggle" type="button" data-active="false">EN</button>
       </div>
-      <div class="vr-meta">
-        <div class="vr-meta-card">
-          <strong id="meta-1-title">Controles</strong>
-          <span id="meta-1-copy">Desktop: souris + WASD. VR: bouton Enter VR. Hand tracking: pince pour attraper une carte.</span>
+      <div class="tips">
+        <div class="tip-card">
+          <strong id="tip-1-title">Deplacement</strong>
+          <span id="tip-1-copy">Desktop: souris + WASD. En VR: joystick gauche/droit pour avancer et tourner dans la chambre.</span>
         </div>
-        <div class="vr-meta-card">
-          <strong id="meta-2-title">Interaction</strong>
-          <span id="meta-2-copy">Passe pres d'un projet pour le mettre en focus. Attrape-le avec la main droite ou gauche pour le regarder de pres.</span>
+        <div class="tip-card">
+          <strong id="tip-2-title">Mains et prise</strong>
+          <span id="tip-2-copy">Mains stylisees integrees au site. Utilise trigger/grip sur controleurs pour attraper une plaque.</span>
         </div>
       </div>
     </aside>
   </div>
 
-  <div class="vr-badge"><strong id="badge-title">Conseil:</strong> <span id="badge-copy">WebXR fonctionne mieux via HTTPS ou localhost. Les mains apparaissent sur les casques compatibles avec hand tracking.</span></div>
+  <div class="hud-bottom hidden" id="grab-panel">
+    <div class="hud-bottom-title" id="grab-title"></div>
+    <div class="hud-bottom-meta" id="grab-meta"></div>
+    <div class="hud-bottom-desc" id="grab-desc"></div>
+  </div>
 
   <a-scene
     id="vr-scene"
-    background="color: #060d18"
+    background="color: #070d16"
     renderer="colorManagement: true; physicallyCorrectLights: true"
     vr-mode-ui="enabled: true"
-    webxr="optionalFeatures: local-floor, bounded-floor, hand-tracking, layers"
+    webxr="optionalFeatures: local-floor, bounded-floor"
   >
     <a-assets>
       <img id="asset-map" src="./Carte_des_maries.png" alt="Carte interactive">
@@ -253,455 +274,468 @@
       <img id="asset-autism" src="./autism.png" alt="Autism Action">
     </a-assets>
 
-    <a-entity light="type: ambient; intensity: 0.8; color: #b7d8ff"></a-entity>
-    <a-entity light="type: directional; intensity: 0.95; color: #fff0db" position="-2 6 2"></a-entity>
-    <a-entity light="type: point; intensity: 1.4; distance: 26; color: #65d7ff" position="0 3.4 -5"></a-entity>
-    <a-entity light="type: point; intensity: 1.1; distance: 18; color: #ff9a6b" position="5 2.2 -7"></a-entity>
-    <a-entity light="type: point; intensity: 0.8; distance: 18; color: #8cffcb" position="-5 2.2 -7"></a-entity>
+    <a-entity light="type: ambient; intensity: 0.78; color: #b6d8ff"></a-entity>
+    <a-entity light="type: directional; intensity: 0.88; color: #fff1db" position="2 5 1"></a-entity>
+    <a-entity light="type: point; intensity: 1.2; distance: 18; color: #6ad9ff" position="0 2.8 -3"></a-entity>
+    <a-entity light="type: point; intensity: 0.8; distance: 14; color: #ff9c72" position="-3 2.3 -4"></a-entity>
 
-    <a-sky color="#07111e"></a-sky>
-    <a-plane rotation="-90 0 0" width="44" height="44" color="#091321" material="roughness: 0.95; metalness: 0.05"></a-plane>
-    <a-ring position="0 0.03 -6" rotation="-90 0 0" radius-inner="4.9" radius-outer="9.4" color="#10263e" material="emissive: #173e63; emissiveIntensity: 0.18"></a-ring>
-    <a-cylinder position="0 0.1 -6" radius="2.4" height="0.18" color="#0d2136" material="emissive: #113657; emissiveIntensity: 0.22"></a-cylinder>
-    <a-cylinder position="0 0.24 -6" radius="1.8" height="0.12" color="#143452"></a-cylinder>
+    <!-- Room -->
+    <a-plane rotation="-90 0 0" width="12" height="12" color="#172338" material="roughness: 0.94"></a-plane>
+    <a-plane position="0 3 -6" width="12" height="6" color="#0f1b2d"></a-plane>
+    <a-plane position="0 3 6" rotation="0 180 0" width="12" height="6" color="#101d30"></a-plane>
+    <a-plane position="-6 3 0" rotation="0 90 0" width="12" height="6" color="#101a2a"></a-plane>
+    <a-plane position="6 3 0" rotation="0 -90 0" width="12" height="6" color="#0e1a2c"></a-plane>
+    <a-plane position="0 6 0" rotation="90 0 0" width="12" height="12" color="#101a2b"></a-plane>
 
-    <a-entity id="hero-stage" position="0 2.3 -4.6">
-      <a-box width="3.8" height="1.8" depth="0.08" color="#0e2239" material="metalness: 0.16; roughness: 0.2"></a-box>
-      <a-plane width="3.6" height="1.58" position="0 0 0.05" color="#091523" material="shader: flat; opacity: 0.96"></a-plane>
-      <a-entity id="hero-title" position="0 0.42 0.08" text="value: Lajimi Jhawad\nPortfolio VR; align: center; width: 4.4; color: #eef5ff; wrapCount: 16"></a-entity>
-      <a-entity id="hero-subtitle" position="0 -0.36 0.08" text="value: Front-end, design produit, experiences interactives; align: center; width: 4.1; color: #9fc6ea; wrapCount: 34"></a-entity>
-      <a-ring radius-inner="0.62" radius-outer="0.74" position="0 1.16 0.06" color="#65d7ff"></a-ring>
+    <!-- Ceiling lights -->
+    <a-box position="0 5.9 -2" width="2.6" height="0.05" depth="0.8" color="#304663" material="emissive: #6ad9ff; emissiveIntensity: 0.24"></a-box>
+    <a-box position="0 5.9 2" width="2.4" height="0.05" depth="0.8" color="#384b66" material="emissive: #ff9c72; emissiveIntensity: 0.18"></a-box>
+
+    <!-- Posters on walls -->
+    <a-entity id="poster-map" position="-3.6 2.6 -5.92">
+      <a-box width="2.2" height="1.45" depth="0.08" color="#172740"></a-box>
+      <a-plane width="2.03" height="1.28" position="0 0 0.05" material="src: #asset-map; shader: flat"></a-plane>
+      <a-entity position="0 -0.93 0.05" text="value: Carte Interactive; align: center; width: 2.5; color: #ddecff"></a-entity>
     </a-entity>
 
-    <a-entity id="focus-panel" position="0 1.55 -9.25">
-      <a-box width="4.45" height="2.7" depth="0.08" color="#0e2034"></a-box>
-      <a-plane width="4.2" height="2.44" position="0 0 0.05" color="#0a1524" material="opacity: 0.98"></a-plane>
-      <a-entity id="focus-kicker" position="0 1.01 0.08" text="value: Focus projet; align: center; width: 3.8; color: #65d7ff; wrapCount: 20"></a-entity>
-      <a-entity id="focus-title" position="0 0.48 0.08" text="value: Application Web Carte Interactive; align: center; width: 4; color: #eef5ff; wrapCount: 18"></a-entity>
-      <a-entity id="focus-desc" position="0 -0.27 0.08" text="value: Application web de carte interactive avec navigation moderne, interface claire et travail sur l'experience utilisateur.; align: center; width: 4.05; color: #a5bad7; wrapCount: 38"></a-entity>
-      <a-entity id="focus-meta" position="0 -1.03 0.08" text="value: Saisis une carte pour la rapprocher de toi.; align: center; width: 3.9; color: #ffb28d; wrapCount: 28"></a-entity>
+    <a-entity id="poster-paris8" position="0 2.6 -5.92">
+      <a-box width="2.2" height="1.45" depth="0.08" color="#172740"></a-box>
+      <a-plane width="2.03" height="1.28" position="0 0 0.05" material="src: #asset-paris8; shader: flat"></a-plane>
+      <a-entity position="0 -0.93 0.05" text="value: Stage Paris 8; align: center; width: 2.5; color: #ddecff"></a-entity>
     </a-entity>
 
-    <a-entity id="gallery" position="0 0 0"></a-entity>
-
-    <a-entity id="contact-tower" position="-6.2 1.15 -4.85">
-      <a-cylinder height="2.35" radius="0.42" color="#10253b"></a-cylinder>
-      <a-box width="1.95" height="1.2" depth="0.12" position="0 1.2 0" color="#16304d"></a-box>
-      <a-entity id="contact-panel" position="0 1.23 0.08" text="value: Contact\nlajimijhawad@gmail.com\nGitHub: Jesuiskoriel; align: center; width: 2.4; color: #eef5ff; wrapCount: 18"></a-entity>
+    <a-entity id="poster-autism" position="3.6 2.6 -5.92">
+      <a-box width="2.2" height="1.45" depth="0.08" color="#172740"></a-box>
+      <a-plane width="2.03" height="1.28" position="0 0 0.05" material="src: #asset-autism; shader: flat"></a-plane>
+      <a-entity position="0 -0.93 0.05" text="value: Autism'Action 95; align: center; width: 2.5; color: #ddecff"></a-entity>
     </a-entity>
 
-    <a-entity id="skills-tower" position="6.2 1.15 -4.85">
-      <a-cylinder height="2.35" radius="0.42" color="#10253b"></a-cylinder>
-      <a-box width="2.05" height="1.28" depth="0.12" position="0 1.22 0" color="#16304d"></a-box>
-      <a-entity id="skills-panel" position="0 1.25 0.08" text="value: Stack\nReact\nJavaScript\nCSS / UI Engineering\nNode.js\nDocker / Git; align: center; width: 2.7; color: #eef5ff; wrapCount: 18"></a-entity>
+    <!-- Center table with project plaques -->
+    <a-entity id="table" position="0 0 -1.6">
+      <a-box width="4.4" height="0.18" depth="2.6" position="0 1.15 0" color="#24344d"></a-box>
+      <a-box width="0.22" height="1.15" depth="0.22" position="-1.95 0.57 -1.05" color="#1a293d"></a-box>
+      <a-box width="0.22" height="1.15" depth="0.22" position="1.95 0.57 -1.05" color="#1a293d"></a-box>
+      <a-box width="0.22" height="1.15" depth="0.22" position="-1.95 0.57 1.05" color="#1a293d"></a-box>
+      <a-box width="0.22" height="1.15" depth="0.22" position="1.95 0.57 1.05" color="#1a293d"></a-box>
+      <a-entity id="projects-table"></a-entity>
     </a-entity>
 
-    <a-entity position="-2.9 1.2 -5.5" animation="property: rotation; to: 0 360 0; loop: true; dur: 16000; easing: linear">
-      <a-torus radius="0.58" radius-tubular="0.05" color="#65d7ff"></a-torus>
-      <a-sphere radius="0.18" color="#dbf7ff"></a-sphere>
-    </a-entity>
-    <a-entity position="3 1.3 -5.9" animation="property: rotation; to: 360 0 360; loop: true; dur: 19000; easing: linear">
-      <a-octahedron radius="0.44" color="#ff9a6b"></a-octahedron>
-    </a-entity>
-    <a-entity position="0 3.5 -8.1" animation="property: rotation; to: 0 360 360; loop: true; dur: 22000; easing: linear">
-      <a-dodecahedron radius="0.34" color="#8cffcb"></a-dodecahedron>
+    <!-- In-world focus board -->
+    <a-entity id="focus-board" position="0 2.1 5.85" rotation="0 180 0">
+      <a-box width="4.4" height="2.2" depth="0.08" color="#13253c"></a-box>
+      <a-plane width="4.1" height="1.92" position="0 0 0.05" color="#0c1727"></a-plane>
+      <a-entity id="focus-title" position="0 0.66 0.08" text="value: Prends une plaque sur la table; align: center; width: 4.2; color: #eff6ff; wrapCount: 26"></a-entity>
+      <a-entity id="focus-tech" position="0 0.14 0.08" text="value: Interaction VR; align: center; width: 3.9; color: #ffb590; wrapCount: 30"></a-entity>
+      <a-entity id="focus-desc" position="0 -0.53 0.08" text="value: En attrapant un projet, tu obtiens une description detaillee ici et dans le panneau HUD en bas.; align: center; width: 4.2; color: #acc4e2; wrapCount: 48"></a-entity>
     </a-entity>
 
-    <a-entity id="home-gateway" class="clickable" position="0 0.98 -2.55" geometry="primitive: plane; width: 1.7; height: 0.48" material="color: #65d7ff; opacity: 0.92" text="value: Retour site; align: center; width: 3.4; color: #04111c"></a-entity>
+    <a-entity id="home-gateway" class="clickable" position="0 1.05 4.8" rotation="0 180 0" geometry="primitive: plane; width: 1.9; height: 0.52" material="color: #6ad9ff; opacity: 0.92" text="value: Retour site; align: center; width: 3.8; color: #04111c"></a-entity>
 
-    <a-entity id="rig" position="0 0 4.3">
-      <a-entity id="camera" camera look-controls wasd-controls="acceleration: 16" position="0 1.6 0">
-        <a-entity cursor="rayOrigin: mouse" raycaster="objects: .clickable, .grabbable" position="0 0 -1" geometry="primitive: ring; radiusInner: 0.008; radiusOuter: 0.013" material="color: #65d7ff; shader: flat"></a-entity>
+    <a-entity id="rig" position="0 0 3.2" thumbstick-move="speed: 2.4">
+      <a-entity id="camera" camera look-controls wasd-controls="acceleration: 18" position="0 1.62 0">
+        <a-entity
+          id="mouseRay"
+          cursor="rayOrigin: mouse"
+          raycaster="objects: .clickable, .grabbable"
+          position="0 0 -1"
+          geometry="primitive: ring; radiusInner: 0.007; radiusOuter: 0.012"
+          material="color: #6ad9ff; shader: flat"
+          ray-grabber="anchor: 0 -0.08 -0.52"
+        ></a-entity>
+
+        <!-- Built-in site hands (not Quest avatar) -->
+        <a-entity id="leftHandVisual" position="-0.24 -0.2 -0.45" rotation="10 0 18">
+          <a-sphere radius="0.045" color="#7be7ff"></a-sphere>
+          <a-box width="0.08" height="0.03" depth="0.08" position="0 -0.05 0" color="#4dc4e8"></a-box>
+        </a-entity>
+        <a-entity id="rightHandVisual" position="0.24 -0.2 -0.45" rotation="10 0 -18">
+          <a-sphere radius="0.045" color="#ffb48d"></a-sphere>
+          <a-box width="0.08" height="0.03" depth="0.08" position="0 -0.05 0" color="#e38a64"></a-box>
+        </a-entity>
       </a-entity>
 
-      <a-entity id="leftHand" hand-tracking-controls="hand: left; modelStyle: lowPoly; modelColor: #7ce8ff" hand-grabber="anchor: 0.05 -0.03 -0.22" sphere-collider="objects: .grabbable; radius: 0.1"></a-entity>
-      <a-entity id="rightHand" hand-tracking-controls="hand: right; modelStyle: lowPoly; modelColor: #ffb48d" hand-grabber="anchor: -0.05 -0.03 -0.22" sphere-collider="objects: .grabbable; radius: 0.1"></a-entity>
+      <a-entity
+        id="leftController"
+        laser-controls="hand: left"
+        raycaster="objects: .clickable, .grabbable"
+        line="color: #6ad9ff; opacity: 0.7"
+        ray-grabber="anchor: 0 -0.04 -0.45"
+      ></a-entity>
 
-      <a-entity id="leftController" laser-controls="hand: left" raycaster="objects: .clickable, .grabbable" line="color: #65d7ff; opacity: 0.65" hand-grabber="anchor: 0 -0.02 -0.3"></a-entity>
-      <a-entity id="rightController" laser-controls="hand: right" raycaster="objects: .clickable, .grabbable" line="color: #ffb48d; opacity: 0.65" hand-grabber="anchor: 0 -0.02 -0.3"></a-entity>
+      <a-entity
+        id="rightController"
+        laser-controls="hand: right"
+        raycaster="objects: .clickable, .grabbable"
+        line="color: #ffb48d; opacity: 0.7"
+        ray-grabber="anchor: 0 -0.04 -0.45"
+      ></a-entity>
     </a-entity>
   </a-scene>
 
   <script>
     const copy = {
       fr: {
-        hudTitle: "Portfolio VR",
-        hudCopy: "Visite une galerie immersive, approche les cartes projet, puis saisis-les avec les mains sur casque compatible. Sur desktop tu peux explorer a la souris et au clavier.",
+        hudTitle: "Portfolio VR Room",
+        hudCopy: "Tu es dans une chambre immersive. Les projets sont poses comme des plaques sur la table et les posters sont sur les murs. Prends une plaque pour voir une description plus grande.",
         back: "Retour portfolio",
-        meta1Title: "Controles",
-        meta1Copy: "Desktop: souris + WASD. VR: bouton Enter VR. Hand tracking: pince pour attraper une carte.",
-        meta2Title: "Interaction",
-        meta2Copy: "Passe pres d'un projet pour le mettre en focus. Attrape-le avec la main droite ou gauche pour le regarder de pres.",
-        badgeTitle: "Conseil:",
-        badgeCopy: "WebXR fonctionne mieux via HTTPS ou localhost. Les mains apparaissent sur les casques compatibles avec hand tracking.",
-        toggle: "EN",
+        tip1Title: "Deplacement",
+        tip1Copy: "Desktop: souris + WASD. En VR: joystick gauche/droit pour avancer et tourner dans la chambre.",
+        tip2Title: "Mains et prise",
+        tip2Copy: "Mains stylisees integrees au site. Utilise trigger/grip sur controleurs pour attraper une plaque.",
         home: "Retour site",
-        heroTitle: "Lajimi Jhawad\nPortfolio VR",
-        heroSubtitle: "Front-end, design produit, experiences interactives",
-        focusKicker: "Focus projet",
-        focusMetaDefault: "Saisis une carte pour la rapprocher de toi.",
-        contact: "Contact\nlajimijhawad@gmail.com\nGitHub: Jesuiskoriel",
-        skills: "Stack\nReact\nJavaScript\nCSS / UI Engineering\nNode.js\nDocker / Git",
+        toggle: "EN",
+        defaultFocusTitle: "Prends une plaque sur la table",
+        defaultFocusTech: "Interaction VR",
+        defaultFocusDesc: "En attrapant un projet, tu obtiens une description detaillee ici et dans le panneau HUD en bas.",
         projects: [
           {
             id: "map",
             title: "Application Web Carte Interactive",
-            short: "Carte interactive",
-            description: "Application web de carte interactive avec navigation moderne, interface claire et travail sur l'experience utilisateur.",
             tech: "JavaScript, HTML, PHP, SQL, CSS",
+            short: "Carte interactive et navigation dynamique.",
+            long: "Projet centre sur une carte web interactive en cours de developpement. Travail sur la lisibilite des donnees, la fluidite de navigation et la qualite de l'UX globale.",
             image: "#asset-map",
-            color: "#65d7ff",
-            position: "-3.2 1.42 -6.45",
-            rotation: "0 26 0"
+            color: "#6ad9ff",
+            position: "-1.25 1.34 -0.28",
+            rotation: "0 16 0"
           },
           {
             id: "paris8",
             title: "Stage Universite Paris 8",
-            short: "Paris 8",
-            description: "Support technique, reseau et administration dans un environnement universitaire exigeant.",
             tech: "Support, Reseau, Administration",
+            short: "Support technique en environnement universitaire.",
+            long: "Mission orientee support et infrastructure: resolution d'incidents, accompagnement utilisateurs, administration et suivi reseau dans un contexte reel et exigeant.",
             image: "#asset-paris8",
-            color: "#ff9a6b",
-            position: "0 1.52 -7.15",
+            color: "#ff9c72",
+            position: "0 1.34 -0.46",
             rotation: "0 0 0"
           },
           {
             id: "autism",
             title: "Benevolat Autism'Action 95",
-            short: "Autism'Action 95",
-            description: "Ateliers robotique et Scratch pour accompagner des enfants autistes via l'apprentissage par la pratique.",
             tech: "Robotique, Scratch, Inclusion",
+            short: "Ateliers pratiques pour enfants autistes.",
+            long: "Conception et animation d'ateliers robotique et Scratch pour des enfants autistes. Approche progressive, pedagogique et adaptee pour favoriser l'apprentissage par la pratique.",
             image: "#asset-autism",
-            color: "#8cffcb",
-            position: "3.2 1.42 -6.45",
-            rotation: "0 -26 0"
+            color: "#8afbd1",
+            position: "1.25 1.34 -0.28",
+            rotation: "0 -16 0"
           }
-        ]
+        ],
+        posters: {
+          map: "Carte Interactive",
+          paris8: "Stage Paris 8",
+          autism: "Autism'Action 95"
+        }
       },
       en: {
-        hudTitle: "VR Portfolio",
-        hudCopy: "Walk through an immersive gallery, move close to a project card, then grab it with your hands on supported headsets. On desktop you can explore with mouse and keyboard.",
+        hudTitle: "VR Portfolio Room",
+        hudCopy: "You are inside an immersive room. Projects are laid out as grabbable plates on the table and posters are on the walls. Grab a plate to open a larger description.",
         back: "Back to portfolio",
-        meta1Title: "Controls",
-        meta1Copy: "Desktop: mouse + WASD. VR: Enter VR button. Hand tracking: pinch to grab a card.",
-        meta2Title: "Interaction",
-        meta2Copy: "Move near a project to focus it. Grab it with either hand to inspect it up close.",
-        badgeTitle: "Tip:",
-        badgeCopy: "WebXR works best over HTTPS or localhost. Hands appear on supported headsets with hand tracking.",
-        toggle: "FR",
+        tip1Title: "Movement",
+        tip1Copy: "Desktop: mouse + WASD. In VR: use thumbsticks to move and turn inside the room.",
+        tip2Title: "Hands and grab",
+        tip2Copy: "Stylized hands are built directly in the site. Use trigger/grip on controllers to grab a plate.",
         home: "Back to site",
-        heroTitle: "Lajimi Jhawad\nVR Portfolio",
-        heroSubtitle: "Front-end, product design, interactive experiences",
-        focusKicker: "Project focus",
-        focusMetaDefault: "Grab a card to pull it closer.",
-        contact: "Contact\nlajimijhawad@gmail.com\nGitHub: Jesuiskoriel",
-        skills: "Stack\nReact\nJavaScript\nCSS / UI Engineering\nNode.js\nDocker / Git",
+        toggle: "FR",
+        defaultFocusTitle: "Grab a plate on the table",
+        defaultFocusTech: "VR interaction",
+        defaultFocusDesc: "When you grab a project, you get a larger description here and in the HUD panel at the bottom.",
         projects: [
           {
             id: "map",
             title: "Interactive Map Web App",
-            short: "Interactive map",
-            description: "Interactive mapping web app with a modern navigation flow, sharp UI and clear browsing experience.",
             tech: "JavaScript, HTML, PHP, SQL, CSS",
+            short: "Interactive map with dynamic navigation.",
+            long: "Project focused on an interactive web map currently in progress. Work includes data readability, smooth navigation, and a polished global user experience.",
             image: "#asset-map",
-            color: "#65d7ff",
-            position: "-3.2 1.42 -6.45",
-            rotation: "0 26 0"
+            color: "#6ad9ff",
+            position: "-1.25 1.34 -0.28",
+            rotation: "0 16 0"
           },
           {
             id: "paris8",
             title: "Paris 8 University Internship",
-            short: "Paris 8",
-            description: "Technical support, networking and administration work in a demanding university environment.",
             tech: "Support, Networking, Administration",
+            short: "Technical support in a university environment.",
+            long: "Hands-on mission focused on support and infrastructure: incident resolution, user assistance, administration and network follow-up in a demanding real-world context.",
             image: "#asset-paris8",
-            color: "#ff9a6b",
-            position: "0 1.52 -7.15",
+            color: "#ff9c72",
+            position: "0 1.34 -0.46",
             rotation: "0 0 0"
           },
           {
             id: "autism",
             title: "Autism'Action 95 Volunteering",
-            short: "Autism'Action 95",
-            description: "Robotics and Scratch workshops designed to help autistic children through hands-on learning.",
             tech: "Robotics, Scratch, Inclusion",
+            short: "Hands-on workshops for autistic children.",
+            long: "Designed and led robotics and Scratch workshops for autistic children. Progressive and adapted pedagogy to support practical learning and confidence.",
             image: "#asset-autism",
-            color: "#8cffcb",
-            position: "3.2 1.42 -6.45",
-            rotation: "0 -26 0"
+            color: "#8afbd1",
+            position: "1.25 1.34 -0.28",
+            rotation: "0 -16 0"
           }
-        ]
+        ],
+        posters: {
+          map: "Interactive Map",
+          paris8: "Paris 8 Internship",
+          autism: "Autism'Action 95"
+        }
       }
     };
 
-    const focusNodes = {
-      kicker: document.getElementById("focus-kicker"),
-      title: document.getElementById("focus-title"),
-      desc: document.getElementById("focus-desc"),
-      meta: document.getElementById("focus-meta")
-    };
-
-    const textNodes = {
-      hudTitle: document.getElementById("hud-title"),
-      hudCopy: document.getElementById("hud-copy"),
-      back: document.getElementById("hud-back"),
-      meta1Title: document.getElementById("meta-1-title"),
-      meta1Copy: document.getElementById("meta-1-copy"),
-      meta2Title: document.getElementById("meta-2-title"),
-      meta2Copy: document.getElementById("meta-2-copy"),
-      badgeTitle: document.getElementById("badge-title"),
-      badgeCopy: document.getElementById("badge-copy"),
-      heroTitle: document.getElementById("hero-title"),
-      heroSubtitle: document.getElementById("hero-subtitle"),
-      contact: document.getElementById("contact-panel"),
-      skills: document.getElementById("skills-panel")
-    };
-
-    const scene = document.querySelector("a-scene");
-    const gallery = document.getElementById("gallery");
+    const scene = document.getElementById("vr-scene");
+    const tableRoot = document.getElementById("projects-table");
     const toggle = document.getElementById("lang-toggle");
     const homeGateway = document.getElementById("home-gateway");
+    const focusTitle = document.getElementById("focus-title");
+    const focusTech = document.getElementById("focus-tech");
+    const focusDesc = document.getElementById("focus-desc");
+
+    const grabPanel = document.getElementById("grab-panel");
+    const grabTitle = document.getElementById("grab-title");
+    const grabMeta = document.getElementById("grab-meta");
+    const grabDesc = document.getElementById("grab-desc");
+
+    const hudNodes = {
+      title: document.getElementById("hud-title"),
+      copy: document.getElementById("hud-copy"),
+      back: document.getElementById("hud-back"),
+      tip1Title: document.getElementById("tip-1-title"),
+      tip1Copy: document.getElementById("tip-1-copy"),
+      tip2Title: document.getElementById("tip-2-title"),
+      tip2Copy: document.getElementById("tip-2-copy")
+    };
+
+    const posterLabels = {
+      map: document.querySelector("#poster-map a-entity"),
+      paris8: document.querySelector("#poster-paris8 a-entity"),
+      autism: document.querySelector("#poster-autism a-entity")
+    };
+
     let lang = "fr";
-    let projectEntities = [];
-    let focusedId = null;
+    let cards = [];
+    let focusedProject = null;
 
-    AFRAME.registerComponent("sphere-collider", {
-      schema: {
-        objects: { default: ".grabbable" },
-        radius: { default: 0.08 }
-      },
-      init: function () {
-        this.intersectedEls = [];
-      },
-      tick: function () {
-        const handObj = this.el.object3D;
-        if (!handObj || !handObj.visible) {
-          this.intersectedEls = [];
-          return;
-        }
-        const center = new THREE.Vector3();
-        const candidateCenter = new THREE.Vector3();
-        handObj.getWorldPosition(center);
-        const next = [];
-        const els = this.el.sceneEl.querySelectorAll(this.data.objects);
-        for (let i = 0; i < els.length; i += 1) {
-          const candidate = els[i];
-          candidate.object3D.getWorldPosition(candidateCenter);
-          const hitRadius = Number(candidate.dataset.grabRadius || 0.24);
-          if (center.distanceTo(candidateCenter) <= this.data.radius + hitRadius) {
-            next.push(candidate);
-          }
-        }
-        this.intersectedEls = next;
+    function setTextValue(el, value) {
+      el.setAttribute("text", "value", value);
+    }
+
+    function setFocus(project, showPanel) {
+      focusedProject = project;
+      setTextValue(focusTitle, project ? project.title : copy[lang].defaultFocusTitle);
+      setTextValue(focusTech, project ? project.tech : copy[lang].defaultFocusTech);
+      setTextValue(focusDesc, project ? project.long : copy[lang].defaultFocusDesc);
+
+      if (project && showPanel) {
+        grabTitle.textContent = project.title;
+        grabMeta.textContent = project.tech;
+        grabDesc.textContent = project.long;
+        grabPanel.classList.remove("hidden");
+      } else {
+        grabPanel.classList.add("hidden");
       }
-    });
 
-    AFRAME.registerComponent("hand-grabber", {
-      schema: {
-        anchor: { type: "vec3", default: { x: 0, y: -0.02, z: -0.24 } }
-      },
-      init: function () {
-        this.heldEl = null;
-        this.tryGrab = this.tryGrab.bind(this);
-        this.release = this.release.bind(this);
-        ["pinchstarted", "triggerdown", "gripdown", "mousedown"].forEach((eventName) => {
-          this.el.addEventListener(eventName, this.tryGrab);
-        });
-        ["pinchended", "triggerup", "gripup", "mouseup"].forEach((eventName) => {
-          this.el.addEventListener(eventName, this.release);
-        });
-      },
-      remove: function () {
-        ["pinchstarted", "triggerdown", "gripdown", "mousedown"].forEach((eventName) => {
-          this.el.removeEventListener(eventName, this.tryGrab);
-        });
-        ["pinchended", "triggerup", "gripup", "mouseup"].forEach((eventName) => {
-          this.el.removeEventListener(eventName, this.release);
-        });
-      },
-      tryGrab: function () {
-        if (this.heldEl) return;
-        const collider = this.el.components["sphere-collider"];
-        const candidates = collider && collider.intersectedEls.length
-          ? collider.intersectedEls.slice()
-          : Array.from(this.el.sceneEl.querySelectorAll(".grabbable"));
-        const handPos = new THREE.Vector3();
-        const itemPos = new THREE.Vector3();
-        this.el.object3D.getWorldPosition(handPos);
+      cards.forEach((card) => {
+        const isActive = project && card.dataset.projectId === project.id;
+        if (card.dataset.grabbed !== "true") {
+          card.setAttribute("animation__focus", "property: scale; to: " + (isActive ? "1.03 1.03 1.03" : "1 1 1") + "; dur: 170; easing: easeOutQuad");
+        }
+      });
+    }
 
-        let closest = null;
-        let closestDistance = Infinity;
-        candidates.forEach((candidate) => {
-          if (candidate.dataset.grabbed === "true") return;
-          candidate.object3D.getWorldPosition(itemPos);
-          const distance = handPos.distanceTo(itemPos);
-          if (distance < closestDistance && distance < 0.62) {
-            closest = candidate;
-            closestDistance = distance;
-          }
-        });
-
-        if (!closest) return;
-        this.heldEl = closest;
-        closest.dataset.grabbed = "true";
-        closest.dataset.focused = "true";
-        closest.removeAttribute("animation__returnpos");
-        closest.removeAttribute("animation__returnrot");
-        closest.removeAttribute("animation__returnscale");
-        this.el.appendChild(closest);
-        closest.setAttribute("position", this.data.anchor);
-        closest.setAttribute("rotation", "-12 0 0");
-        closest.setAttribute("scale", "0.82 0.82 0.82");
-        closest.emit("project-focus", { id: closest.dataset.projectId });
-      },
-      release: function () {
-        if (!this.heldEl) return;
-        const card = this.heldEl;
-        this.heldEl = null;
-        card.dataset.grabbed = "false";
-        gallery.appendChild(card);
-        card.setAttribute("animation__returnpos", "property: position; to: " + card.dataset.homePosition + "; dur: 260; easing: easeOutCubic");
-        card.setAttribute("animation__returnrot", "property: rotation; to: " + card.dataset.homeRotation + "; dur: 260; easing: easeOutCubic");
-        card.setAttribute("animation__returnscale", "property: scale; to: 1 1 1; dur: 220; easing: easeOutCubic");
-      }
-    });
-
-    function createCard(project) {
+    function makeCard(project) {
       const card = document.createElement("a-entity");
       card.classList.add("grabbable", "clickable");
       card.dataset.projectId = project.id;
       card.dataset.homePosition = project.position;
       card.dataset.homeRotation = project.rotation;
-      card.dataset.grabRadius = "0.3";
       card.dataset.grabbed = "false";
+
       card.setAttribute("position", project.position);
       card.setAttribute("rotation", project.rotation);
 
-      const frame = document.createElement("a-box");
-      frame.setAttribute("width", "1.9");
-      frame.setAttribute("height", "2.44");
-      frame.setAttribute("depth", "0.1");
-      frame.setAttribute("color", "#10243b");
-      frame.setAttribute("material", "metalness: 0.22; roughness: 0.28");
-      card.appendChild(frame);
+      const base = document.createElement("a-box");
+      base.setAttribute("width", "0.95");
+      base.setAttribute("height", "0.58");
+      base.setAttribute("depth", "0.08");
+      base.setAttribute("color", "#203450");
+      base.setAttribute("material", "metalness: 0.2; roughness: 0.28");
+      card.appendChild(base);
 
-      const rim = document.createElement("a-box");
-      rim.setAttribute("width", "1.76");
-      rim.setAttribute("height", "2.28");
-      rim.setAttribute("depth", "0.05");
-      rim.setAttribute("position", "0 0 0.04");
-      rim.setAttribute("color", project.color);
-      rim.setAttribute("material", "opacity: 0.16; emissive: " + project.color + "; emissiveIntensity: 0.38");
-      card.appendChild(rim);
-
-      const image = document.createElement("a-plane");
-      image.setAttribute("width", "1.56");
-      image.setAttribute("height", "0.92");
-      image.setAttribute("position", "0 0.48 0.07");
-      image.setAttribute("material", "src: " + project.image + "; transparent: false; shader: flat");
-      card.appendChild(image);
-
-      const glow = document.createElement("a-plane");
-      glow.setAttribute("width", "1.6");
-      glow.setAttribute("height", "0.96");
-      glow.setAttribute("position", "0 0.48 0.065");
-      glow.setAttribute("material", "color: " + project.color + "; opacity: 0.1; shader: flat");
+      const glow = document.createElement("a-box");
+      glow.setAttribute("width", "0.88");
+      glow.setAttribute("height", "0.52");
+      glow.setAttribute("depth", "0.04");
+      glow.setAttribute("position", "0 0 0.032");
+      glow.setAttribute("color", project.color);
+      glow.setAttribute("material", "opacity: 0.16; emissive: " + project.color + "; emissiveIntensity: 0.34");
       card.appendChild(glow);
 
+      const image = document.createElement("a-plane");
+      image.setAttribute("width", "0.84");
+      image.setAttribute("height", "0.34");
+      image.setAttribute("position", "0 0.08 0.05");
+      image.setAttribute("material", "src: " + project.image + "; shader: flat");
+      card.appendChild(image);
+
       const title = document.createElement("a-entity");
-      title.setAttribute("position", "0 -0.28 0.07");
-      title.setAttribute("text", "value: " + project.title + "; align: center; width: 1.7; color: #eef5ff; wrapCount: 18");
+      title.setAttribute("position", "0 -0.19 0.05");
+      title.setAttribute("text", "value: " + project.title + "; align: center; width: 1.25; color: #ecf5ff; wrapCount: 20");
       card.appendChild(title);
 
-      const meta = document.createElement("a-entity");
-      meta.setAttribute("position", "0 -0.88 0.07");
-      meta.setAttribute("text", "value: " + project.tech + "; align: center; width: 1.58; color: #a5bad7; wrapCount: 22");
-      card.appendChild(meta);
-
-      const badge = document.createElement("a-ring");
-      badge.setAttribute("radius-inner", "0.11");
-      badge.setAttribute("radius-outer", "0.155");
-      badge.setAttribute("position", "0.62 0.89 0.08");
-      badge.setAttribute("color", project.color);
-      card.appendChild(badge);
-
-      const pedestal = document.createElement("a-cylinder");
-      pedestal.setAttribute("position", "0 -1.42 0");
-      pedestal.setAttribute("height", "0.28");
-      pedestal.setAttribute("radius", "0.42");
-      pedestal.setAttribute("color", "#10243b");
-      pedestal.setAttribute("material", "emissive: " + project.color + "; emissiveIntensity: 0.18");
-      card.appendChild(pedestal);
+      const short = document.createElement("a-entity");
+      short.setAttribute("position", "0 -0.31 0.05");
+      short.setAttribute("text", "value: " + project.short + "; align: center; width: 1.05; color: #aac0dd; wrapCount: 24");
+      card.appendChild(short);
 
       card.addEventListener("mouseenter", () => {
         if (card.dataset.grabbed === "true") return;
-        setFocus(project.id);
-        card.setAttribute("animation__hover", "property: scale; to: 1.04 1.04 1.04; dur: 180; easing: easeOutQuad");
+        setFocus(project, false);
       });
 
-      card.addEventListener("mouseleave", () => {
-        if (card.dataset.grabbed === "true") return;
-        card.setAttribute("animation__hover", "property: scale; to: 1 1 1; dur: 180; easing: easeOutQuad");
-      });
-
-      card.addEventListener("click", () => setFocus(project.id));
-      card.addEventListener("project-focus", (event) => setFocus(event.detail.id));
+      card.addEventListener("click", () => setFocus(project, false));
       return card;
     }
 
-    function buildGallery() {
-      gallery.innerHTML = "";
-      projectEntities = [];
+    function rebuildTable() {
+      cards = [];
+      tableRoot.innerHTML = "";
       const projects = copy[lang].projects;
       projects.forEach((project) => {
-        const card = createCard(project);
-        gallery.appendChild(card);
-        projectEntities.push(card);
+        const card = makeCard(project);
+        tableRoot.appendChild(card);
+        cards.push(card);
       });
-      setFocus(focusedId || projects[0].id);
+      setFocus(null, false);
     }
 
-    function setSceneTextValue(node, value) {
-      node.setAttribute("text", "value", value);
-    }
+    AFRAME.registerComponent("thumbstick-move", {
+      schema: {
+        speed: { default: 2.2 }
+      },
+      init: function () {
+        this.x = 0;
+        this.y = 0;
 
-    function setFocus(id) {
-      const projects = copy[lang].projects;
-      const project = projects.find((item) => item.id === id) || projects[0];
-      focusedId = project.id;
-      setSceneTextValue(focusNodes.kicker, copy[lang].focusKicker);
-      setSceneTextValue(focusNodes.title, project.title);
-      setSceneTextValue(focusNodes.desc, project.description);
-      setSceneTextValue(focusNodes.meta, project.tech + "\n" + copy[lang].focusMetaDefault);
-      projectEntities.forEach((entity) => {
-        const active = entity.dataset.projectId === project.id;
-        if (entity.dataset.grabbed !== "true") {
-          entity.setAttribute("animation__focus", "property: scale; to: " + (active ? "1.03 1.03 1.03" : "1 1 1") + "; dur: 180; easing: easeOutQuad");
-        }
-      });
-    }
+        this.onThumb = (event) => {
+          this.x = event.detail.x;
+          this.y = event.detail.y;
+        };
+
+        this.onThumbEnd = () => {
+          this.x = 0;
+          this.y = 0;
+        };
+
+        const left = document.getElementById("leftController");
+        const right = document.getElementById("rightController");
+        [left, right].forEach((controller) => {
+          controller.addEventListener("thumbstickmoved", this.onThumb);
+          controller.addEventListener("thumbsticktouchend", this.onThumbEnd);
+        });
+      },
+      tick: function (_, dtMs) {
+        const dt = dtMs / 1000;
+        if (!dt) return;
+        if (Math.abs(this.x) < 0.01 && Math.abs(this.y) < 0.01) return;
+
+        const camera = document.getElementById("camera");
+        if (!camera) return;
+        const yaw = camera.object3D.rotation.y;
+
+        const forward = new THREE.Vector3(0, 0, -1).applyAxisAngle(new THREE.Vector3(0, 1, 0), yaw);
+        const right = new THREE.Vector3(1, 0, 0).applyAxisAngle(new THREE.Vector3(0, 1, 0), yaw);
+
+        const move = new THREE.Vector3();
+        move.add(forward.multiplyScalar(-this.y * this.data.speed * dt));
+        move.add(right.multiplyScalar(this.x * this.data.speed * dt));
+
+        this.el.object3D.position.add(move);
+      }
+    });
+
+    AFRAME.registerComponent("ray-grabber", {
+      schema: {
+        anchor: { type: "vec3", default: { x: 0, y: -0.08, z: -0.45 } }
+      },
+      init: function () {
+        this.held = null;
+        this.tryGrab = this.tryGrab.bind(this);
+        this.release = this.release.bind(this);
+
+        ["triggerdown", "gripdown", "mousedown"].forEach((eventName) => {
+          this.el.addEventListener(eventName, this.tryGrab);
+        });
+        ["triggerup", "gripup", "mouseup"].forEach((eventName) => {
+          this.el.addEventListener(eventName, this.release);
+        });
+      },
+      remove: function () {
+        ["triggerdown", "gripdown", "mousedown"].forEach((eventName) => {
+          this.el.removeEventListener(eventName, this.tryGrab);
+        });
+        ["triggerup", "gripup", "mouseup"].forEach((eventName) => {
+          this.el.removeEventListener(eventName, this.release);
+        });
+      },
+      tryGrab: function () {
+        if (this.held) return;
+        const ray = this.el.components.raycaster;
+        if (!ray || !ray.intersectedEls || !ray.intersectedEls.length) return;
+
+        const candidate = ray.intersectedEls.find((el) => el.classList.contains("grabbable") && el.dataset.grabbed !== "true");
+        if (!candidate) return;
+
+        this.held = candidate;
+        candidate.dataset.grabbed = "true";
+        candidate.removeAttribute("animation__returnpos");
+        candidate.removeAttribute("animation__returnrot");
+        candidate.removeAttribute("animation__returnscale");
+
+        this.el.appendChild(candidate);
+        candidate.setAttribute("position", this.data.anchor);
+        candidate.setAttribute("rotation", "-12 0 0");
+        candidate.setAttribute("scale", "1.25 1.25 1.25");
+
+        const project = copy[lang].projects.find((item) => item.id === candidate.dataset.projectId);
+        if (project) setFocus(project, true);
+      },
+      release: function () {
+        if (!this.held) return;
+        const item = this.held;
+        this.held = null;
+
+        item.dataset.grabbed = "false";
+        tableRoot.appendChild(item);
+        item.setAttribute("animation__returnpos", "property: position; to: " + item.dataset.homePosition + "; dur: 240; easing: easeOutCubic");
+        item.setAttribute("animation__returnrot", "property: rotation; to: " + item.dataset.homeRotation + "; dur: 240; easing: easeOutCubic");
+        item.setAttribute("animation__returnscale", "property: scale; to: 1 1 1; dur: 200; easing: easeOutCubic");
+      }
+    });
 
     function applyLang(nextLang) {
       lang = nextLang;
       const text = copy[nextLang];
       document.documentElement.lang = nextLang;
-      textNodes.hudTitle.textContent = text.hudTitle;
-      textNodes.hudCopy.textContent = text.hudCopy;
-      textNodes.back.textContent = text.back;
-      textNodes.meta1Title.textContent = text.meta1Title;
-      textNodes.meta1Copy.textContent = text.meta1Copy;
-      textNodes.meta2Title.textContent = text.meta2Title;
-      textNodes.meta2Copy.textContent = text.meta2Copy;
-      textNodes.badgeTitle.textContent = text.badgeTitle;
-      textNodes.badgeCopy.textContent = text.badgeCopy;
-      setSceneTextValue(textNodes.heroTitle, text.heroTitle);
-      setSceneTextValue(textNodes.heroSubtitle, text.heroSubtitle);
-      setSceneTextValue(textNodes.contact, text.contact);
-      setSceneTextValue(textNodes.skills, text.skills);
+
+      hudNodes.title.textContent = text.hudTitle;
+      hudNodes.copy.textContent = text.hudCopy;
+      hudNodes.back.textContent = text.back;
+      hudNodes.tip1Title.textContent = text.tip1Title;
+      hudNodes.tip1Copy.textContent = text.tip1Copy;
+      hudNodes.tip2Title.textContent = text.tip2Title;
+      hudNodes.tip2Copy.textContent = text.tip2Copy;
+
       homeGateway.setAttribute("text", "value", text.home);
       toggle.textContent = text.toggle;
       toggle.dataset.active = nextLang === "en" ? "true" : "false";
-      buildGallery();
+
+      setTextValue(posterLabels.map, text.posters.map);
+      setTextValue(posterLabels.paris8, text.posters.paris8);
+      setTextValue(posterLabels.autism, text.posters.autism);
+
+      rebuildTable();
     }
 
     toggle.addEventListener("click", () => {
@@ -713,19 +747,17 @@
     });
 
     homeGateway.addEventListener("mouseenter", () => {
-      homeGateway.setAttribute("material", "color", "#8be4ff");
+      homeGateway.setAttribute("material", "color", "#95e9ff");
     });
 
     homeGateway.addEventListener("mouseleave", () => {
-      homeGateway.setAttribute("material", "color", "#65d7ff");
+      homeGateway.setAttribute("material", "color", "#6ad9ff");
     });
 
     if (scene.hasLoaded) {
       applyLang(lang);
     } else {
-      scene.addEventListener("loaded", () => {
-        applyLang(lang);
-      });
+      scene.addEventListener("loaded", () => applyLang(lang));
     }
   </script>
 </body>
