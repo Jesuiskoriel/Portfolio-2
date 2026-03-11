@@ -121,7 +121,7 @@
 
     .actions {
       display: grid;
-      grid-template-columns: 1fr auto auto;
+      grid-template-columns: 1fr auto auto auto;
       gap: 9px;
     }
 
@@ -221,7 +221,7 @@
       }
 
       .actions {
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
       }
 
       .hud-bottom {
@@ -242,6 +242,7 @@
         <a class="btn" href="./index.html" id="hud-back">Retour portfolio</a>
         <button class="btn-toggle" id="lang-toggle" type="button" data-active="false">EN</button>
         <button class="btn" id="reset-pos" type="button">Recentrer</button>
+        <button class="btn-toggle" id="perf-toggle" type="button" data-active="false">Perf</button>
       </div>
       <div class="tips">
         <div class="tip-card">
@@ -251,6 +252,10 @@
         <div class="tip-card">
           <strong id="tip-2-title">Mains et prise</strong>
           <span id="tip-2-copy">Mains stylisees integrees au site. Utilise trigger/grip sur controleurs pour attraper une plaque.</span>
+        </div>
+        <div class="tip-card">
+          <strong>Position</strong>
+          <span id="pos-copy">X: 0.0 | Z: 3.2</span>
         </div>
       </div>
     </aside>
@@ -491,6 +496,8 @@
     const tableRoot = document.getElementById("projects-table");
     const toggle = document.getElementById("lang-toggle");
     const resetBtn = document.getElementById("reset-pos");
+    const perfBtn = document.getElementById("perf-toggle");
+    const posCopy = document.getElementById("pos-copy");
     const homeGateway = document.getElementById("home-gateway");
     const focusTitle = document.getElementById("focus-title");
     const focusTech = document.getElementById("focus-tech");
@@ -529,6 +536,17 @@
       if (camera) {
         camera.object3D.rotation.set(0, 0, 0);
       }
+    }
+
+    function startPositionTracking() {
+      const rig = document.getElementById("rig");
+      if (!rig || !posCopy) return;
+      const tick = () => {
+        const p = rig.object3D.position;
+        posCopy.textContent = `X: ${p.x.toFixed(1)} | Z: ${p.z.toFixed(1)}`;
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
     }
 
     function setTextValue(el, value) {
@@ -765,6 +783,15 @@
       if (event.key.toLowerCase() === "r") resetRigPosition();
     });
 
+    perfBtn.addEventListener("click", () => {
+      const active = perfBtn.dataset.active === "true";
+      const next = !active;
+      perfBtn.dataset.active = next ? "true" : "false";
+      scene.setAttribute("renderer", next
+        ? "colorManagement: true; physicallyCorrectLights: false; antialias: false"
+        : "colorManagement: true; physicallyCorrectLights: true; antialias: true");
+    });
+
     homeGateway.addEventListener("click", () => {
       window.location.href = "./index.html";
     });
@@ -779,8 +806,12 @@
 
     if (scene.hasLoaded) {
       applyLang(lang);
+      startPositionTracking();
     } else {
-      scene.addEventListener("loaded", () => applyLang(lang));
+      scene.addEventListener("loaded", () => {
+        applyLang(lang);
+        startPositionTracking();
+      });
     }
   </script>
 </body>

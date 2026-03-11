@@ -505,6 +505,7 @@
     function Nav({ t, lang, setLang, theme, setTheme }) {
       const toOption = (value) => (value === "dark" ? "2" : value === "dim" ? "3" : "1");
       const [previousOption, setPreviousOption] = useState(toOption(theme));
+      const [menuOpen, setMenuOpen] = useState(false);
       const [activeHref, setActiveHref] = useState("#accueil");
       const [hoverHref, setHoverHref] = useState(null);
       const [pill, setPill] = useState({ left: 0, width: 0, visible: false });
@@ -590,9 +591,23 @@
         if (moveTimeoutRef.current) window.clearTimeout(moveTimeoutRef.current);
       }, []);
 
+      useEffect(() => {
+        const onResize = () => {
+          if (window.innerWidth > 980) setMenuOpen(false);
+        };
+        window.addEventListener("resize", onResize);
+        return () => window.removeEventListener("resize", onResize);
+      }, []);
+
       return (
         <nav className="nav liquid-nav">
           <div className="brand">LAJIMI JHAWAD</div>
+          <button
+            className="nav-menu-toggle"
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label="Toggle navigation"
+            aria-expanded={menuOpen}
+          >☰</button>
           <ul
             className={`links${hoverHref ? " is-hovering" : ""}${isPillMoving ? " is-moving" : ""}`}
             ref={linksRef}
@@ -620,6 +635,7 @@
                   onClick={() => {
                     setHoverHref(null);
                     setActiveHref(item.href);
+                    setMenuOpen(false);
                   }}
                 >
                   {item.label}
@@ -693,6 +709,14 @@
               </svg>
             </div>
           </fieldset>
+
+          <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
+            {navItems.map((item) => (
+              <a key={`mobile-${item.href}`} href={item.href} onClick={() => setMenuOpen(false)}>
+                {item.label}
+              </a>
+            ))}
+          </div>
         </nav>
       );
     }
