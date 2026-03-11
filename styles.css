@@ -124,36 +124,37 @@
     }
 
     .nav.liquid-nav {
-      border: none;
-      background: rgba(232, 232, 233, 0.5);
-      background-color: color-mix(in srgb, var(--c-glass) 16%, transparent);
-      -webkit-backdrop-filter: blur(16px) saturate(180%) contrast(1.08);
-      backdrop-filter: blur(16px) saturate(180%) contrast(1.08);
+      border: 1px solid rgba(255, 255, 255, 0.42);
+      background:
+        linear-gradient(120deg, rgba(255,255,255,0.48), rgba(255,255,255,0.18) 42%, rgba(170,220,255,0.14) 78%),
+        color-mix(in srgb, var(--c-glass) 18%, transparent);
+      -webkit-backdrop-filter: blur(18px) saturate(190%) contrast(1.1);
+      backdrop-filter: blur(18px) saturate(190%) contrast(1.1);
       box-shadow:
-        inset 0 0 0 1px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
-        inset 1.8px 3px 0 -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
-        inset -2px -2px 0 -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
-        inset -3px -8px 1px -6px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
-        inset -0.3px -1px 4px 0 color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
-        inset -1.5px 2.5px 0 -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-        inset 0 3px 4px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
-        inset 2px -6.5px 1px -4px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-        0 1px 5px 0 color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent),
-        0 6px 16px 0 color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 8%), transparent);
+        inset 0 0 0 1px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 12%), transparent),
+        inset 0 1px 0 color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 96%), transparent),
+        inset 0 -8px 18px rgba(70, 126, 214, 0.14),
+        inset -1px -2px 6px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 14%), transparent),
+        0 8px 24px rgba(15, 32, 64, 0.16),
+        0 20px 46px rgba(13, 28, 54, 0.14);
       overflow: hidden;
       position: fixed;
-      border: 1px solid rgba(255, 255, 255, 0.36);
+      isolation: isolate;
     }
 
     .nav.liquid-nav::before {
       content: "";
       position: absolute;
-      inset: 0;
+      inset: -12% -8%;
       pointer-events: none;
       border-radius: inherit;
       background:
-        radial-gradient(120% 88% at 8% -12%, color-mix(in srgb, var(--c-light) 60%, transparent), transparent 54%),
-        radial-gradient(90% 70% at 100% 100%, color-mix(in srgb, var(--c-light) 20%, transparent), transparent 70%);
+        radial-gradient(45% 90% at 8% 22%, rgba(132, 208, 255, 0.48), transparent 70%),
+        radial-gradient(50% 95% at 92% 82%, rgba(132, 255, 219, 0.34), transparent 72%),
+        radial-gradient(60% 100% at 52% -12%, rgba(255,255,255,0.62), transparent 64%);
+      opacity: 0.85;
+      filter: blur(1px);
+      animation: liquidBlobDrift 12s ease-in-out infinite alternate;
       mix-blend-mode: screen;
       z-index: 0;
     }
@@ -165,11 +166,11 @@
       pointer-events: none;
       border-radius: inherit;
       background:
-        radial-gradient(140% 72% at -12% 50%, color-mix(in srgb, var(--c-light) 20%, transparent), transparent 62%),
-        radial-gradient(120% 84% at 108% 46%, color-mix(in srgb, var(--c-light) 14%, transparent), transparent 66%);
-      opacity: 0.55;
-      transform: translate3d(-3%, 0, 0);
-      animation: liquidNavSheen 9s ease-in-out infinite alternate;
+        linear-gradient(110deg, transparent 14%, rgba(255,255,255,0.46) 34%, rgba(148,213,255,0.28) 50%, transparent 68%),
+        repeating-linear-gradient(125deg, rgba(255,255,255,0.08) 0 2px, transparent 2px 9px);
+      opacity: 0.64;
+      transform: translate3d(-8%, 0, 0);
+      animation: liquidNavSheen 8.5s cubic-bezier(.4,0,.2,1) infinite;
       z-index: 0;
     }
 
@@ -204,12 +205,25 @@
 
     @keyframes liquidNavSheen {
       0% {
-        transform: translate3d(-7%, 0, 0);
-        opacity: 0.5;
+        transform: translate3d(-10%, 0, 0);
+        opacity: 0.44;
+      }
+      50% {
+        transform: translate3d(0%, -1%, 0);
+        opacity: 0.72;
       }
       100% {
-        transform: translate3d(7%, 0, 0);
-        opacity: 0.74;
+        transform: translate3d(10%, 0, 0);
+        opacity: 0.5;
+      }
+    }
+
+    @keyframes liquidBlobDrift {
+      0% {
+        transform: translate3d(-2%, 0, 0) scale(1);
+      }
+      100% {
+        transform: translate3d(2%, -1.5%, 0) scale(1.04);
       }
     }
 
