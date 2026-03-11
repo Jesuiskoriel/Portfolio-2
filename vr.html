@@ -121,7 +121,7 @@
 
     .actions {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: 1fr auto auto;
       gap: 9px;
     }
 
@@ -221,7 +221,7 @@
       }
 
       .actions {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
       }
 
       .hud-bottom {
@@ -241,6 +241,7 @@
       <div class="actions">
         <a class="btn" href="./index.html" id="hud-back">Retour portfolio</a>
         <button class="btn-toggle" id="lang-toggle" type="button" data-active="false">EN</button>
+        <button class="btn" id="reset-pos" type="button">Recentrer</button>
       </div>
       <div class="tips">
         <div class="tip-card">
@@ -384,6 +385,7 @@
         tip2Copy: "Mains stylisees integrees au site. Utilise trigger/grip sur controleurs pour attraper une plaque.",
         home: "Retour site",
         toggle: "EN",
+        reset: "Recentrer",
         defaultFocusTitle: "Prends une plaque sur la table",
         defaultFocusTech: "Interaction VR",
         defaultFocusDesc: "En attrapant un projet, tu obtiens une description detaillee ici et dans le panneau HUD en bas.",
@@ -438,6 +440,7 @@
         tip2Copy: "Stylized hands are built directly in the site. Use trigger/grip on controllers to grab a plate.",
         home: "Back to site",
         toggle: "FR",
+        reset: "Recenter",
         defaultFocusTitle: "Grab a plate on the table",
         defaultFocusTech: "VR interaction",
         defaultFocusDesc: "When you grab a project, you get a larger description here and in the HUD panel at the bottom.",
@@ -487,6 +490,7 @@
     const scene = document.getElementById("vr-scene");
     const tableRoot = document.getElementById("projects-table");
     const toggle = document.getElementById("lang-toggle");
+    const resetBtn = document.getElementById("reset-pos");
     const homeGateway = document.getElementById("home-gateway");
     const focusTitle = document.getElementById("focus-title");
     const focusTech = document.getElementById("focus-tech");
@@ -513,9 +517,19 @@
       autism: document.querySelector("#poster-autism a-entity")
     };
 
-    let lang = "fr";
+    let lang = localStorage.getItem("vr_lang") || "fr";
     let cards = [];
     let focusedProject = null;
+
+    function resetRigPosition() {
+      const rig = document.getElementById("rig");
+      if (!rig) return;
+      rig.setAttribute("position", "0 0 3.2");
+      const camera = document.getElementById("camera");
+      if (camera) {
+        camera.object3D.rotation.set(0, 0, 0);
+      }
+    }
 
     function setTextValue(el, value) {
       el.setAttribute("text", "value", value);
@@ -652,6 +666,8 @@
         move.add(right.multiplyScalar(this.x * this.data.speed * dt));
 
         this.el.object3D.position.add(move);
+        this.el.object3D.position.x = THREE.MathUtils.clamp(this.el.object3D.position.x, -5.3, 5.3);
+        this.el.object3D.position.z = THREE.MathUtils.clamp(this.el.object3D.position.z, -5.3, 5.3);
       }
     });
 
@@ -729,7 +745,9 @@
 
       homeGateway.setAttribute("text", "value", text.home);
       toggle.textContent = text.toggle;
+      resetBtn.textContent = text.reset;
       toggle.dataset.active = nextLang === "en" ? "true" : "false";
+      localStorage.setItem("vr_lang", nextLang);
 
       setTextValue(posterLabels.map, text.posters.map);
       setTextValue(posterLabels.paris8, text.posters.paris8);
@@ -740,6 +758,11 @@
 
     toggle.addEventListener("click", () => {
       applyLang(lang === "fr" ? "en" : "fr");
+    });
+
+    resetBtn.addEventListener("click", resetRigPosition);
+    window.addEventListener("keydown", (event) => {
+      if (event.key.toLowerCase() === "r") resetRigPosition();
     });
 
     homeGateway.addEventListener("click", () => {
