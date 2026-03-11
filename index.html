@@ -511,6 +511,7 @@
       const [pill, setPill] = useState({ left: 0, width: 0, visible: false });
       const [isPillMoving, setIsPillMoving] = useState(false);
       const linksRef = useRef(null);
+      const navRef = useRef(null);
       const linkRefs = useRef({});
       const moveTimeoutRef = useRef(null);
       const navItems = useMemo(() => [
@@ -599,8 +600,35 @@
         return () => window.removeEventListener("resize", onResize);
       }, []);
 
+      useEffect(() => {
+        const nav = navRef.current;
+        if (!nav) return;
+
+        const onMove = (e) => {
+          const rect = nav.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          nav.style.setProperty("--mx", `${x}px`);
+          nav.style.setProperty("--my", `${y}px`);
+          nav.style.setProperty("--rx", `${((y / rect.height) - 0.5) * -3}deg`);
+          nav.style.setProperty("--ry", `${((x / rect.width) - 0.5) * 6}deg`);
+        };
+
+        const onLeave = () => {
+          nav.style.setProperty("--rx", "0deg");
+          nav.style.setProperty("--ry", "0deg");
+        };
+
+        nav.addEventListener("mousemove", onMove);
+        nav.addEventListener("mouseleave", onLeave);
+        return () => {
+          nav.removeEventListener("mousemove", onMove);
+          nav.removeEventListener("mouseleave", onLeave);
+        };
+      }, []);
+
       return (
-        <nav className="nav liquid-nav">
+        <nav className="nav liquid-nav" ref={navRef}>
           <div className="brand">LAJIMI JHAWAD</div>
           <button
             className="nav-menu-toggle"
