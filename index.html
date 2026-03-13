@@ -996,6 +996,7 @@
     function Projects({ t, lang }) {
       const refs = useReveal();
       const cards = lang === "en" ? projectCardsEn : projectCards;
+      const [previewProject, setPreviewProject] = useState(null);
       const labels = lang === "en"
         ? {
           demo: "Demo",
@@ -1028,7 +1029,7 @@
                 <div className="meta">{project.tags.map((tag) => <span className="chip" key={tag + i}>{tag}</span>)}</div>
                 <div className="project-links">
                   {project.links.demo
-                    ? <a href={project.links.demo} target="_blank" rel="noreferrer" className="project-link"><span className="platform-icon"><IconExternal /></span>{labels.demo}</a>
+                    ? <button type="button" className="project-link project-link-btn" onClick={() => setPreviewProject(project)}><span className="platform-icon"><IconExternal /></span>{labels.demo}</button>
                     : <span className="project-link"><span className="platform-icon"><IconExternal /></span>{labels.demoSoon}</span>}
                   {project.links.github
                     ? <a href={project.links.github} target="_blank" rel="noreferrer" className="project-link"><span className="platform-icon"><IconGithub /></span>{labels.github}</a>
@@ -1040,6 +1041,39 @@
               </article>
             ))}
           </div>
+
+          {previewProject && (
+            <div className="demo-preview-overlay" onClick={() => setPreviewProject(null)}>
+              <div className="demo-preview-modal" onClick={(e) => e.stopPropagation()}>
+                <div className="demo-preview-left">
+                  <iframe
+                    title={`Apercu ${previewProject.title}`}
+                    src={previewProject.links.demo}
+                    loading="lazy"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+                <aside className="demo-preview-right">
+                  <button type="button" className="demo-close" onClick={() => setPreviewProject(null)}>Fermer</button>
+                  <h3>{previewProject.title}</h3>
+                  <p>{previewProject.description}</p>
+                  <div className="meta">
+                    {previewProject.tags.map((tag) => <span className="chip" key={`preview-${tag}`}>{tag}</span>)}
+                  </div>
+                  <div className="project-links preview-links">
+                    {previewProject.links.github && (
+                      <a href={previewProject.links.github} target="_blank" rel="noreferrer" className="project-link">
+                        <span className="platform-icon"><IconGithub /></span>{labels.github}
+                      </a>
+                    )}
+                    <a href={previewProject.links.demo} target="_blank" rel="noreferrer" className="project-link">
+                      <span className="platform-icon"><IconExternal /></span>Ouvrir dans un nouvel onglet
+                    </a>
+                  </div>
+                </aside>
+              </div>
+            </div>
+          )}
         </section>
       );
     }
