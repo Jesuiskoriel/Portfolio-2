@@ -997,6 +997,15 @@
       const refs = useReveal();
       const cards = lang === "en" ? projectCardsEn : projectCards;
       const [previewProject, setPreviewProject] = useState(null);
+
+      const getPreviewUrl = (url) => {
+        if (!url) return "";
+        if (url.includes("vnc.html")) {
+          const sep = url.includes("?") ? "&" : "?";
+          return `${url}${sep}autoconnect=true&resize=scale&view_only=true`;
+        }
+        return url;
+      };
       const labels = lang === "en"
         ? {
           demo: "Demo",
@@ -1048,7 +1057,7 @@
                 <div className="demo-preview-left">
                   <iframe
                     title={`Apercu ${previewProject.title}`}
-                    src={previewProject.links.demo}
+                    src={getPreviewUrl(previewProject.links.demo)}
                     loading="lazy"
                     referrerPolicy="no-referrer"
                   />
@@ -1066,7 +1075,7 @@
                         <span className="platform-icon"><IconGithub /></span>{labels.github}
                       </a>
                     )}
-                    <a href={previewProject.links.demo} target="_blank" rel="noreferrer" className="project-link">
+                    <a href={getPreviewUrl(previewProject.links.demo)} target="_blank" rel="noreferrer" className="project-link">
                       <span className="platform-icon"><IconExternal /></span>Ouvrir dans un nouvel onglet
                     </a>
                   </div>
