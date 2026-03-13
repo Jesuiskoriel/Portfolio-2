@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -19,7 +19,7 @@
       fr: {
         nav: ["Accueil", "Projets", "Services", "Competences", "Veille", "Contact"],
         heroTitle: "Lajimi Jhawad\nPortfolio Digital",
-        heroText: "Je conçois des experiences web modernes, fluides et performantes, en combinant design visuel, logique produit et developpement front-end.",
+        heroText: "Je conÃ§ois des experiences web modernes, fluides et performantes, en combinant design visuel, logique produit et developpement front-end.",
         seeProjects: "Voir mes projets",
         downloadCv: "Telecharger mon CV",
         enterVr: "Lancer la version VR",
@@ -30,7 +30,7 @@
         aboutTitle: "A propos de moi",
         aboutText: "Curieux, autonome et rigoureux, je transforme des idees en experiences web utiles et bien executees.",
         aboutP1: "Je m'appelle Jhawad Lajimi. Ma passion pour le web a commence avec des projets visuels personnels, puis s'est transformee en pratique quotidienne du design et du developpement.",
-        aboutP2: "Je conçois des interfaces en pensant produit: clarte, performance, maintenabilite et personnalite.",
+        aboutP2: "Je conÃ§ois des interfaces en pensant produit: clarte, performance, maintenabilite et personnalite.",
         aboutP3: "En dehors du code, je suis passionne de jeux video et joueur competitif sur Super Smash Bros Ultimate.",
         aboutGoalTitle: "Objectif professionnel",
         aboutGoalText: "Contribuer a des produits web ambitieux avec un haut niveau d'exigence technique et visuelle.",
@@ -139,7 +139,7 @@
         cover: "billetterie",
         links: {
           github: "https://github.com/Jesuiskoriel/Clientlourdv2",
-          demo: "http://localhost:6080/vnc.html",
+          demo: "https://collected-its-versus-tampa.trycloudflare.com/vnc.html",
           caseStudy: ""
         }
       },
@@ -220,7 +220,7 @@
         cover: "billetterie",
         links: {
           github: "https://github.com/Jesuiskoriel/Clientlourdv2",
-          demo: "http://localhost:6080/vnc.html",
+          demo: "https://collected-its-versus-tampa.trycloudflare.com/vnc.html",
           caseStudy: ""
         }
       },
@@ -330,7 +330,7 @@
 
     function isCleanTitle(title) {
       if (!title) return false;
-      return !title.includes("�");
+      return !title.includes("ï¿½");
     }
 
     async function fetchFromRssSources(rssSources, idPrefix) {
@@ -635,7 +635,7 @@
             onClick={() => setMenuOpen((v) => !v)}
             aria-label="Toggle navigation"
             aria-expanded={menuOpen}
-          >☰</button>
+          >â˜°</button>
           <ul
             className={`links${hoverHref ? " is-hovering" : ""}${isPillMoving ? " is-moving" : ""}`}
             ref={linksRef}
@@ -924,7 +924,7 @@
                   <div className="screen-content">
                     <div className="screen-brand">
                       <div className="screen-brand-main">Jhawad.dev</div>
-                      <div className="screen-brand-sub">Code • Design • Impact</div>
+                      <div className="screen-brand-sub">Code â€¢ Design â€¢ Impact</div>
                     </div>
                   </div>
                 </div>
@@ -1108,7 +1108,7 @@
             {favoriteTech.map((group, i) => (
               <article className="card" key={group.title} ref={(node) => { refs.current[i] = node; }}>
                 <h3>{group.title}</h3>
-                <ul>{group.items.map((item) => <li key={item}>• {item}</li>)}</ul>
+                <ul>{group.items.map((item) => <li key={item}>â€¢ {item}</li>)}</ul>
               </article>
             ))}
           </div>
@@ -1199,7 +1199,7 @@
                 <div className="veille-item" key={item.id}>
                   <a href={item.url} target="_blank" rel="noreferrer">{item.title}</a>
                   <div className="veille-meta">
-                    {item.source} • {formatDate(item.date)}
+                    {item.source} â€¢ {formatDate(item.date)}
                   </div>
                 </div>
               ))}
@@ -1268,7 +1268,7 @@
                 <div className="veille-item" key={item.id}>
                   <a href={item.url} target="_blank" rel="noreferrer">{item.title}</a>
                   <div className="veille-meta">
-                    {item.source} • {formatDate(item.date)}
+                    {item.source} â€¢ {formatDate(item.date)}
                   </div>
                 </div>
               ))}
@@ -1551,3 +1551,4 @@
   </script>
 </body>
 </html>
+
