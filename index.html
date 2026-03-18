@@ -137,9 +137,22 @@
         description: "Application de billetterie avec consultation d'evenements, reservation de places et base evolutive pour paiement en ligne.",
         tags: ["PHP", "SQL", "UX", "Back Office", "WIP"],
         cover: "billetterie",
+        localImage: "media/projects/biblio.png",
         links: {
           github: "https://github.com/Jesuiskoriel/Clientlourdv2",
           demo: "https://collected-its-versus-tampa.trycloudflare.com/vnc.html",
+          caseStudy: ""
+        }
+      },
+      {
+        title: "Bibliothèque Laravel",
+        description: "Application complète de gestion de bibliothèque avec rôles admin/utilisateur, emprunts/retours et tableau de bord.",
+        tags: ["Laravel", "PHP", "MySQL", "Blade"],
+        cover: "billetterie",
+        localImage: "media/projects/biblio.png",
+        links: {
+          github: "https://github.com/Jesuiskoriel/bibliotheque-laravel-v1",
+          demo: "",
           caseStudy: ""
         }
       },
@@ -148,6 +161,7 @@
         description: "Creation d'une equipe e-sport, animation communautaire Discord et organisation de tournois reguliers.",
         tags: ["Leadership", "Discord", "Tournois"],
         cover: "community",
+        localImage: "media/projects/tanta-whisker.webp",
         links: { github: "", demo: "", caseStudy: "" }
       },
       {
@@ -155,6 +169,7 @@
         description: "Gestion de taches en PHP/MySQL avec rappels automatiques par email avant echeance.",
         tags: ["PHP", "MySQL", "Automation", "WIP"],
         cover: "todo",
+        localImage: "media/projects/todo-mailer.png",
         links: {
           github: "https://github.com/Jesuiskoriel/To-Do-Mailer",
           demo: "",
@@ -218,9 +233,22 @@
         description: "Ticketing web app with event discovery, seat booking, and a scalable foundation for online payments.",
         tags: ["PHP", "SQL", "UX", "Back Office", "WIP"],
         cover: "billetterie",
+        localImage: "media/projects/biblio.png",
         links: {
           github: "https://github.com/Jesuiskoriel/Clientlourdv2",
           demo: "https://collected-its-versus-tampa.trycloudflare.com/vnc.html",
+          caseStudy: ""
+        }
+      },
+      {
+        title: "Laravel Library Manager",
+        description: "Complete library management app with admin/user roles, loans/returns and dashboard reporting.",
+        tags: ["Laravel", "PHP", "MySQL", "Blade"],
+        cover: "billetterie",
+        localImage: "media/projects/biblio.png",
+        links: {
+          github: "https://github.com/Jesuiskoriel/bibliotheque-laravel-v1",
+          demo: "",
           caseStudy: ""
         }
       },
@@ -229,6 +257,7 @@
         description: "Created an e-sports team, managed a Discord community, and organized regular tournaments.",
         tags: ["Leadership", "Discord", "Tournaments"],
         cover: "community",
+        localImage: "media/projects/tanta-whisker.webp",
         links: { github: "", demo: "", caseStudy: "" }
       },
       {
@@ -236,6 +265,7 @@
         description: "PHP/MySQL task manager with automatic email reminders before due dates.",
         tags: ["PHP", "MySQL", "Automation", "WIP"],
         cover: "todo",
+        localImage: "media/projects/todo-mailer.png",
         links: {
           github: "https://github.com/Jesuiskoriel/To-Do-Mailer",
           demo: "",
@@ -996,6 +1026,7 @@
     function Projects({ t, lang }) {
       const refs = useReveal();
       const cards = lang === "en" ? projectCardsEn : projectCards;
+      const [selectedProject, setSelectedProject] = useState(null);
       const labels = lang === "en"
         ? {
           demo: "Demo",
@@ -1003,7 +1034,10 @@
           github: "GitHub",
           githubSoon: "GitHub - Soon",
           caseStudy: "Case Study",
-          caseSoon: "Case Study - Soon"
+          caseSoon: "Case Study - Soon",
+          previewTitle: "Project preview",
+          detailsTitle: "Project details",
+          close: "Close"
         }
         : {
           demo: "Demo",
@@ -1011,7 +1045,10 @@
           github: "GitHub",
           githubSoon: "GitHub - Bientot",
           caseStudy: "Case Study",
-          caseSoon: "Case Study - Bientot"
+          caseSoon: "Case Study - Bientot",
+          previewTitle: "Aperçu du projet",
+          detailsTitle: "Détails du projet",
+          close: "Fermer"
         };
       return (
         <section id="projets" className="container">
@@ -1019,9 +1056,12 @@
           <div className="grid">
             {cards.map((project, i) => (
               <article className="card" key={project.title} ref={(node) => { refs.current[i] = node; }}>
-                <div
-                  className={"mockup " + (project.localImage ? "mockup-local" : "mockup-" + (project.cover || "stage"))}
+                <button
+                  type="button"
+                  className={"mockup mockup-clickable " + (project.localImage ? "mockup-local" : "mockup-" + (project.cover || "stage"))}
                   style={project.localImage ? { backgroundImage: "url('" + project.localImage + "')" } : undefined}
+                  onClick={() => setSelectedProject(project)}
+                  aria-label={`Ouvrir l'aperçu de ${project.title}`}
                 />
                 <h3>{project.title}</h3>
                 <p>{project.description}</p>
@@ -1040,6 +1080,32 @@
               </article>
             ))}
           </div>
+
+          {selectedProject && (
+            <div className="project-preview-overlay" onClick={() => setSelectedProject(null)}>
+              <div className="project-preview-modal" onClick={(e) => e.stopPropagation()}>
+                <div className="project-preview-image" style={selectedProject.localImage ? { backgroundImage: `url('${selectedProject.localImage}')` } : undefined} />
+                <div className="project-preview-details">
+                  <div className="project-preview-head">
+                    <p className="service-title">{labels.previewTitle}</p>
+                    <button type="button" className="project-preview-close" onClick={() => setSelectedProject(null)}>{labels.close}</button>
+                  </div>
+                  <h3>{selectedProject.title}</h3>
+                  <p>{selectedProject.description}</p>
+                  <p className="service-title">{labels.detailsTitle}</p>
+                  <div className="meta">{selectedProject.tags.map((tag) => <span className="chip" key={`preview-${tag}`}>{tag}</span>)}</div>
+                  <div className="project-links">
+                    {selectedProject.links.demo
+                      ? <a href={selectedProject.links.demo} target="_blank" rel="noreferrer" className="project-link"><span className="platform-icon"><IconExternal /></span>{labels.demo}</a>
+                      : <span className="project-link"><span className="platform-icon"><IconExternal /></span>{labels.demoSoon}</span>}
+                    {selectedProject.links.github
+                      ? <a href={selectedProject.links.github} target="_blank" rel="noreferrer" className="project-link"><span className="platform-icon"><IconGithub /></span>{labels.github}</a>
+                      : <span className="project-link"><span className="platform-icon"><IconGithub /></span>{labels.githubSoon}</span>}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
         </section>
       );

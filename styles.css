@@ -1326,6 +1326,75 @@
       border-color: #b9d4ff;
     }
 
+    .mockup-clickable {
+      border: 0;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .mockup-clickable:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 22px rgba(11, 31, 79, 0.18);
+    }
+
+    .project-preview-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 130;
+      background: rgba(10, 18, 36, 0.66);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .project-preview-modal {
+      width: min(1100px, 96vw);
+      max-height: 90vh;
+      background: #f7faff;
+      border: 1px solid #d4e1ff;
+      border-radius: 16px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      box-shadow: 0 24px 60px rgba(8, 24, 56, 0.35);
+    }
+
+    .project-preview-image {
+      min-height: 420px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #dce7ff;
+    }
+
+    .project-preview-details {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      overflow-y: auto;
+    }
+
+    .project-preview-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .project-preview-close {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+      border-radius: 10px;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
 
     .platform-icon {
       display: inline-flex;
@@ -2044,6 +2113,14 @@
 
       .sonic-easter {
         width: 96vw;
+      }
+
+      .project-preview-modal {
+        grid-template-columns: 1fr;
+      }
+
+      .project-preview-image {
+        min-height: 280px;
       }
 
     }
