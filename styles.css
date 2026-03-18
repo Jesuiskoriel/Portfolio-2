@@ -1348,18 +1348,42 @@
       align-items: center;
       justify-content: center;
       padding: 18px;
+      animation: projectPreviewOverlayIn 0.22s ease-out;
     }
 
     .project-preview-modal {
       width: min(1100px, 96vw);
       max-height: 90vh;
       background: #f7faff;
+      color: #111318;
       border: 1px solid #d4e1ff;
       border-radius: 16px;
       overflow: hidden;
       display: grid;
       grid-template-columns: 1.2fr 1fr;
       box-shadow: 0 24px 60px rgba(8, 24, 56, 0.35);
+      transform-origin: center;
+      animation: projectPreviewModalIn 0.3s cubic-bezier(.2, .8, .2, 1);
+    }
+
+    @keyframes projectPreviewOverlayIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes projectPreviewModalIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.97);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     .project-preview-image {
@@ -1370,12 +1394,40 @@
       background-color: #dce7ff;
     }
 
+    .project-preview-image-button {
+      width: 100%;
+      border: 0;
+      cursor: zoom-in;
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .project-preview-image-button:hover {
+      filter: brightness(1.03);
+    }
+
+    .project-preview-image-button:focus-visible {
+      outline: 2px solid #7fb3ff;
+      outline-offset: -4px;
+    }
+
     .project-preview-details {
       padding: 18px;
       display: flex;
       flex-direction: column;
       gap: 12px;
       overflow-y: auto;
+    }
+
+    .project-preview-details h3 {
+      color: #111318;
+    }
+
+    .project-preview-details p {
+      color: #495668;
+    }
+
+    .project-preview-details .service-title {
+      color: #21416f;
     }
 
     .project-preview-head {
@@ -1393,6 +1445,82 @@
       padding: 6px 12px;
       cursor: pointer;
       font-family: inherit;
+    }
+
+    .project-preview-close:hover {
+      border-color: #a9c8ff;
+      box-shadow: 0 10px 20px rgba(0, 113, 227, 0.12);
+    }
+
+    html[data-theme="dark"] .project-preview-modal,
+    html[data-theme="dim"] .project-preview-modal {
+      background: #131c31;
+      color: #e9eefb;
+      border-color: #33415f;
+    }
+
+    html[data-theme="dark"] .project-preview-image,
+    html[data-theme="dim"] .project-preview-image {
+      background-color: #1b2844;
+    }
+
+    .project-image-fullscreen {
+      position: fixed;
+      inset: 0;
+      z-index: 145;
+      background: rgba(7, 12, 24, 0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      animation: projectPreviewOverlayIn 0.18s ease-out;
+    }
+
+    .project-image-fullscreen-close {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(18, 28, 48, 0.85);
+      color: #f3f7ff;
+      border-radius: 999px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-family: inherit;
+      backdrop-filter: blur(10px);
+    }
+
+    .project-image-fullscreen-media {
+      max-width: min(96vw, 1600px);
+      max-height: 90vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 18px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
+      animation: projectPreviewModalIn 0.24s cubic-bezier(.2, .8, .2, 1);
+    }
+
+    html[data-theme="dark"] .project-preview-details h3,
+    html[data-theme="dim"] .project-preview-details h3 {
+      color: #f3f7ff;
+    }
+
+    html[data-theme="dark"] .project-preview-details p,
+    html[data-theme="dim"] .project-preview-details p {
+      color: #b8c7e6;
+    }
+
+    html[data-theme="dark"] .project-preview-details .service-title,
+    html[data-theme="dim"] .project-preview-details .service-title {
+      color: #d6e2ff;
+    }
+
+    html[data-theme="dark"] .project-preview-close,
+    html[data-theme="dim"] .project-preview-close {
+      background: #1b2844;
+      color: #e9eefb;
+      border-color: #405077;
     }
 
 
