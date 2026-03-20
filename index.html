@@ -51,9 +51,9 @@
         veilleTitle: "Veille Technologique",
         veilleText: "Veille sur l'ensemble de la tech, avec priorite aux sources en francais: developpement, IA, securite, cloud, hardware et open source.",
         veilleLoading: "Chargement des articles tech...",
-        veilleFrontTitle: "Veille Front-End et Design d'Interface",
-        veilleFrontText: "Focus specialise sur l'evolution du CSS, des frameworks front-end, de l'UI engineering, des design systems et de l'integration moderne.",
-        veilleFrontLoading: "Chargement des articles front...",
+        veilleFrontTitle: "Veille IA Agentique",
+        veilleFrontText: "Selection d'articles en francais sur la maniere dont l'IA agentique peut assister le travail, automatiser des taches et accelerer la production.",
+        veilleFrontLoading: "Chargement des articles sur l'IA agentique...",
         contactTitle: "Contact",
         contactText: "Vous pouvez me contacter directement via ce formulaire.",
         contactFoot: "Contact: lajimijhawad@gmail.com",
@@ -98,9 +98,9 @@
         veilleTitle: "Tech Watch",
         veilleText: "Tech watch across software, AI, security, cloud, hardware, and open source.",
         veilleLoading: "Loading tech articles...",
-        veilleFrontTitle: "Front-End and Interface Design Watch",
-        veilleFrontText: "Specialized focus on CSS evolution, front-end frameworks, UI engineering, design systems and modern web integration.",
-        veilleFrontLoading: "Loading front-end articles...",
+        veilleFrontTitle: "Agentic AI Watch",
+        veilleFrontText: "French-language articles focused on how agentic AI can assist work, automate tasks, and speed up execution.",
+        veilleFrontLoading: "Loading French agentic AI articles...",
         contactTitle: "Contact",
         contactText: "You can contact me directly through this form.",
         contactFoot: "Contact: lajimijhawad@gmail.com",
@@ -339,17 +339,17 @@
     ];
 
     const veilleFrontFallbackFr = [
-      "Nouveautes CSS: selectors, layout, performance visuelle et accessibilite.",
-      "Sorties et evolutions des frameworks front-end (React, Vue, Next.js, etc.).",
-      "Bonnes pratiques UI engineering: design systems, tokens, architecture componentielle.",
-      "Techniques d'integration moderne: responsive avance, motion et optimisation Core Web Vitals."
+      "Comment des agents IA peuvent prendre en charge des taches repetitives dans un workflow.",
+      "Cas d'usage concrets: recherche, synthese, support, prototypage et automatisation operationnelle.",
+      "Bonnes pratiques pour cadrer un agent: objectifs, garde-fous, outils et supervision humaine.",
+      "Impact produit: gain de temps, reduction de friction et meilleure execution sur les taches a faible valeur repetitive."
     ];
 
     const veilleFrontFallbackEn = [
-      "CSS updates: selectors, layout, visual performance and accessibility.",
-      "Front-end framework releases and evolution (React, Vue, Next.js, etc.).",
-      "UI engineering best practices: design systems, tokens and component architecture.",
-      "Modern integration techniques: advanced responsive patterns, motion and Core Web Vitals optimization."
+      "How AI agents can handle repetitive workflow tasks.",
+      "Concrete use cases: research, summarization, support, prototyping, and operational automation.",
+      "Best practices to frame an agent: goals, guardrails, tools, and human oversight.",
+      "Product impact: time savings, reduced friction, and better execution on repetitive low-value tasks."
     ];
 
     function parseUnixDate(value) {
@@ -477,20 +477,22 @@
         .slice(0, 10);
     }
 
-    async function fetchFrontWatch(lang) {
-      const frontSourcesFr = [
-        { url: "https://www.alsacreations.com/rss/actualites.xml", source: "Alsacreations" },
-        { url: "https://www.grafikart.fr/blog/rss", source: "Grafikart" },
-        { url: "https://www.alsacreations.com/rss/tutos.xml", source: "Alsacreations Tutos" }
+    async function fetchAgenticAiWatch() {
+      const agenticSourcesFr = [
+        {
+          url: "https://news.google.com/rss/search?q=%22IA+agentique%22+OR+%22agents+IA%22&hl=fr&gl=FR&ceid=FR:fr",
+          source: "Google News FR - IA agentique"
+        },
+        {
+          url: "https://news.google.com/rss/search?q=%22agents+autonomes%22+IA+OR+%22agent+IA%22+automatisation&hl=fr&gl=FR&ceid=FR:fr",
+          source: "Google News FR - Automatisation"
+        },
+        {
+          url: "https://news.google.com/rss/search?q=%22copilot%22+OR+%22assistant+IA%22+travail&hl=fr&gl=FR&ceid=FR:fr",
+          source: "Google News FR - Assistants IA"
+        }
       ];
-      const frontSourcesEn = [
-        { url: "https://css-tricks.com/feed/", source: "CSS-Tricks" },
-        { url: "https://www.smashingmagazine.com/feed/", source: "Smashing Magazine" },
-        { url: "https://dev.to/feed/tag/css", source: "DEV CSS" },
-        { url: "https://dev.to/feed/tag/frontend", source: "DEV Frontend" }
-      ];
-      const chosen = lang === "fr" ? frontSourcesFr : frontSourcesEn;
-      return fetchFromRssSources(chosen, lang + "-front");
+      return fetchFromRssSources(agenticSourcesFr, "fr-agentic");
     }
 
     const journey = [
@@ -1351,11 +1353,9 @@
       const refs = useReveal();
       const [items, setItems] = useState([]);
       const [loading, setLoading] = useState(true);
-      const [feedLang, setFeedLang] = useState(lang);
-      useEffect(() => { setFeedLang(lang); }, [lang]);
       const formatDate = (epoch) => {
-        if (!epoch) return feedLang === "fr" ? "Date inconnue" : "Unknown date";
-        return new Date(epoch * 1000).toLocaleDateString(feedLang === "fr" ? "fr-FR" : "en-US");
+        if (!epoch) return lang === "fr" ? "Date inconnue" : "Unknown date";
+        return new Date(epoch * 1000).toLocaleDateString(lang === "fr" ? "fr-FR" : "en-US");
       };
 
       useEffect(() => {
@@ -1364,7 +1364,7 @@
         const load = async () => {
           if (active) setLoading(true);
           try {
-            const fresh = await fetchFrontWatch(feedLang);
+            const fresh = await fetchAgenticAiWatch();
             if (!active) return;
             setItems(fresh);
           } catch (e) {
@@ -1381,20 +1381,14 @@
           active = false;
           window.clearInterval(timer);
         };
-      }, [feedLang]);
+      }, []);
 
-      const fallbackItems = feedLang === "fr" ? veilleFrontFallbackFr : veilleFrontFallbackEn;
+      const fallbackItems = lang === "fr" ? veilleFrontFallbackFr : veilleFrontFallbackEn;
 
       return (
         <section className="container">
           <SectionTitle title={t.veilleFrontTitle} text={t.veilleFrontText} />
           <article className="card" ref={(node) => { refs.current[0] = node; }}>
-            <div className="veille-toolbar">
-              <div className="veille-lang-switch">
-                <button className={feedLang === "fr" ? "active" : ""} onClick={() => setFeedLang("fr")}>FR</button>
-                <button className={feedLang === "en" ? "active" : ""} onClick={() => setFeedLang("en")}>EN</button>
-              </div>
-            </div>
             <div className="veille-feed">
               {loading && <p>{t.veilleFrontLoading}</p>}
               {!loading && items.length > 0 && items.map((item) => (
