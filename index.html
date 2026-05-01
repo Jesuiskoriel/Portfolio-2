@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
@@ -47,7 +48,7 @@
         servicesText: "Ce que je peux livrer en freelance, en stage ou en alternance.",
         skillsTitle: "Compétences",
         skillsText: "Stack principale pour concevoir des produits web fiables et évolutifs.",
-        techTitle: "Technos Favorites 2026",
+        techTitle: "Technos favorites de 2026",
         techText: "Outils et technologies sur lesquels je continue d'investir.",
         journeyTitle: "Ce qui me distingue",
         journeyText: "4 points clés qui définissent ma façon de travailler.",
@@ -66,7 +67,9 @@
         formMail: "E-mail",
         formMsg: "Message",
         formSend: "Envoyer",
-        formNote: "Formulaire de démonstration : l'envoi final sera relié à un endpoint dédié."
+        formNote: "Formulaire de démonstration : l'envoi final sera relié à un endpoint dédié.",
+        dysToggle: "Mode Dys",
+        dysToggleAria: "Activer ou désactiver le mode de lecture Dys"
       },
       en: {
         nav: ["Home", "Projects", "Services", "Skills", "Watch", "Contact"],
@@ -112,7 +115,9 @@
         formMail: "Email",
         formMsg: "Message",
         formSend: "Send",
-        formNote: "Demo form: final submission can be connected to a dedicated endpoint."
+        formNote: "Demo form: final submission can be connected to a dedicated endpoint.",
+        dysToggle: "Dys Mode",
+        dysToggleAria: "Enable or disable dys-friendly reading mode"
       }
     };
 
@@ -120,6 +125,30 @@
        PROJECT DATA
     ════════════════════════════════════════════════ */
     const projectCards = [
+      {
+        title: "App Mobile iOS - ShareNGrow",
+        description: "Application iOS orientée productivité et partage, avec interface mobile soignée et parcours utilisateur fluide.",
+        tags: ["iOS", "Swift", "UI/UX", "Mobile"],
+        cover: "stage",
+        localImage: "media/projects/Sharengrow.png",
+        links: {
+          github: "",
+          demo: "",
+          caseStudy: ""
+        }
+      },
+      {
+        title: "boring.notch — Apple Intelligence PDF",
+        description: "Fork expérimental de boring.notch : extension macOS qui transforme l'encoche du MacBook en centre de contrôle dynamique, avec ajout d'un résumé PDF via Apple Intelligence.",
+        tags: ["Swift", "SwiftUI", "macOS", "Apple Intelligence"],
+        cover: "stage",
+        localImage: "media/projects/Boring-Notch_1.jpg",
+        links: {
+          github: "https://github.com/Jesuiskoriel/boring.notch-ex/tree/feature/apple-intelligence-pdf-summary",
+          demo: "",
+          caseStudy: ""
+        }
+      },
       {
         title: "Application Web Carte Interactive",
         description: "Application web de carte interactive en cours de développement avec interface moderne et navigation dynamique.",
@@ -192,7 +221,7 @@
           localImage: "media/projects/vr-project.png", caseStudy: "" }
       },
       {
-        title: "Stage Universite Paris 8",
+        title: "Stage Université Paris 8",
         description: "Support technique, réseau, administration et résolution de problèmes en environnement universitaire.",
         tags: ["Stage", "Réseau", "Administration"],
         cover: "stage",
@@ -207,7 +236,7 @@
         links: { github: "", demo: "", caseStudy: "" }
       },
       {
-        title: "Benevolat Autism'Action 95",
+        title: "Bénévolat Autism'Action 95",
         description: "Ateliers robotique et Scratch pour accompagner des enfants autistes via l'apprentissage par la pratique.",
         tags: ["Robotique", "Scratch", "Inclusion"],
         cover: "benevolat",
@@ -217,6 +246,30 @@
     ];
 
     const projectCardsEn = [
+      {
+        title: "iOS Mobile App - ShareNGrow",
+        description: "An iOS app focused on productivity and sharing, with polished mobile UI and a smooth user flow.",
+        tags: ["iOS", "Swift", "UI/UX", "Mobile"],
+        cover: "stage",
+        localImage: "media/projects/Sharengrow.png",
+        links: {
+          github: "",
+          demo: "",
+          caseStudy: ""
+        }
+      },
+      {
+        title: "boring.notch — Apple Intelligence PDF",
+        description: "Experimental fork of boring.notch: a macOS extension that turns the MacBook notch into a dynamic control center, with an added PDF summarization feature powered by Apple Intelligence.",
+        tags: ["Swift", "SwiftUI", "macOS", "Apple Intelligence"],
+        cover: "stage",
+        localImage: "media/projects/Boring-Notch_1.jpg",
+        links: {
+          github: "https://github.com/Jesuiskoriel/boring.notch-ex/tree/feature/apple-intelligence-pdf-summary",
+          demo: "",
+          caseStudy: ""
+        }
+      },
       {
         title: "Interactive Map Web App",
         description: "In-progress interactive map web application built with a modern UI and dynamic navigation.",
@@ -668,6 +721,78 @@
     }
 
     /* ════════════════════════════════════════════════
+       SKILLS EYES BACKGROUND
+    ════════════════════════════════════════════════ */
+    function SkillsEyesBg() {
+      const pupilRefs = useRef([]);
+      // Each pair: position of the pair container + size of each eye
+      const pairs = useMemo(() => ([
+        { left: "4%",  top: "12%", size: 68, gap: 14 },
+        { left: "28%", top: "8%",  size: 76, gap: 16 },
+        { left: "54%", top: "14%", size: 72, gap: 15 },
+        { left: "78%", top: "8%",  size: 66, gap: 13 },
+        { left: "6%",  top: "55%", size: 74, gap: 15 },
+        { left: "30%", top: "60%", size: 80, gap: 16 },
+        { left: "56%", top: "58%", size: 72, gap: 15 },
+        { left: "78%", top: "54%", size: 70, gap: 14 },
+        { left: "18%", top: "78%", size: 66, gap: 13 },
+        { left: "46%", top: "82%", size: 76, gap: 15 },
+        { left: "70%", top: "76%", size: 68, gap: 14 },
+      ]), []);
+
+      useEffect(() => {
+        const onMove = (e) => {
+          pupilRefs.current.forEach((pupil) => {
+            if (!pupil) return;
+            const eye = pupil.parentElement;
+            const rect = eye.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const dx = e.clientX - cx;
+            const dy = e.clientY - cy;
+            const angle = Math.atan2(dy, dx);
+            const distance = Math.min(13, Math.hypot(dx, dy) / 18);
+            const x = Math.cos(angle) * distance;
+            const y = Math.sin(angle) * distance;
+            pupil.style.transform = `translate(${x}px, ${y}px)`;
+          });
+        };
+
+        window.addEventListener("mousemove", onMove, { passive: true });
+        return () => window.removeEventListener("mousemove", onMove);
+      }, []);
+
+      let refIdx = 0;
+      return (
+        <div className="skills-eyes-bg" aria-hidden="true">
+          {pairs.map((pair, pi) => (
+            <div
+              key={pi}
+              className="skills-eye-pair"
+              style={{ left: pair.left, top: pair.top, gap: pair.gap }}
+            >
+              {[0, 1].map((ei) => {
+                const idx = refIdx++;
+                return (
+                  <div
+                    key={ei}
+                    className="skills-eye"
+                    style={{ width: pair.size, height: Math.round(pair.size * 0.78) }}
+                  >
+                    <div
+                      className="skills-pupil"
+                      ref={(el) => { pupilRefs.current[idx] = el; }}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    /* ════════════════════════════════════════════════
        ARCH SVG  (3D isometric arch, cream + purple)
     ════════════════════════════════════════════════ */
     function Arch({ className }) {
@@ -731,7 +856,7 @@
     /* ════════════════════════════════════════════════
        NAV
     ════════════════════════════════════════════════ */
-    function Nav({ t, lang, setLang }) {
+    function Nav({ t, lang, setLang, dysMode, setDysMode }) {
       const [menuOpen, setMenuOpen] = useState(false);
       const navItems = useMemo(() => [
         { href: "#accueil", label: t.nav[0] },
@@ -762,6 +887,17 @@
               <button className={lang === "fr" ? "active" : ""} onClick={() => setLang("fr")}>FR</button>
               <button className={lang === "en" ? "active" : ""} onClick={() => setLang("en")}>EN</button>
             </div>
+            <button
+              type="button"
+              className={"dys-toggle" + (dysMode ? " active" : "")}
+              onClick={() => setDysMode(v => !v)}
+              aria-pressed={dysMode}
+              aria-label={t.dysToggleAria}
+              title={t.dysToggle}
+            >
+              <span className="dys-toggle-label">{t.dysToggle}</span>
+              <span className="dys-toggle-state">{dysMode ? "ON" : "OFF"}</span>
+            </button>
             <a href="./vr.html" className="nav-vr-btn" title={t.enterVr}>VR</a>
           </div>
           <button className="nav-hamburger" onClick={() => setMenuOpen(v => !v)} aria-label="Menu" aria-expanded={menuOpen}>☰</button>
@@ -940,7 +1076,7 @@
       const [selected, setSelected] = useState(null);
       const labels = lang === "en"
         ? { demo: "Demo", demoSoon: "Demo - Soon", github: "GitHub", githubSoon: "GitHub - Soon", caseStudy: "Case Study", caseSoon: "Case Study - Soon", previewTitle: "Project preview", detailsTitle: "Details", close: "Close" }
-        : { demo: "Demo", demoSoon: "Demo - Bientot", github: "GitHub", githubSoon: "GitHub - Bientot", caseStudy: "Case Study", caseSoon: "Case Study - Bientot", previewTitle: "Apercu projet", detailsTitle: "Details", close: "Fermer" };
+        : { demo: "Demo", demoSoon: "Demo - Bientôt", github: "GitHub", githubSoon: "GitHub - Bientôt", caseStudy: "Case Study", caseSoon: "Case Study - Bientôt", previewTitle: "Aperçu du projet", detailsTitle: "Détails", close: "Fermer" };
       return (
         <section id="projets" className="section section-cream">
           <DecoCloud v="c" w={260} sw={2}   drift driftDur={76} driftDelay={-9} driftRot={1}  style={{ top:'-20px', right:'-60px',  opacity:.68 }}/>
@@ -962,7 +1098,7 @@
                     type="button"
                     className={"bc-preview " + (project.localImage ? "" : "bc-preview-" + (project.cover || "stage"))}
                     style={project.localImage ? { backgroundImage: `url('${project.localImage}')` } : undefined}
-                    aria-label={`Apercu ${project.title}`}
+                    aria-label={`Aperçu ${project.title}`}
                   />
                   <div className="bc-info">
                     <h3>{project.title}</h3>
@@ -1043,13 +1179,15 @@
       );
     }
 
+
     /* ════════════════════════════════════════════════
        SKILLS
     ════════════════════════════════════════════════ */
     function Skills({ t }) {
       const refs = useReveal();
       return (
-        <section id="competences" className="section section-cream">
+        <section id="competences" className="section section-cream skills-section">
+          <SkillsEyesBg />
           <DecoCloud v="b" w={250} sw={2}   drift driftDur={82} driftDelay={-24} driftRot={1}  style={{ top:'-20px', right:'-85px', opacity:.52 }}/>
           <DecoCloud v="c" w={220} sw={1.8} drift driftDur={68} driftDelay={-37} driftRot={-2} style={{ top:'46%', left:'-120px',  opacity:.34 }}/>
           <DecoCloud v="a" w={190} sw={1.8} drift driftDur={74} driftDelay={-55} driftRot={2}  style={{ bottom:'2%', right:'-45px', opacity:.31 }}/>
@@ -1352,7 +1490,7 @@
     function SonicEaster({ lang, open, onClose }) {
       if (!open) return null;
       const text = lang === "fr"
-        ? { title: "Easter egg Sonic debloque", collect: "Sonic CD - joue directement ici", close: "Fermer" }
+        ? { title: "Easter egg Sonic débloqué", collect: "Sonic CD - joue directement ici", close: "Fermer" }
         : { title: "Sonic easter egg unlocked", collect: "Sonic CD - play directly here", close: "Close" };
       return (
         <div className="sonic-easter">
@@ -1385,9 +1523,23 @@
     function App() {
       const [lang, setLang] = useState("fr");
       const [sonicOpen, setSonicOpen] = useState(false);
+      const [dysMode, setDysMode] = useState(() => {
+        try {
+          return window.localStorage.getItem("dysMode") === "1";
+        } catch {
+          return false;
+        }
+      });
       const t = useMemo(() => translations[lang], [lang]);
 
       useEffect(() => { document.documentElement.lang = lang; }, [lang]);
+      useEffect(() => {
+        document.body.classList.toggle("dys-mode", dysMode);
+        try {
+          window.localStorage.setItem("dysMode", dysMode ? "1" : "0");
+        } catch {}
+        return () => document.body.classList.remove("dys-mode");
+      }, [dysMode]);
 
       useEffect(() => {
         const sequence = ["up", "up", "down", "down", "left", "right", "left", "right", "b", "a"];
@@ -1419,7 +1571,7 @@
           <CustomCursor />
           <ScrollProgress />
           <SonicEaster lang={lang} open={sonicOpen} onClose={() => setSonicOpen(false)} />
-          <Nav t={t} lang={lang} setLang={setLang} />
+          <Nav t={t} lang={lang} setLang={setLang} dysMode={dysMode} setDysMode={setDysMode} />
           <Hero t={t} lang={lang} />
           <Marquee />
           <About t={t} />

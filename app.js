@@ -2,50 +2,50 @@
 
     const translations = {
       fr: {
-        nav: ["Accueil", "Projets", "Services", "Competences", "Veille", "Contact"],
+        nav: ["Accueil", "Projets", "Services", "Compétences", "Veille", "Contact"],
         heroTitle: "Lajimi Jhawad\nPortfolio Digital",
-        heroText: "Je conçois des experiences web modernes, fluides et performantes, en combinant design visuel, logique produit et developpement front-end.",
+        heroText: "Je conçois des expériences web modernes, fluides et performantes, en combinant design visuel, logique produit et développement front-end.",
         seeProjects: "Voir mes projets",
-        downloadCv: "Telecharger mon CV",
-        sceneTitle: "Des idees claires, un code solide.",
-        sceneText: "Faites defiler pour ouvrir l'ordinateur et decouvrir mon univers.",
-        projectsTitle: "Mes Projets et Experience",
-        projectsText: "Une selection de projets concrets et de retours d'experience, avec une approche orientee qualite, lisibilite et resultat.",
-        aboutTitle: "A propos de moi",
-        aboutText: "Curieux, autonome et rigoureux, je transforme des idees en experiences web utiles et bien executees.",
-        aboutP1: "Je m'appelle Jhawad Lajimi. Ma passion pour le web a commence avec des projets visuels personnels, puis s'est transformee en pratique quotidienne du design et du developpement.",
-        aboutP2: "Je conçois des interfaces en pensant produit: clarte, performance, maintenabilite et personnalite.",
-        aboutP3: "En dehors du code, je suis passionne de jeux video et joueur competitif sur Super Smash Bros Ultimate.",
+        downloadCv: "Télécharger mon CV",
+        sceneTitle: "Des idées claires, un code solide.",
+        sceneText: "Faites défiler pour ouvrir l'ordinateur et découvrir mon univers.",
+        projectsTitle: "Mes Projets et Expériences",
+        projectsText: "Une sélection de projets concrets et de retours d'expérience, avec une approche orientée qualité, lisibilité et résultat.",
+        aboutTitle: "À propos de moi",
+        aboutText: "Curieux, autonome et rigoureux, je transforme des idées en expériences web utiles et bien exécutées.",
+        aboutP1: "Je m'appelle Jhawad Lajimi. Ma passion pour le web a commencé avec des projets visuels personnels, puis s'est transformée en pratique quotidienne du design et du développement.",
+        aboutP2: "Je conçois des interfaces en pensant produit : clarté, performance, maintenabilité et personnalité.",
+        aboutP3: "En dehors du code, je suis passionné de jeux vidéo et joueur compétitif sur Super Smash Bros Ultimate.",
         aboutGoalTitle: "Objectif professionnel",
-        aboutGoalText: "Contribuer a des produits web ambitieux avec un haut niveau d'exigence technique et visuelle.",
+        aboutGoalText: "Contribuer à des produits web ambitieux avec un haut niveau d'exigence technique et visuelle.",
         aboutFocusTitle: "Focus actuel",
         aboutFocusText: "React, animations d'interface et architecture front-end propre.",
         aboutSoftTitle: "Soft skills",
-        aboutSoftText: "Autonomie, curiosite, adaptation rapide et sens du travail d'equipe.",
+        aboutSoftText: "Autonomie, curiosité, adaptation rapide et sens du travail d'équipe.",
         servicesTitle: "Services",
         servicesText: "Ce que je peux livrer en freelance, en stage ou en alternance.",
-        skillsTitle: "Competences",
-        skillsText: "Stack principale pour concevoir des produits web fiables et evolutifs.",
-        techTitle: "Technos Favorites 2026",
+        skillsTitle: "Compétences",
+        skillsText: "Stack principale pour concevoir des produits web fiables et évolutifs.",
+        techTitle: "Technos favorites de 2026",
         techText: "Outils et technologies sur lesquels je continue d'investir.",
         journeyTitle: "Ce qui me distingue",
-        journeyText: "4 points cles qui definissent ma facon de travailler.",
+        journeyText: "4 points clés qui définissent ma façon de travailler.",
         goalTitle: "Objectif Actuel",
-        goalText: "Je recherche une opportunite pour continuer a progresser en front-end, UI engineering et experiences interactives. Disponible en alternance, stage ou mission freelance.",
+        goalText: "Je recherche une opportunité pour continuer à progresser en front-end, UI engineering et expériences interactives. Disponible en alternance, stage ou mission freelance.",
         veilleTitle: "Veille Technologique",
-        veilleText: "Veille sur l'ensemble de la tech, avec priorite aux sources en francais: developpement, IA, securite, cloud, hardware et open source.",
+        veilleText: "Veille sur l'ensemble de la tech, avec priorité aux sources en français : développement, IA, sécurité, cloud, hardware et open source.",
         veilleLoading: "Chargement des articles tech...",
         veilleFrontTitle: "Veille Front-End et Design d'Interface",
-        veilleFrontText: "Focus specialise sur l'evolution du CSS, des frameworks front-end, de l'UI engineering, des design systems et de l'integration moderne.",
+        veilleFrontText: "Focus spécialisé sur l'évolution du CSS, des frameworks front-end, de l'UI engineering, des design systems et de l'intégration moderne.",
         veilleFrontLoading: "Chargement des articles front...",
         contactTitle: "Contact",
         contactText: "Vous pouvez me contacter directement via ce formulaire.",
-        contactFoot: "Contact: lajimijhawad@gmail.com",
+        contactFoot: "Contact : lajimijhawad@gmail.com",
         formName: "Nom",
-        formMail: "Email",
+        formMail: "E-mail",
         formMsg: "Message",
         formSend: "Envoyer",
-        formNote: "Formulaire de demonstration: l'envoi final sera relie a un endpoint dedie."
+        formNote: "Formulaire de démonstration : l'envoi final sera relié à un endpoint dédié."
       },
       en: {
         nav: ["Home", "Projects", "Services", "Skills", "Watch", "Contact"],
@@ -97,8 +97,16 @@
 
     const projectCards = [
       {
+        title: "App Mobile iOS - ShareNGrow",
+        description: "Application iOS orientée productivité et partage, avec interface mobile soignée et parcours utilisateur fluide.",
+        tags: ["iOS", "Swift", "UI/UX", "Mobile"],
+        cover: "stage",
+        localImage: "media/projects/Sharengrow.png",
+        links: { github: "", demo: "", caseStudy: "" }
+      },
+      {
         title: "Application Web Carte Interactive",
-        description: "Application web de carte interactive en cours de developpement avec interface moderne et navigation dynamique.",
+        description: "Application web de carte interactive en cours de développement avec interface moderne et navigation dynamique.",
         tags: ["JavaScript", "HTML", "PHP", "SQL", "CSS", "WIP"],
         cover: "stage",
         localImage: "Carte_des_maries.png",
@@ -106,7 +114,7 @@
       },
       {
         title: "Hell Ladder",
-        description: "Plateforme de classement competitif pour suivre joueurs, matchs et progression en ladder avec une interface claire et rapide.",
+        description: "Plateforme de classement compétitif pour suivre joueurs, matchs et progression en ladder avec une interface claire et rapide.",
         tags: ["JavaScript", "PHP", "SQL", "UI", "WIP"],
         cover: "hellladder",
         links: {
@@ -117,7 +125,7 @@
       },
       {
         title: "Projet de Billetterie",
-        description: "Application de billetterie avec consultation d'evenements, reservation de places et base evolutive pour paiement en ligne.",
+        description: "Application de billetterie avec consultation d'événements, réservation de places et base évolutive pour paiement en ligne.",
         tags: ["PHP", "SQL", "UX", "Back Office", "WIP"],
         cover: "billetterie",
         links: {
@@ -128,14 +136,14 @@
       },
       {
         title: "Tenta Whiskers - Projet Personnel",
-        description: "Creation d'une equipe e-sport, animation communautaire Discord et organisation de tournois reguliers.",
+        description: "Création d'une équipe e-sport, animation communautaire Discord et organisation de tournois réguliers.",
         tags: ["Leadership", "Discord", "Tournois"],
         cover: "community",
         links: { github: "", demo: "", caseStudy: "" }
       },
       {
         title: "To-Do Mailer - Projet Personnel",
-        description: "Gestion de taches en PHP/MySQL avec rappels automatiques par email avant echeance.",
+        description: "Gestion de tâches en PHP/MySQL avec rappels automatiques par e-mail avant échéance.",
         tags: ["PHP", "MySQL", "Automation", "WIP"],
         cover: "todo",
         links: {
@@ -146,28 +154,28 @@
       },
       {
         title: "Projet VR - Meta Quest",
-        description: "Conception d'une experience immersive avec iteration sur confort utilisateur et fluidite.",
+        description: "Conception d'une expérience immersive avec itération sur le confort utilisateur et la fluidité.",
         tags: ["VR", "Meta Quest", "Prototype"],
         cover: "vr",
         links: { github: "", demo: "", caseStudy: "" }
       },
       {
-        title: "Stage Universite Paris 8",
-        description: "Support technique, reseau, administration et resolution de problemes en environnement universitaire.",
-        tags: ["Stage", "Reseau", "Administration"],
+        title: "Stage Université Paris 8",
+        description: "Support technique, réseau, administration et résolution de problèmes en environnement universitaire.",
+        tags: ["Stage", "Réseau", "Administration"],
         cover: "stage",
         localImage: "logo-paris8-couleurs-officielles.jpg",
         links: { github: "", demo: "", caseStudy: "" }
       },
       {
         title: "Stage PC Market",
-        description: "Diagnostic et reparation de PC/smartphones avec priorite sur qualite d'intervention et relation client.",
+        description: "Diagnostic et réparation de PC/smartphones avec priorité sur la qualité d'intervention et la relation client.",
         tags: ["Stage", "Diagnostic", "Maintenance"],
         cover: "stage",
         links: { github: "", demo: "", caseStudy: "" }
       },
       {
-        title: "Benevolat Autism'Action 95",
+        title: "Bénévolat Autism'Action 95",
         description: "Ateliers robotique et Scratch pour accompagner des enfants autistes via l'apprentissage par la pratique.",
         tags: ["Robotique", "Scratch", "Inclusion"],
         cover: "benevolat",
@@ -177,6 +185,14 @@
     ];
 
     const projectCardsEn = [
+      {
+        title: "iOS Mobile App - ShareNGrow",
+        description: "An iOS app focused on productivity and sharing, with polished mobile UI and a smooth user flow.",
+        tags: ["iOS", "Swift", "UI/UX", "Mobile"],
+        cover: "stage",
+        localImage: "media/projects/Sharengrow.png",
+        links: { github: "", demo: "", caseStudy: "" }
+      },
       {
         title: "Interactive Map Web App",
         description: "In-progress interactive map web application built with a modern UI and dynamic navigation.",
@@ -258,9 +274,9 @@
     ];
 
     const services = [
-      { title: "UI Front-end", text: "Integration React/HTML/CSS avec design propre, responsive et performant." },
-      { title: "Prototype Produit", text: "MVP rapide pour valider une idee ou une feature avant industrialisation." },
-      { title: "Refonte Interface", text: "Amelioration UX/UI pour clarte, conversion et confort d'utilisation." }
+      { title: "UI Front-end", text: "Intégration React/HTML/CSS avec design propre, responsive et performant." },
+      { title: "Prototype Produit", text: "MVP rapide pour valider une idée ou une fonctionnalité avant industrialisation." },
+      { title: "Refonte Interface", text: "Amélioration UX/UI pour clarté, conversion et confort d'utilisation." }
     ];
 
     const skillGroups = [
@@ -276,10 +292,10 @@
     ];
 
     const veilleItems = [
-      "Suivi des actualites IA et outils d'automatisation.",
-      "Veille securite informatique et cybermenaces.",
-      "Nouveautes cloud, devops et infrastructures.",
-      "Materiel, open source et ecosysteme developpeur."
+      "Suivi des actualités IA et outils d'automatisation.",
+      "Veille sécurité informatique et cybermenaces.",
+      "Nouveautés cloud, devops et infrastructures.",
+      "Matériel, open source et écosystème développeur."
     ];
 
     const veilleItemsEn = [
@@ -290,10 +306,10 @@
     ];
 
     const veilleFrontFallbackFr = [
-      "Nouveautes CSS: selectors, layout, performance visuelle et accessibilite.",
-      "Sorties et evolutions des frameworks front-end (React, Vue, Next.js, etc.).",
-      "Bonnes pratiques UI engineering: design systems, tokens, architecture componentielle.",
-      "Techniques d'integration moderne: responsive avance, motion et optimisation Core Web Vitals."
+      "Nouveautés CSS : selectors, layout, performance visuelle et accessibilité.",
+      "Sorties et évolutions des frameworks front-end (React, Vue, Next.js, etc.).",
+      "Bonnes pratiques UI engineering : design systems, tokens, architecture componentielle.",
+      "Techniques d'intégration moderne : responsive avancé, motion et optimisation Core Web Vitals."
     ];
 
     const veilleFrontFallbackEn = [
@@ -445,10 +461,10 @@
     }
 
     const journey = [
-      "Execution rapide: je transforme une idee en prototype fonctionnel en peu de temps.",
-      "Vision produit: je pense experience utilisateur, clarte et valeur metier avant tout.",
-      "Rigueur technique: code propre, structure maintenable et souci de performance.",
-      "Progression continue: veille active et experimentation reguliere sur les technos front-end."
+      "Exécution rapide : je transforme une idée en prototype fonctionnel en peu de temps.",
+      "Vision produit : je pense expérience utilisateur, clarté et valeur métier avant tout.",
+      "Rigueur technique : code propre, structure maintenable et souci de performance.",
+      "Progression continue : veille active et expérimentation régulière sur les technos front-end."
     ];
 
     function useReveal() {
@@ -922,11 +938,11 @@
         }
         : {
           demo: "Demo",
-          demoSoon: "Demo - Bientot",
+          demoSoon: "Demo - Bientôt",
           github: "GitHub",
-          githubSoon: "GitHub - Bientot",
+          githubSoon: "GitHub - Bientôt",
           caseStudy: "Case Study",
-          caseSoon: "Case Study - Bientot"
+          caseSoon: "Case Study - Bientôt"
         };
       return (
         <section id="projets" className="container">
@@ -1345,7 +1361,7 @@
       if (!open) return null;
       const text = lang === "fr"
         ? {
-          title: "Easter egg Sonic debloque",
+          title: "Easter egg Sonic débloqué",
           collect: "Sonic CD - joue directement ici",
           close: "Fermer"
         }
