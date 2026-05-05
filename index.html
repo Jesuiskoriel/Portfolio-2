@@ -30,6 +30,7 @@
         heroText: "Je conçois des expériences web modernes, fluides et performantes, en combinant design visuel, logique produit et développement front-end.",
         seeProjects: "Voir mes projets",
         downloadCv: "Télécharger mon CV",
+        synthesisBoard: "Mon tableau de synthèse",
         enterVr: "Lancer la version VR",
         projectsTitle: "Mes Projets et Expériences",
         projectsText: "Une sélection de projets concrets et de retours d'expérience, avec une approche orientée qualité, lisibilité et résultat.",
@@ -60,6 +61,9 @@
         veilleFrontTitle: "Veille IA Agentique",
         veilleFrontText: "Sélection d'articles en français sur la manière dont l'IA agentique peut assister le travail, automatiser des tâches et accélérer la production.",
         veilleFrontLoading: "Chargement des articles sur l'IA agentique...",
+        watchToolsTitle: "Outils de veille",
+        watchToolsText: "Ma boîte à outils pour suivre les tendances, détecter les signaux faibles et valider rapidement les sources.",
+        watchToolsCta: "Ouvrir",
         contactTitle: "Contact",
         contactText: "Vous pouvez me contacter directement via ce formulaire.",
         contactFoot: "Contact : lajimijhawad@gmail.com",
@@ -67,7 +71,6 @@
         formMail: "E-mail",
         formMsg: "Message",
         formSend: "Envoyer",
-        formNote: "Formulaire de démonstration : l'envoi final sera relié à un endpoint dédié.",
         dysToggle: "Mode Dys",
         dysToggleAria: "Activer ou désactiver le mode de lecture Dys"
       },
@@ -78,6 +81,7 @@
         heroText: "I craft modern, fluid, and reliable web experiences by combining visual design, product thinking, and front-end engineering.",
         seeProjects: "See projects",
         downloadCv: "Download CV",
+        synthesisBoard: "My synthesis board",
         enterVr: "Launch VR version",
         projectsTitle: "Projects and Experience",
         projectsText: "A curated selection of concrete projects and hands-on experience, with a strong focus on quality and execution.",
@@ -108,6 +112,9 @@
         veilleFrontTitle: "Agentic AI Watch",
         veilleFrontText: "French-language articles focused on how agentic AI can assist work, automate tasks, and speed up execution.",
         veilleFrontLoading: "Loading French agentic AI articles...",
+        watchToolsTitle: "Watch Tools",
+        watchToolsText: "My toolkit to track trends, spot weak signals, and quickly validate sources.",
+        watchToolsCta: "Open",
         contactTitle: "Contact",
         contactText: "You can contact me directly through this form.",
         contactFoot: "Contact: lajimijhawad@gmail.com",
@@ -126,7 +133,7 @@
     ════════════════════════════════════════════════ */
     const projectCards = [
       {
-        title: "App Mobile iOS - ShareNGrow",
+        title: "App Mobile iOS - Verdea",
         description: "Application iOS orientée productivité et partage, avec interface mobile soignée et parcours utilisateur fluide.",
         tags: ["iOS", "Swift", "UI/UX", "Mobile"],
         cover: "stage",
@@ -188,7 +195,7 @@
         localImage: "media/projects/biblio.png",
         links: {
           github: "https://github.com/Jesuiskoriel/bibliotheque-laravel-v1",
-          demo: "",
+          demo: "http://13.62.105.180/login",
           caseStudy: ""
         }
       },
@@ -247,7 +254,7 @@
 
     const projectCardsEn = [
       {
-        title: "iOS Mobile App - ShareNGrow",
+        title: "iOS Mobile App - Verdea",
         description: "An iOS app focused on productivity and sharing, with polished mobile UI and a smooth user flow.",
         tags: ["iOS", "Swift", "UI/UX", "Mobile"],
         cover: "stage",
@@ -309,7 +316,7 @@
         localImage: "media/projects/biblio.png",
         links: {
           github: "https://github.com/Jesuiskoriel/bibliotheque-laravel-v1",
-          demo: "",
+          demo: "http://13.62.105.180/login",
           caseStudy: ""
         }
       },
@@ -347,14 +354,14 @@
         tags: ["Internship", "Networking", "Administration"],
         cover: "stage",
         localImage: "logo-paris8-couleurs-officielles.jpg",
-        links: { github: "", demo: "", caseStudy: "" }
+        links: { github: "", demo:"" }
       },
       {
         title: "PC Market Internship",
         description: "Diagnosed and repaired PCs/smartphones with strong focus on quality intervention and customer support.",
         tags: ["Internship", "Diagnostics", "Maintenance"],
         cover: "stage",
-        links: { github: "", demo: "", caseStudy: "" }
+        links: { github: "", demo:"" }
       },
       {
         title: "Autism'Action 95 Volunteering",
@@ -362,7 +369,7 @@
         tags: ["Robotics", "Scratch", "Inclusion"],
         cover: "benevolat",
         localImage: "autism.png",
-        links: { github: "", demo: "", caseStudy: "" }
+        links: { github: "", demo:"" }
       }
     ];
 
@@ -373,15 +380,15 @@
     ];
 
     const skillGroups = [
-      { title: "Frontend", items: ["JavaScript", "React / Vue.js", "HTML5 / CSS3", "Responsive Design"] },
-      { title: "Backend", items: ["Node.js", "Python", "Docker"] },
+      { title: "Frontend", items: ["JavaScript", "React / js", "HTML5 / CSS", "Responsive Design"] },
+      { title: "Backend", items: ["Node.js", "SQL", "Docker"] },
       { title: "Outils", items: ["Git / GitHub", "VS Code / PHPStorm", "Figma / Photoshop"] }
     ];
 
     const favoriteTech = [
       { title: "Front", items: ["React", "TypeScript", "Vite", "GSAP"] },
-      { title: "Design", items: ["Figma", "Framer", "Design Tokens", "A11y"] },
-      { title: "Infra", items: ["Docker", "Linux", "GitHub Actions", "SQL"] }
+      { title: "Design", items: ["Figma", "Magic chat", "Photoshop", "A11y"] },
+      { title: "IA", items: ["Ollama", "OpenWebUI", "n8n", "LangChain"] },
     ];
 
     const veilleItems = [
@@ -413,6 +420,15 @@
       "Vision produit : je pense expérience utilisateur, clarté et valeur métier avant tout.",
       "Rigueur technique : code propre, structure maintenable et souci de performance.",
       "Progression continue : veille active et expérimentation régulière sur les technos front-end."
+    ];
+    const watchTools = [
+      { name: "OpenClaw", url: "https://openclaw.ai", logo: "media/logo/openclaw.png" },
+      { name: "Feedly", url: "https://feedly.com", logo: "https://cdn.simpleicons.org/feedly/2bb24c" },
+      { name: "Google Alerts", url: "https://www.google.com/alerts", logo: "https://cdn.simpleicons.org/google/4285F4" },
+      { name: "Hugging Face", url: "https://huggingface.co", logo: "https://cdn.simpleicons.org/huggingface/FFD21E" },
+      { name: "GitHub", url: "https://github.com", logo: "https://cdn.simpleicons.org/github/ffffff" },
+      { name: "Reddit", url: "https://www.reddit.com", logo: "https://cdn.simpleicons.org/reddit/FF4500" },
+      { name: "Perplexity", url: "https://www.perplexity.ai", logo: "https://cdn.simpleicons.org/perplexity/ffffff" }
     ];
 
     /* ════════════════════════════════════════════════
@@ -951,6 +967,7 @@
               <div className="hero-btns">
                 <a href="#projets" className="btn-main">{t.seeProjects}</a>
                 <a href="./Lajimi_Jhawad_CV%20(2).pdf.pdf" download className="btn-ghost">{t.downloadCv}</a>
+                <a href="https://docs.google.com/spreadsheets/d/1A5G_N4e-UEVTzq_olqpE55NNEWqy8PksGHZY5QSagMU/edit?usp=sharing" target="_blank" rel="noreferrer" className="btn-ghost">{t.synthesisBoard}</a>
               </div>
             </div>
 
@@ -1363,7 +1380,7 @@
       }, []);
       const fallback = lang === "fr" ? veilleFrontFallbackFr : veilleFrontFallbackEn;
       return (
-        <section className="section section-purple" style={{ paddingTop: 0 }}>
+        <section id="veille" className="section section-purple" style={{ paddingTop: 0 }}>
           <div className="container">
             <SectionTitle title={t.veilleFrontTitle} text={t.veilleFrontText} light />
             <article className="veille-card reveal" ref={n => { refs.current[0] = n; }}>
@@ -1380,6 +1397,32 @@
                 ))}
               </div>
             </article>
+          </div>
+        </section>
+      );
+    }
+
+    function WatchTools({ t }) {
+      const refs = useReveal();
+      return (
+        <section className="section section-purple" style={{ paddingTop: 0 }}>
+          <div className="container">
+            <SectionTitle title={t.watchToolsTitle} text={t.watchToolsText} light />
+            <div className="watch-tools-grid">
+              {watchTools.map((tool, i) => (
+                <article key={tool.name} className="watch-tool-card reveal" ref={n => { refs.current[i] = n; }}>
+                  <div className="watch-tool-head">
+                    <span className="watch-tool-logo">
+                      {tool.logo === "custom-openclaw"
+                        ? <span className="openclaw-logo" aria-hidden="true">OC</span>
+                        : <img src={tool.logo} alt={`${tool.name} logo`} loading="lazy" />}
+                    </span>
+                    <h3>{tool.name}</h3>
+                  </div>
+                  <a href={tool.url} target="_blank" rel="noreferrer" className="watch-tool-link">{t.watchToolsCta}</a>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
       );
@@ -1581,8 +1624,8 @@
           <Skills t={t} />
           <FavoriteTech t={t} />
           <Journey t={t} />
-          <Veille t={t} lang={lang} />
           <VeilleFront t={t} lang={lang} />
+          <WatchTools t={t} />
           <Contact t={t} />
           <DiscordPresence />
           <Footer t={t} />

@@ -7,6 +7,7 @@
         heroText: "Je conçois des expériences web modernes, fluides et performantes, en combinant design visuel, logique produit et développement front-end.",
         seeProjects: "Voir mes projets",
         downloadCv: "Télécharger mon CV",
+        synthesisBoard: "Mon tableau de synthèse",
         sceneTitle: "Des idées claires, un code solide.",
         sceneText: "Faites défiler pour ouvrir l'ordinateur et découvrir mon univers.",
         projectsTitle: "Mes Projets et Expériences",
@@ -53,6 +54,7 @@
         heroText: "I craft modern, fluid, and reliable web experiences by combining visual design, product thinking, and front-end engineering.",
         seeProjects: "See projects",
         downloadCv: "Download CV",
+        synthesisBoard: "My synthesis board",
         sceneTitle: "Sharp ideas, impactful code.",
         sceneText: "Scroll to open the laptop and discover my work.",
         projectsTitle: "Projects and Experience",
@@ -97,7 +99,7 @@
 
     const projectCards = [
       {
-        title: "App Mobile iOS - ShareNGrow",
+        title: "App Mobile iOS - Verdea",
         description: "Application iOS orientée productivité et partage, avec interface mobile soignée et parcours utilisateur fluide.",
         tags: ["iOS", "Swift", "UI/UX", "Mobile"],
         cover: "stage",
@@ -186,7 +188,7 @@
 
     const projectCardsEn = [
       {
-        title: "iOS Mobile App - ShareNGrow",
+        title: "iOS Mobile App - Verdea",
         description: "An iOS app focused on productivity and sharing, with polished mobile UI and a smooth user flow.",
         tags: ["iOS", "Swift", "UI/UX", "Mobile"],
         cover: "stage",
@@ -288,6 +290,7 @@
     const favoriteTech = [
       { title: "Front", items: ["React", "TypeScript", "Vite", "GSAP"] },
       { title: "Design", items: ["Figma", "Framer", "Design Tokens", "A11y"] },
+      { title: "IA", items: ["Ollama", "OpenWebUI", "n8n", "LangChain"] },
       { title: "Infra", items: ["Docker", "Linux", "GitHub Actions", "SQL"] }
     ];
 
@@ -808,6 +811,7 @@
             <div className="hero-actions">
               <a href="#projets" className="btn btn-primary">{t.seeProjects}</a>
               <a href="./Lajimi_Jhawad_CV%20(2).pdf.pdf" download className="btn btn-ghost">{t.downloadCv}</a>
+              <a href="https://docs.google.com/spreadsheets/d/1A5G_N4e-UEVTzq_olqpE55NNEWqy8PksGHZY5QSagMU/edit?usp=sharing" target="_blank" rel="noreferrer" className="btn btn-ghost">{t.synthesisBoard}</a>
             </div>
           </div>
         </header>
