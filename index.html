@@ -34,6 +34,8 @@
         enterVr: "Lancer la version VR",
         projectsTitle: "Mes Projets et Expériences",
         projectsText: "Une sélection de projets concrets et de retours d'expérience, avec une approche orientée qualité, lisibilité et résultat.",
+        projectsGroupTitle: "Projets",
+        experiencesGroupTitle: "Expériences",
         aboutTitle: "À propos de moi",
         aboutText: "Curieux, autonome et rigoureux, je transforme des idées en expériences web utiles et bien exécutées.",
         aboutP1: "Je m'appelle Jhawad Lajimi. J'ai commencé le web par des projets visuels personnels, avec l'envie de transformer des idées en interfaces concrètes. Avec le temps, cette curiosité est devenue une vraie pratique du design et du développement.",
@@ -89,6 +91,8 @@
         enterVr: "Launch VR version",
         projectsTitle: "Projects and Experience",
         projectsText: "A curated selection of concrete projects and hands-on experience, with a strong focus on quality and execution.",
+        projectsGroupTitle: "Projects",
+        experiencesGroupTitle: "Experience",
         aboutTitle: "About me",
         aboutText: "Curious, autonomous, and rigorous, I turn ideas into useful and polished web experiences.",
         aboutP1: "I am Jhawad Lajimi. My interest in web started with personal visual projects and evolved into a daily practice of design and development.",
@@ -1098,6 +1102,9 @@
     function Projects({ t, lang }) {
       const cards = lang === "en" ? projectCardsEn : projectCards;
       const [selected, setSelected] = useState(null);
+      const isExperience = (title = "") => /stage|bénévolat|benevolat|internship|volunteering/i.test(title);
+      const projectItems = cards.filter((item) => !isExperience(item.title));
+      const experienceItems = cards.filter((item) => isExperience(item.title));
       const labels = lang === "en"
         ? { demo: "Demo", demoSoon: "Demo - Soon", github: "GitHub", githubSoon: "GitHub - Soon", caseStudy: "Case Study", caseSoon: "Case Study - Soon", previewTitle: "Project preview", detailsTitle: "Details", close: "Close" }
         : { demo: "Demo", demoSoon: "Demo - Bientôt", github: "GitHub", githubSoon: "GitHub - Bientôt", caseStudy: "Case Study", caseSoon: "Case Study - Bientôt", previewTitle: "Aperçu du projet", detailsTitle: "Détails", close: "Fermer" };
@@ -1111,8 +1118,41 @@
           <DecoCloud v="b" w={150} sw={1.5} drift driftDur={98} driftDelay={-72} driftRot={-1} style={{ top:'72%', left:'-18%',     opacity:.2 }}/>
           <div className="container">
             <SectionTitle title={t.projectsTitle} text={t.projectsText} />
+            <h3 className="projects-group-title">{t.projectsGroupTitle}</h3>
             <div className="projects-grid">
-              {cards.map(project => (
+              {projectItems.map(project => (
+                <article key={project.title} className="browser-card" onClick={() => setSelected(project)}>
+                  <div className="browser-chrome">
+                    <span className="bc-dot bc-dot-r" /><span className="bc-dot bc-dot-y" /><span className="bc-dot bc-dot-g" />
+                    <div className="bc-url">{project.title.toLowerCase().replace(/\s+/g, "-").slice(0, 30)}</div>
+                  </div>
+                  <button
+                    type="button"
+                    className={"bc-preview " + (project.localImage ? "" : "bc-preview-" + (project.cover || "stage"))}
+                    style={project.localImage ? { backgroundImage: `url('${project.localImage}')` } : undefined}
+                    aria-label={`Aperçu ${project.title}`}
+                  />
+                  <div className="bc-info">
+                    <h3>{project.title}</h3>
+                    <p>{project.description}</p>
+                    <div className="bc-tags">
+                      {project.tags.slice(0, 3).map(tag => <span key={tag} className="bc-tag">{tag}</span>)}
+                    </div>
+                    <div className="bc-links" onClick={e => e.stopPropagation()}>
+                      {project.links.demo
+                        ? <a href={project.links.demo} target="_blank" rel="noreferrer" className="bc-link">↗ {labels.demo}</a>
+                        : <span className="bc-link-dim">↗ {labels.demoSoon}</span>}
+                      {project.links.github
+                        ? <a href={project.links.github} target="_blank" rel="noreferrer" className="bc-link">⌥ {labels.github}</a>
+                        : <span className="bc-link-dim">⌥ {labels.githubSoon}</span>}
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <h3 className="projects-group-title">{t.experiencesGroupTitle}</h3>
+            <div className="projects-grid">
+              {experienceItems.map(project => (
                 <article key={project.title} className="browser-card" onClick={() => setSelected(project)}>
                   <div className="browser-chrome">
                     <span className="bc-dot bc-dot-r" /><span className="bc-dot bc-dot-y" /><span className="bc-dot bc-dot-g" />
