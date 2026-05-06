@@ -130,6 +130,7 @@
         description: "Application de billetterie avec consultation d'événements, réservation de places et base évolutive pour paiement en ligne.",
         tags: ["PHP", "SQL", "UX", "Back Office", "WIP"],
         cover: "billetterie",
+        localImage: "media/projects/image.png",
         links: {
           github: "https://github.com/Jesuiskoriel/Clientlourdv2",
           demo: "",
@@ -219,6 +220,7 @@
         description: "Ticketing web app with event discovery, seat booking, and a scalable foundation for online payments.",
         tags: ["PHP", "SQL", "UX", "Back Office", "WIP"],
         cover: "billetterie",
+        localImage: "media/projects/image.png",
         links: {
           github: "https://github.com/Jesuiskoriel/Clientlourdv2",
           demo: "",
