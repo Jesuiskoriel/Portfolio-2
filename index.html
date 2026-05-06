@@ -898,7 +898,7 @@
             ))}
           </ul>
           <div className="nav-right">
-            <span className="nav-handle">@jhawad.dev</span>
+            <span className="nav-handle">jesuiskoriel.dev</span>
             <div className="lang-sw">
               <button className={lang === "fr" ? "active" : ""} onClick={() => setLang("fr")}>FR</button>
               <button className={lang === "en" ? "active" : ""} onClick={() => setLang("en")}>EN</button>
@@ -1555,7 +1555,12 @@
     function Footer({ t }) {
       return (
         <footer className="site-footer">
-          {t.contactFoot}
+          <div>{t.contactFoot}</div>
+          <div className="footer-legal-links">
+            <a href="./mentions-legales.html">Mentions légales</a>
+            <a href="./confidentialite.html">Confidentialité</a>
+            <a href="./cookies.html">Cookies</a>
+          </div>
         </footer>
       );
     }
