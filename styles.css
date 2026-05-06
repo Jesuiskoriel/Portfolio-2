@@ -733,6 +733,48 @@ body{
 .footer-legal-links a{color:rgba(240,235,224,.72);text-decoration:none;font-size:13px}
 .footer-legal-links a:hover{color:var(--cream)}
 
+.storage-notice{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:9500;
+  width:min(460px,calc(100vw - 32px));
+  background:rgba(240,235,224,.96);
+  color:var(--purple);
+  border:1px solid rgba(38,20,102,.2);
+  border-radius:12px;
+  padding:14px 14px 12px;
+  box-shadow:0 16px 36px rgba(0,0,0,.2);
+}
+.storage-notice p{
+  margin:0;
+  font-size:13px;
+  line-height:1.45;
+}
+.storage-notice-actions{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:12px;
+  margin-top:10px;
+}
+.storage-notice-actions a{
+  color:rgba(38,20,102,.8);
+  text-decoration:none;
+  font-size:13px;
+}
+.storage-notice-actions a:hover{color:var(--purple)}
+.storage-notice-actions button{
+  border:none;
+  background:var(--purple);
+  color:var(--cream);
+  border-radius:7px;
+  padding:7px 11px;
+  font-size:12px;
+  cursor:pointer;
+  font-family:var(--font-body);
+}
+
 /* ── DYS MODE ───────────────────────────────── */
 body.dys-mode{
   font-family:'Lexend',var(--font-body);
@@ -840,6 +882,7 @@ body.dys-mode .dys-toggle{
 @media(max-width:480px){
   .hero-center{padding:32px 20px}.hero-card{--sc:14px}.hero-headline{font-size:34px;letter-spacing:-1px}
   .site-nav{padding:0 16px}.container{padding:0 16px}.goal-banner{padding:44px 28px}
+  .storage-notice{right:12px;bottom:12px;width:calc(100vw - 24px)}
 }
 
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none !important;transition:none !important}}

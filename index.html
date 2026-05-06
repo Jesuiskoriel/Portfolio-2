@@ -26,7 +26,7 @@
       fr: {
         nav: ["Accueil", "Projets", "Services", "Compétences", "Veille", "Contact"],
         heroStatus: "Disponible · Alternance / Stage",
-        heroTitle: "Lajimi Jhawad\nBienvenue dans ma tête",
+        heroTitle: "Lajimi Jhawad\nDes interfaces pensées comme des univers.",
         heroText: "Je conçois des expériences web modernes, fluides et performantes, en combinant design visuel, logique produit et développement front-end.",
         seeProjects: "Voir mes projets",
         downloadCv: "Télécharger mon CV",
@@ -71,6 +71,10 @@
         formMail: "E-mail",
         formMsg: "Message",
         formSend: "Envoyer",
+        formNote: "Formulaire de démonstration : l'envoi final sera relié à un endpoint dédié.",
+        storageNoticeText: "Ce site utilise uniquement un stockage local technique (ex: préférences d'affichage). Aucun cookie publicitaire ou tracking marketing n'est déposé.",
+        storageNoticeBtn: "Compris",
+        storageNoticePolicy: "En savoir plus",
         dysToggle: "Mode Dys",
         dysToggleAria: "Activer ou désactiver le mode de lecture Dys"
       },
@@ -123,6 +127,9 @@
         formMsg: "Message",
         formSend: "Send",
         formNote: "Demo form: final submission can be connected to a dedicated endpoint.",
+        storageNoticeText: "This site only uses technical local storage (e.g. display preferences). No advertising or marketing tracking cookies are set.",
+        storageNoticeBtn: "Got it",
+        storageNoticePolicy: "Learn more",
         dysToggle: "Dys Mode",
         dysToggleAria: "Enable or disable dys-friendly reading mode"
       }
@@ -934,7 +941,7 @@
     function Hero({ t, lang }) {
       const [l1, l2] = t.heroTitle.split("\n");
       const intro = lang === "fr"
-        ? "Je suis Jhawad Lajimi, développeur front-end apportant"
+        ? "voiçi le portfolio deeeeeee..."
         : "I'm Jhawad Lajimi, front-end developer bringing you the";
       return (
         <header id="accueil" className="hero-wrap">
@@ -1565,6 +1572,33 @@
       );
     }
 
+    function StorageNotice({ t }) {
+      const [visible, setVisible] = useState(() => {
+        try {
+          return window.localStorage.getItem("storage_notice_seen") !== "1";
+        } catch {
+          return true;
+        }
+      });
+
+      if (!visible) return null;
+
+      const close = () => {
+        setVisible(false);
+        try { window.localStorage.setItem("storage_notice_seen", "1"); } catch {}
+      };
+
+      return (
+        <aside className="storage-notice" role="status" aria-live="polite">
+          <p>{t.storageNoticeText}</p>
+          <div className="storage-notice-actions">
+            <a href="./cookies.html">{t.storageNoticePolicy}</a>
+            <button type="button" onClick={close}>{t.storageNoticeBtn}</button>
+          </div>
+        </aside>
+      );
+    }
+
     /* ════════════════════════════════════════════════
        APP
     ════════════════════════════════════════════════ */
@@ -1634,6 +1668,7 @@
           <Contact t={t} />
           <DiscordPresence />
           <Footer t={t} />
+          <StorageNotice t={t} />
         </>
       );
     }
