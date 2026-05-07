@@ -175,6 +175,7 @@
         description: "Diagnostic et réparation de PC/smartphones avec priorité sur la qualité d'intervention et la relation client.",
         tags: ["Stage", "Diagnostic", "Maintenance"],
         cover: "stage",
+        localImage: "media/projects/pc-market.png",
         links: { github: "", demo: "", caseStudy: "" }
       },
       {
@@ -265,6 +266,7 @@
         description: "Diagnosed and repaired PCs/smartphones with strong focus on quality intervention and customer support.",
         tags: ["Internship", "Diagnostics", "Maintenance"],
         cover: "stage",
+        localImage: "media/projects/pc-market.png",
         links: { github: "", demo: "", caseStudy: "" }
       },
       {

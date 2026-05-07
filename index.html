@@ -251,6 +251,7 @@
         description: "Diagnostic et réparation de PC/smartphones avec priorité sur la qualité d'intervention et la relation client.",
         tags: ["Stage", "Diagnostic", "Maintenance"],
         cover: "stage",
+        localImage: "media/projects/pc-market.png",
         links: { github: "", demo: "", caseStudy: "" }
       },
       {
@@ -372,6 +373,7 @@
         description: "Diagnosed and repaired PCs/smartphones with strong focus on quality intervention and customer support.",
         tags: ["Internship", "Diagnostics", "Maintenance"],
         cover: "stage",
+        localImage: "media/projects/pc-market.png",
         links: { github: "", demo:"" }
       },
       {
@@ -433,13 +435,13 @@
       "Progression continue : veille active et expérimentation régulière sur les technos front-end."
     ];
     const watchTools = [
-      { name: "OpenClaw", url: "https://openclaw.ai", logo: "media/logo/openclaw.png" },
-      { name: "Feedly", url: "https://feedly.com", logo: "https://cdn.simpleicons.org/feedly/2bb24c" },
-      { name: "Google Alerts", url: "https://www.google.com/alerts", logo: "https://cdn.simpleicons.org/google/4285F4" },
-      { name: "Hugging Face", url: "https://huggingface.co", logo: "https://cdn.simpleicons.org/huggingface/FFD21E" },
-      { name: "GitHub", url: "https://github.com", logo: "https://cdn.simpleicons.org/github/ffffff" },
-      { name: "Reddit", url: "https://www.reddit.com", logo: "https://cdn.simpleicons.org/reddit/FF4500" },
-      { name: "Perplexity", url: "https://www.perplexity.ai", logo: "https://cdn.simpleicons.org/perplexity/ffffff" }
+      { name: "OpenClaw", url: "https://openclaw.ai", logo: "media/logo/openclaw.png", descFr: "Automatise la collecte et l'analyse de sources pour détecter rapidement les signaux utiles.", descEn: "Automates source collection and analysis to quickly surface useful signals." },
+      { name: "Feedly", url: "https://feedly.com", logo: "https://cdn.simpleicons.org/feedly/2bb24c", descFr: "Centralise les flux RSS pour suivre l'actualité par thèmes sans bruit.", descEn: "Centralizes RSS feeds to follow topic-based news with less noise." },
+      { name: "Google Alerts", url: "https://www.google.com/alerts", logo: "https://cdn.simpleicons.org/google/4285F4", descFr: "Envoie des alertes email dès qu'un nouveau contenu correspond à un mot-clé ciblé.", descEn: "Sends email alerts when new content matches selected keywords." },
+      { name: "Hugging Face", url: "https://huggingface.co", logo: "https://cdn.simpleicons.org/huggingface/FFD21E", descFr: "Permet de surveiller les nouveaux modèles, datasets et tendances IA open source.", descEn: "Helps monitor new open-source AI models, datasets, and trends." },
+      { name: "GitHub", url: "https://github.com", logo: "https://cdn.simpleicons.org/github/ffffff", descFr: "Suit les releases, issues et commits des projets techniques à surveiller.", descEn: "Tracks releases, issues, and commits for technical projects to watch." },
+      { name: "Reddit", url: "https://www.reddit.com", logo: "https://cdn.simpleicons.org/reddit/FF4500", descFr: "Capte les retours terrain et les discussions communautaires sur les outils émergents.", descEn: "Captures field feedback and community discussions on emerging tools." },
+      { name: "Perplexity", url: "https://www.perplexity.ai", logo: "https://cdn.simpleicons.org/perplexity/ffffff", descFr: "Accélère la recherche avec synthèse et sources vérifiables en un seul flux.", descEn: "Speeds up research with sourced summaries in a single workflow." }
     ];
 
     /* ════════════════════════════════════════════════
@@ -1449,7 +1451,7 @@
       );
     }
 
-    function WatchTools({ t }) {
+    function WatchTools({ t, lang }) {
       const refs = useReveal();
       return (
         <section className="section section-purple" style={{ paddingTop: 0 }}>
@@ -1466,6 +1468,7 @@
                     </span>
                     <h3>{tool.name}</h3>
                   </div>
+                  <p className="watch-tool-desc">{lang === "fr" ? tool.descFr : tool.descEn}</p>
                   <a href={tool.url} target="_blank" rel="noreferrer" className="watch-tool-link">{t.watchToolsCta}</a>
                 </article>
               ))}
@@ -1704,7 +1707,7 @@
           <FavoriteTech t={t} />
           <Journey t={t} />
           <VeilleFront t={t} lang={lang} />
-          <WatchTools t={t} />
+          <WatchTools t={t} lang={lang} />
           <Contact t={t} />
           <DiscordPresence />
           <Footer t={t} />

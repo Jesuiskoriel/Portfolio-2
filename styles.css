@@ -462,8 +462,8 @@ body{
   position:relative;
   overflow:hidden;
   isolation:isolate;
-  transform:translateZ(0);
-  backface-visibility:hidden;
+  transform:none;
+  backface-visibility:visible;
   /* Dedicated cloud mask for service cards to avoid right-edge seam artifacts */
   --srv-scallop:
     radial-gradient(circle at 50% 100%,#000 var(--sc),#0000 calc(var(--sc) + .5px))
@@ -487,10 +487,10 @@ body{
       calc(100% - 2*var(--sc) + 2px) calc(100% - 2*var(--sc) + 2px) no-repeat;
   -webkit-mask:var(--srv-scallop);
   mask:var(--srv-scallop);
-  animation:cloud-card-float 7s ease-in-out infinite;
+  animation:none;
 }
-.services-grid .srv-card.sc:nth-child(2){animation-delay:-2.2s}
-.services-grid .srv-card.sc:nth-child(3){animation-delay:-4.1s}
+.services-grid .srv-card.sc:nth-child(2){animation:none}
+.services-grid .srv-card.sc:nth-child(3){animation:none}
 .srv-card h3{font-family:var(--font-display);font-size:26px;font-weight:700;margin-bottom:12px}
 .srv-card p{font-size:15px;line-height:1.65;opacity:.75}
 
@@ -631,6 +631,12 @@ body{
   margin:0;
   font-size:17px;
   color:var(--cream);
+}
+.watch-tool-desc{
+  margin:0;
+  font-size:13px;
+  line-height:1.45;
+  color:rgba(240,235,224,.72);
 }
 .watch-tool-link{
   margin-top:auto;
