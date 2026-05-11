@@ -456,43 +456,24 @@ body{
 .timeline-item p{font-size:14px;line-height:1.6;color:rgba(38,20,102,.7)}
 
 /* ── SERVICES ────────────────────────────────── */
-.services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:32px}
-.srv-card{background:var(--cream);color:var(--purple);padding:52px 44px;--sc:22px}
-.srv-card.sc{
-  position:relative;
-  overflow:hidden;
-  isolation:isolate;
-  transform:none;
-  backface-visibility:visible;
-  /* Dedicated cloud mask for service cards to avoid right-edge seam artifacts */
-  --srv-scallop:
-    radial-gradient(circle at 50% 100%,#000 var(--sc),#0000 calc(var(--sc) + .5px))
-      0 0/calc(2*var(--sc)) var(--sc) repeat-x,
-    radial-gradient(circle at 50% 0%,#000 var(--sc),#0000 calc(var(--sc) + .5px))
-      0 100%/calc(2*var(--sc)) var(--sc) repeat-x,
-    radial-gradient(circle at 100% 50%,#000 var(--sc),#0000 calc(var(--sc) + .5px))
-      0 0/var(--sc) calc(2*var(--sc)) repeat-y,
-    radial-gradient(circle at 0% 50%,#000 var(--sc),#0000 calc(var(--sc) + .5px))
-      100% 0/var(--sc) calc(2*var(--sc)) repeat-y,
-    radial-gradient(circle at 50% 50%,#000 var(--sc),#0000 calc(var(--sc) + .5px))
-      0 0/calc(2*var(--sc)) calc(2*var(--sc)) no-repeat,
-    radial-gradient(circle at 50% 50%,#000 var(--sc),#0000 calc(var(--sc) + .5px))
-      100% 0/calc(2*var(--sc)) calc(2*var(--sc)) no-repeat,
-    radial-gradient(circle at 50% 50%,#000 var(--sc),#0000 calc(var(--sc) + .5px))
-      0 100%/calc(2*var(--sc)) calc(2*var(--sc)) no-repeat,
-    radial-gradient(circle at 50% 50%,#000 var(--sc),#0000 calc(var(--sc) + .5px))
-      100% 100%/calc(2*var(--sc)) calc(2*var(--sc)) no-repeat,
-    linear-gradient(#000 0 0)
-      calc(var(--sc) - 1px) calc(var(--sc) - 1px)/
-      calc(100% - 2*var(--sc) + 2px) calc(100% - 2*var(--sc) + 2px) no-repeat;
-  -webkit-mask:var(--srv-scallop);
-  mask:var(--srv-scallop);
-  animation:none;
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;align-items:start}
+/* Cloud-shaped cards — SVG approach */
+.srv-cloud{position:relative;animation:win-levitate 6.2s ease-in-out infinite}
+.srv-cloud:nth-child(2){animation-delay:-1.8s}
+.srv-cloud:nth-child(3){animation-delay:-3.4s}
+.srv-cloud-svg{width:100%;height:auto;display:block;filter:drop-shadow(0 8px 26px rgba(38,20,102,.28))}
+.srv-cloud-inner{
+  position:absolute;
+  top:38%;left:14%;right:14%;bottom:8%;
+  color:var(--purple);
+  display:flex;flex-direction:column;justify-content:flex-start;
 }
-.services-grid .srv-card.sc:nth-child(2){animation:none}
-.services-grid .srv-card.sc:nth-child(3){animation:none}
-.srv-card h3{font-family:var(--font-display);font-size:26px;font-weight:700;margin-bottom:12px}
-.srv-card p{font-size:15px;line-height:1.65;opacity:.75}
+.srv-cloud-h{
+  font-family:var(--font-display);
+  font-size:clamp(16px,1.9vw,24px);
+  font-weight:700;display:block;margin-bottom:10px;
+}
+.srv-cloud-p{font-size:clamp(12px,1.1vw,15px);line-height:1.6;opacity:.72}
 
 @keyframes cloud-card-float{
   0%,100%{translate:0 0}
@@ -710,7 +691,45 @@ body{
 .project-preview-modal{background:var(--cream);color:var(--purple);border-radius:16px;overflow:hidden;max-width:760px;width:100%;display:grid;grid-template-columns:1fr 1fr;max-height:90vh}
 .project-preview-modal{animation:win-levitate 6.8s ease-in-out infinite}
 .project-preview-image{width:100%;aspect-ratio:1;background:rgba(38,20,102,.1);background-size:cover;background-position:center;border:none;display:block}
-.project-preview-image-button{cursor:zoom-in}
+.project-preview-image-button{cursor:zoom-in;position:relative}
+.project-preview-zoom-icon{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  transition:opacity .2s ease;
+  background:rgba(38,20,102,.22);
+}
+.project-preview-zoom-icon svg{
+  width:40px;
+  height:40px;
+  color:var(--cream);
+  stroke:currentColor;
+  fill:none;
+  stroke-width:2.2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  filter:drop-shadow(0 4px 12px rgba(0,0,0,.35));
+}
+.project-preview-image-button:hover .project-preview-zoom-icon,
+.project-preview-image-button:focus-visible .project-preview-zoom-icon{
+  opacity:1;
+}
+.project-preview-zoom-hint{
+  position:absolute;
+  left:12px;
+  bottom:12px;
+  font-size:12px;
+  line-height:1;
+  color:var(--cream);
+  background:rgba(38,20,102,.78);
+  border:1px solid rgba(240,235,224,.35);
+  border-radius:999px;
+  padding:7px 10px;
+  pointer-events:none;
+}
 .project-preview-details{padding:28px;overflow-y:auto}
 .project-preview-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
 .project-preview-close{background:none;border:1px solid var(--purple);color:var(--purple);padding:4px 10px;border-radius:6px;cursor:pointer;font-size:12px;font-family:var(--font-body);transition:all .15s}
@@ -890,6 +909,10 @@ body.dys-mode .dys-toggle{
   .project-preview-image{aspect-ratio:16/9}
   .skills-eyes-bg{opacity:.36}
   .skills-eye-pair:nth-child(n+5){display:none}
+  .services-grid{grid-template-columns:1fr;max-width:480px;margin:0 auto}
+  .srv-cloud-inner{top:36%;left:16%;right:16%;bottom:8%}
+  .srv-cloud-h{font-size:24px}
+  .srv-cloud-p{font-size:15px}
 }
 @media(max-width:480px){
   .hero-center{padding:32px 20px}.hero-card{--sc:14px}.hero-headline{font-size:34px;letter-spacing:-1px}
