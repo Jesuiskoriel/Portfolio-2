@@ -143,6 +143,18 @@
     ════════════════════════════════════════════════ */
     const projectCards = [
       {
+        title: "AuriOS - Contributeur Open Source",
+        description: "Projet de création d'un système d'exploitation orienté privacy, avec contribution au développement et à l'amélioration continue.",
+        tags: ["Open Source", "Contribution", "GitHub", "OS"],
+        cover: "stage",
+        localImage: "media/projects/auriOS.png",
+        links: {
+          github: "https://github.com/Auri-OS/AuriOS",
+          demo: "",
+          caseStudy: ""
+        }
+      },
+      {
         title: "App Mobile iOS - Verdea",
         description: "Application iOS orientée productivité et partage, avec interface mobile soignée et parcours utilisateur fluide.",
         tags: ["iOS", "Swift", "UI/UX", "Mobile"],
@@ -179,6 +191,7 @@
         description: "Plateforme de classement compétitif pour suivre joueurs, matchs et progression en ladder avec une interface claire et rapide.",
         tags: ["JavaScript", "PHP", "SQL", "UI", "WIP"],
         cover: "hellladder",
+        localImage: "media/projects/ladder.png",
         links: {
           github: "https://github.com/Jesuiskoriel/Metal-K.O.R.I.E.L",
           demo: "",
@@ -265,6 +278,18 @@
 
     const projectCardsEn = [
       {
+        title: "AuriOS - Open Source Contributor",
+        description: "Privacy-focused operating system creation project, with active contribution to development and continuous improvements.",
+        tags: ["Open Source", "Contribution", "GitHub", "OS"],
+        cover: "stage",
+        localImage: "media/projects/auriOS.png",
+        links: {
+          github: "https://github.com/Auri-OS/AuriOS",
+          demo: "",
+          caseStudy: ""
+        }
+      },
+      {
         title: "iOS Mobile App - Verdea",
         description: "An iOS app focused on productivity and sharing, with polished mobile UI and a smooth user flow.",
         tags: ["iOS", "Swift", "UI/UX", "Mobile"],
@@ -301,6 +326,7 @@
         description: "Competitive ranking platform to track players, matches and ladder progression through a clean and fast interface.",
         tags: ["JavaScript", "PHP", "SQL", "UI", "WIP"],
         cover: "hellladder",
+        localImage: "media/projects/ladder.png",
         links: {
           github: "https://github.com/Jesuiskoriel/Metal-K.O.R.I.E.L",
           demo: "",
@@ -1082,12 +1108,8 @@
                 <p className="service-title">{labels.detailsTitle}</p>
                 <div className="meta">{project.tags.map(tag => <span className="chip" key={tag}>{tag}</span>)}</div>
                 <div className="project-links">
-                  {project.links.demo
-                    ? <a href={project.links.demo} target="_blank" rel="noreferrer" className="project-link"><span className="platform-icon"><IconExternal /></span>{labels.demo}</a>
-                    : <span className="project-link"><span className="platform-icon"><IconExternal /></span>{labels.demoSoon}</span>}
-                  {project.links.github
-                    ? <a href={project.links.github} target="_blank" rel="noreferrer" className="project-link"><span className="platform-icon"><IconGithub /></span>{labels.github}</a>
-                    : <span className="project-link"><span className="platform-icon"><IconGithub /></span>{labels.githubSoon}</span>}
+                  {project.links.demo && <a href={project.links.demo} target="_blank" rel="noreferrer" className="project-link"><span className="platform-icon"><IconExternal /></span>{labels.demo}</a>}
+                  {project.links.github && <a href={project.links.github} target="_blank" rel="noreferrer" className="project-link"><span className="platform-icon"><IconGithub /></span>{labels.github}</a>}
                 </div>
               </div>
             </div>
@@ -1109,12 +1131,12 @@
     function Projects({ t, lang }) {
       const cards = lang === "en" ? projectCardsEn : projectCards;
       const [selected, setSelected] = useState(null);
-      const isExperience = (title = "") => /stage|bénévolat|benevolat|internship|volunteering/i.test(title);
+      const isExperience = (title = "") => /stage|bénévolat|benevolat|internship|volunteering|tenta whiskers/i.test(title);
       const projectItems = cards.filter((item) => !isExperience(item.title));
       const experienceItems = cards.filter((item) => isExperience(item.title));
       const labels = lang === "en"
-        ? { demo: "Demo", demoSoon: "Demo - Soon", github: "GitHub", githubSoon: "GitHub - Soon", caseStudy: "Case Study", caseSoon: "Case Study - Soon", previewTitle: "Project preview", detailsTitle: "Details", close: "Close", fullscreenHint: "Click to fullscreen" }
-        : { demo: "Demo", demoSoon: "Demo - Bientôt", github: "GitHub", githubSoon: "GitHub - Bientôt", caseStudy: "Case Study", caseSoon: "Case Study - Bientôt", previewTitle: "Aperçu du projet", detailsTitle: "Détails", close: "Fermer", fullscreenHint: "Cliquer pour plein écran" };
+        ? { demo: "Demo", github: "GitHub", caseStudy: "Case Study", previewTitle: "Project preview", detailsTitle: "Details", close: "Close", fullscreenHint: "Click to fullscreen" }
+        : { demo: "Demo", github: "GitHub", caseStudy: "Case Study", previewTitle: "Aperçu du projet", detailsTitle: "Détails", close: "Fermer", fullscreenHint: "Cliquer pour plein écran" };
       return (
         <section id="projets" className="section section-cream">
           <DecoCloud v="c" w={260} sw={2}   drift driftDur={76} driftDelay={-9} driftRot={1}  style={{ top:'-20px', right:'-60px',  opacity:.68 }}/>
@@ -1146,12 +1168,8 @@
                       {project.tags.slice(0, 3).map(tag => <span key={tag} className="bc-tag">{tag}</span>)}
                     </div>
                     <div className="bc-links" onClick={e => e.stopPropagation()}>
-                      {project.links.demo
-                        ? <a href={project.links.demo} target="_blank" rel="noreferrer" className="bc-link">↗ {labels.demo}</a>
-                        : <span className="bc-link-dim">↗ {labels.demoSoon}</span>}
-                      {project.links.github
-                        ? <a href={project.links.github} target="_blank" rel="noreferrer" className="bc-link">⌥ {labels.github}</a>
-                        : <span className="bc-link-dim">⌥ {labels.githubSoon}</span>}
+                      {project.links.demo && <a href={project.links.demo} target="_blank" rel="noreferrer" className="bc-link">↗ {labels.demo}</a>}
+                      {project.links.github && <a href={project.links.github} target="_blank" rel="noreferrer" className="bc-link">⌥ {labels.github}</a>}
                     </div>
                   </div>
                 </article>
@@ -1178,12 +1196,8 @@
                       {project.tags.slice(0, 3).map(tag => <span key={tag} className="bc-tag">{tag}</span>)}
                     </div>
                     <div className="bc-links" onClick={e => e.stopPropagation()}>
-                      {project.links.demo
-                        ? <a href={project.links.demo} target="_blank" rel="noreferrer" className="bc-link">↗ {labels.demo}</a>
-                        : <span className="bc-link-dim">↗ {labels.demoSoon}</span>}
-                      {project.links.github
-                        ? <a href={project.links.github} target="_blank" rel="noreferrer" className="bc-link">⌥ {labels.github}</a>
-                        : <span className="bc-link-dim">⌥ {labels.githubSoon}</span>}
+                      {project.links.demo && <a href={project.links.demo} target="_blank" rel="noreferrer" className="bc-link">↗ {labels.demo}</a>}
+                      {project.links.github && <a href={project.links.github} target="_blank" rel="noreferrer" className="bc-link">⌥ {labels.github}</a>}
                     </div>
                   </div>
                 </article>
@@ -1508,8 +1522,7 @@
                   <a href="https://github.com/Jesuiskoriel" target="_blank" rel="noreferrer">
                     <span className="platform-icon"><IconGithub /></span>GitHub
                   </a>
-                  <a href="#"><span className="platform-icon"><IconLinkedin /></span>LinkedIn</a>
-                  <a href="#"><span className="platform-icon"><IconDocument /></span>Portfolio PDF</a>
+                  <a href="https://fr.linkedin.com/in/lajimi-jhawad-7b12a1327?trk=public_post_feed-actor-image"><span className="platform-icon"><IconLinkedin /></span>LinkedIn</a>
                 </div>
               </article>
               <article className="contact-card reveal" ref={n => { refs.current[1] = n; }}>

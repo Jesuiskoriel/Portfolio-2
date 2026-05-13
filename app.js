@@ -99,6 +99,14 @@
 
     const projectCards = [
       {
+        title: "AuriOS - Contributeur Open Source",
+        description: "Projet de création d'un système d'exploitation orienté privacy, avec contribution au développement et à l'amélioration continue.",
+        tags: ["Open Source", "Contribution", "GitHub", "OS"],
+        cover: "stage",
+        localImage: "media/projects/auriOS.png",
+        links: { github: "https://github.com/Auri-OS/AuriOS", demo: "", caseStudy: "" }
+      },
+      {
         title: "App Mobile iOS - Verdea",
         description: "Application iOS orientée productivité et partage, avec interface mobile soignée et parcours utilisateur fluide.",
         tags: ["iOS", "Swift", "UI/UX", "Mobile"],
@@ -119,6 +127,7 @@
         description: "Plateforme de classement compétitif pour suivre joueurs, matchs et progression en ladder avec une interface claire et rapide.",
         tags: ["JavaScript", "PHP", "SQL", "UI", "WIP"],
         cover: "hellladder",
+        localImage: "media/projects/ladder.png",
         links: {
           github: "https://github.com/Jesuiskoriel/Metal-K.O.R.I.E.L",
           demo: "",
@@ -190,6 +199,14 @@
 
     const projectCardsEn = [
       {
+        title: "AuriOS - Open Source Contributor",
+        description: "Privacy-focused operating system creation project, with active contribution to development and continuous improvements.",
+        tags: ["Open Source", "Contribution", "GitHub", "OS"],
+        cover: "stage",
+        localImage: "media/projects/auriOS.png",
+        links: { github: "https://github.com/Auri-OS/AuriOS", demo: "", caseStudy: "" }
+      },
+      {
         title: "iOS Mobile App - Verdea",
         description: "An iOS app focused on productivity and sharing, with polished mobile UI and a smooth user flow.",
         tags: ["iOS", "Swift", "UI/UX", "Mobile"],
@@ -210,6 +227,7 @@
         description: "Competitive ranking platform to track players, matches and ladder progression through a clean and fast interface.",
         tags: ["JavaScript", "PHP", "SQL", "UI", "WIP"],
         cover: "hellladder",
+        localImage: "media/projects/ladder.png",
         links: {
           github: "https://github.com/Jesuiskoriel/Metal-K.O.R.I.E.L",
           demo: "",
@@ -938,19 +956,13 @@
       const labels = lang === "en"
         ? {
           demo: "Demo",
-          demoSoon: "Demo - Soon",
           github: "GitHub",
-          githubSoon: "GitHub - Soon",
-          caseStudy: "Case Study",
-          caseSoon: "Case Study - Soon"
+          caseStudy: "Case Study"
         }
         : {
           demo: "Demo",
-          demoSoon: "Demo - Bientôt",
           github: "GitHub",
-          githubSoon: "GitHub - Bientôt",
-          caseStudy: "Case Study",
-          caseSoon: "Case Study - Bientôt"
+          caseStudy: "Case Study"
         };
       return (
         <section id="projets" className="container">
@@ -966,15 +978,9 @@
                 <p>{project.description}</p>
                 <div className="meta">{project.tags.map((tag) => <span className="chip" key={tag + i}>{tag}</span>)}</div>
                 <div className="project-links">
-                  {project.links.demo
-                    ? <a href={project.links.demo} target="_blank" rel="noreferrer" className="project-link"><span className="platform-icon"><IconExternal /></span>{labels.demo}</a>
-                    : <span className="project-link"><span className="platform-icon"><IconExternal /></span>{labels.demoSoon}</span>}
-                  {project.links.github
-                    ? <a href={project.links.github} target="_blank" rel="noreferrer" className="project-link"><span className="platform-icon"><IconGithub /></span>{labels.github}</a>
-                    : <span className="project-link"><span className="platform-icon"><IconGithub /></span>{labels.githubSoon}</span>}
-                  {project.links.caseStudy
-                    ? <a href={project.links.caseStudy} target="_blank" rel="noreferrer" className="project-link"><span className="platform-icon"><IconDocument /></span>{labels.caseStudy}</a>
-                    : <span className="project-link"><span className="platform-icon"><IconDocument /></span>{labels.caseSoon}</span>}
+                  {project.links.demo && <a href={project.links.demo} target="_blank" rel="noreferrer" className="project-link"><span className="platform-icon"><IconExternal /></span>{labels.demo}</a>}
+                  {project.links.github && <a href={project.links.github} target="_blank" rel="noreferrer" className="project-link"><span className="platform-icon"><IconGithub /></span>{labels.github}</a>}
+                  {project.links.caseStudy && <a href={project.links.caseStudy} target="_blank" rel="noreferrer" className="project-link"><span className="platform-icon"><IconDocument /></span>{labels.caseStudy}</a>}
                 </div>
               </article>
             ))}

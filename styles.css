@@ -38,6 +38,11 @@ body{
 }
 .cursor-ring.is-hovering{width:48px;height:48px;border-color:var(--cream)}
 
+/* Use default system cursor */
+.has-cursor{cursor:auto !important}
+.cursor-dot,
+.cursor-ring{display:none !important}
+
 /* ── SCROLL PROGRESS ─────────────────────────── */
 .scroll-progress{
   position:fixed;top:0;left:0;z-index:9000;
