@@ -66,6 +66,10 @@
         watchToolsTitle: "Outils de veille",
         watchToolsText: "Ma boîte à outils pour suivre les tendances, détecter les signaux faibles et valider rapidement les sources.",
         watchToolsCta: "Ouvrir",
+        watchFlowTitle: "Workflow de veille",
+        watchFlowText: "Chaque outil capte un type de signal, puis OpenClaw centralise, structure et priorise les informations.",
+        watchFlowHub: "Hub central de veille",
+        watchFlowCentralize: "→ centralise tout directement dans le portfolio",
         contactTitle: "Un projet en tête ? Discutons-en.",
         contactText: "Vous pouvez me contacter directement via ce formulaire.",
         contactFoot: "Contact : lajimijhawad@gmail.com",
@@ -122,6 +126,10 @@
         watchToolsTitle: "Watch Tools",
         watchToolsText: "My toolkit to track trends, spot weak signals, and quickly validate sources.",
         watchToolsCta: "Open",
+        watchFlowTitle: "Watch Workflow",
+        watchFlowText: "Each tool captures a signal type, then OpenClaw centralizes, structures, and prioritizes information.",
+        watchFlowHub: "Central watch hub",
+        watchFlowCentralize: "→ centralizes everything directly into the portfolio",
         contactTitle: "Un projet en tête ? Discutons-en.",
         contactText: "You can contact me directly through this form.",
         contactFoot: "Contact: lajimijhawad@gmail.com",
@@ -460,13 +468,13 @@
       "Progression continue : veille active et expérimentation régulière sur les technos front-end."
     ];
     const watchTools = [
-      { name: "OpenClaw", url: "https://openclaw.ai", logo: "media/logo/openclaw.png", descFr: "Automatise la collecte et l'analyse de sources pour détecter rapidement les signaux utiles.", descEn: "Automates source collection and analysis to quickly surface useful signals." },
-      { name: "Feedly", url: "https://feedly.com", logo: "https://cdn.simpleicons.org/feedly/2bb24c", descFr: "Centralise les flux RSS pour suivre l'actualité par thèmes sans bruit.", descEn: "Centralizes RSS feeds to follow topic-based news with less noise." },
-      { name: "Google Alerts", url: "https://www.google.com/alerts", logo: "https://cdn.simpleicons.org/google/4285F4", descFr: "Envoie des alertes email dès qu'un nouveau contenu correspond à un mot-clé ciblé.", descEn: "Sends email alerts when new content matches selected keywords." },
-      { name: "Hugging Face", url: "https://huggingface.co", logo: "https://cdn.simpleicons.org/huggingface/FFD21E", descFr: "Permet de surveiller les nouveaux modèles, datasets et tendances IA open source.", descEn: "Helps monitor new open-source AI models, datasets, and trends." },
-      { name: "GitHub", url: "https://github.com", logo: "https://cdn.simpleicons.org/github/ffffff", descFr: "Suit les releases, issues et commits des projets techniques à surveiller.", descEn: "Tracks releases, issues, and commits for technical projects to watch." },
-      { name: "Reddit", url: "https://www.reddit.com", logo: "https://cdn.simpleicons.org/reddit/FF4500", descFr: "Capte les retours terrain et les discussions communautaires sur les outils émergents.", descEn: "Captures field feedback and community discussions on emerging tools." },
-      { name: "Perplexity", url: "https://www.perplexity.ai", logo: "https://cdn.simpleicons.org/perplexity/ffffff", descFr: "Accélère la recherche avec synthèse et sources vérifiables en un seul flux.", descEn: "Speeds up research with sourced summaries in a single workflow." }
+      { name: "OpenClaw", url: "https://openclaw.ai", logo: "media/logo/openclaw.png", roleFr: "Centralisation", roleEn: "Centralization", descFr: "Automatise la collecte et l'analyse de sources pour détecter rapidement les signaux utiles.", descEn: "Automates source collection and analysis to quickly surface useful signals." },
+      { name: "Feedly", url: "https://feedly.com", logo: "https://cdn.simpleicons.org/feedly/2bb24c", roleFr: "Flux RSS", roleEn: "RSS feeds", descFr: "Centralise les flux RSS pour suivre l'actualité par thèmes sans bruit.", descEn: "Centralizes RSS feeds to follow topic-based news with less noise." },
+      { name: "Google Alerts", url: "https://www.google.com/alerts", logo: "https://cdn.simpleicons.org/google/4285F4", roleFr: "Alertes mots-clés", roleEn: "Keyword alerts", descFr: "Envoie des alertes email dès qu'un nouveau contenu correspond à un mot-clé ciblé.", descEn: "Sends email alerts when new content matches selected keywords." },
+      { name: "Hugging Face", url: "https://huggingface.co", logo: "https://cdn.simpleicons.org/huggingface/FFD21E", roleFr: "Tendance modèles IA", roleEn: "AI model trends", descFr: "Permet de surveiller les nouveaux modèles, datasets et tendances IA open source.", descEn: "Helps monitor new open-source AI models, datasets, and trends." },
+      { name: "GitHub", url: "https://github.com", logo: "https://cdn.simpleicons.org/github/ffffff", roleFr: "Releases & commits", roleEn: "Releases & commits", descFr: "Suit les releases, issues et commits des projets techniques à surveiller.", descEn: "Tracks releases, issues, and commits for technical projects to watch." },
+      { name: "Reddit", url: "https://www.reddit.com", logo: "https://cdn.simpleicons.org/reddit/FF4500", roleFr: "Retours terrain", roleEn: "Community feedback", descFr: "Capte les retours terrain et les discussions communautaires sur les outils émergents.", descEn: "Captures field feedback and community discussions on emerging tools." },
+      { name: "Perplexity", url: "https://www.perplexity.ai", logo: "https://cdn.simpleicons.org/perplexity/ffffff", roleFr: "Recherche sourcée", roleEn: "Sourced research", descFr: "Accélère la recherche avec synthèse et sources vérifiables en un seul flux.", descEn: "Speeds up research with sourced summaries in a single workflow." }
     ];
 
     /* ════════════════════════════════════════════════
@@ -1480,13 +1488,34 @@
 
     function WatchTools({ t, lang }) {
       const refs = useReveal();
+      const hub = watchTools.find((tool) => tool.name === "OpenClaw") || watchTools[0];
+      const feeders = watchTools.filter((tool) => tool.name !== hub.name);
       return (
         <section className="section section-purple" style={{ paddingTop: 0 }}>
           <div className="container">
             <SectionTitle title={t.watchToolsTitle} text={t.watchToolsText} light />
+            <article className="watch-flow-card reveal" ref={n => { refs.current[0] = n; }}>
+              <h3>{t.watchFlowTitle}</h3>
+              <p>{t.watchFlowText}</p>
+              <div className="watch-flow-map">
+                <div className="watch-flow-ring">
+                  {feeders.map((tool) => (
+                    <div className="watch-flow-node" key={"flow-" + tool.name}>
+                      <span className="watch-flow-node-name">{tool.name}</span>
+                      <span className="watch-flow-node-role">{lang === "fr" ? tool.roleFr : tool.roleEn}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="watch-flow-hub">
+                  <span className="watch-flow-hub-label">{t.watchFlowHub}</span>
+                  <div className="watch-flow-hub-core">{hub.name}</div>
+                  <div className="watch-flow-hub-note">{t.watchFlowCentralize}</div>
+                </div>
+              </div>
+            </article>
             <div className="watch-tools-grid">
               {watchTools.map((tool, i) => (
-                <article key={tool.name} className="watch-tool-card reveal" ref={n => { refs.current[i] = n; }}>
+                <article key={tool.name} className="watch-tool-card reveal" ref={n => { refs.current[i + 1] = n; }}>
                   <div className="watch-tool-head">
                     <span className="watch-tool-logo">
                       {tool.logo === "custom-openclaw"
