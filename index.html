@@ -55,6 +55,11 @@
         techText: "Outils et technologies sur lesquels je continue d'investir.",
         journeyTitle: "Ce qui me distingue",
         journeyText: "4 points clés qui définissent ma façon de travailler.",
+        certsTitle: "Certifications",
+        certsText: "Certifications obtenues et en cours pour renforcer mes compétences techniques.",
+        certsIssuedBy: "Organisme",
+        certsEarned: "Obtenue",
+        certsInProgress: "En cours",
         goalTitle: "Objectif Actuel",
         goalText: "Je recherche une opportunité pour continuer à progresser en front-end, UI engineering et expériences interactives. Disponible en alternance, stage ou mission freelance.",
         veilleTitle: "Veille Technologique",
@@ -115,6 +120,11 @@
         techText: "Tools and technologies I keep investing in.",
         journeyTitle: "What Sets Me Apart",
         journeyText: "4 key points that define how I work.",
+        certsTitle: "Certifications",
+        certsText: "Completed and ongoing certifications to strengthen my technical skills.",
+        certsIssuedBy: "Issuer",
+        certsEarned: "Completed",
+        certsInProgress: "In progress",
         goalTitle: "Current Goal",
         goalText: "I am looking for an opportunity to keep growing in front-end, UI engineering, and interactive experiences. Available for apprenticeship, internship, or freelance work.",
         veilleTitle: "Tech Watch",
@@ -466,6 +476,16 @@
       "Vision produit : je pense expérience utilisateur, clarté et valeur métier avant tout.",
       "Rigueur technique : code propre, structure maintenable et souci de performance.",
       "Progression continue : veille active et expérimentation régulière sur les technos front-end."
+    ];
+    const certificationsFr = [
+      { name: "AWS Cloud Practitioner", issuer: "Amazon Web Services", year: "2026", status: "earned", image: "media/certification/aws.png" },
+      { name: "Git & GitHub", issuer: "GitHub", year: "2026", status: "earned", image: "media/certification/git.png" },
+      { name: "Certification IA IBM", issuer: "IBM SkillsBuild", year: "2026", status: "in-progress", image: "media/certification/ibm.png" }
+    ];
+    const certificationsEn = [
+      { name: "AWS Cloud Practitioner", issuer: "Amazon Web Services", year: "2026", status: "earned", image: "media/certification/aws.png" },
+      { name: "Git & GitHub", issuer: "GitHub", year: "2026", status: "earned", image: "media/certification/git.png" },
+      { name: "IBM AI Certification", issuer: "IBM SkillsBuild", year: "2026", status: "in-progress", image: "media/certification/ibm.png" }
     ];
     const watchTools = [
       { name: "OpenClaw", url: "https://openclaw.ai", logo: "media/logo/openclaw.png", roleFr: "Centralisation", roleEn: "Centralization", descFr: "Automatise la collecte et l'analyse de sources pour détecter rapidement les signaux utiles.", descEn: "Automates source collection and analysis to quickly surface useful signals." },
@@ -1357,6 +1377,38 @@
     }
 
     /* ════════════════════════════════════════════════
+       CERTIFICATIONS
+    ════════════════════════════════════════════════ */
+    function Certifications({ t, lang }) {
+      const refs = useReveal();
+      const certifications = lang === "fr" ? certificationsFr : certificationsEn;
+      return (
+        <section className="section section-cream" style={{ paddingTop: 0 }}>
+          <div className="container">
+            <SectionTitle title={t.certsTitle} text={t.certsText} />
+            <div className="certs-grid">
+              {certifications.map((cert, i) => (
+                <article key={cert.name} className="cert-card reveal" ref={n => { refs.current[i] = n; }}>
+                  {cert.image && (
+                    <img src={cert.image} alt={cert.name} className="cert-image" loading="lazy" />
+                  )}
+                  <div className="cert-card-head">
+                    <h3>{cert.name}</h3>
+                    <span className={"cert-badge " + (cert.status === "earned" ? "ok" : "pending")}>
+                      {cert.status === "earned" ? t.certsEarned : t.certsInProgress}
+                    </span>
+                  </div>
+                  <p><strong>{t.certsIssuedBy}:</strong> {cert.issuer}</p>
+                  <p>{cert.year}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    /* ════════════════════════════════════════════════
        GOAL
     ════════════════════════════════════════════════ */
     function Goal({ t }) {
@@ -1761,6 +1813,7 @@
           <Skills t={t} />
           <FavoriteTech t={t} />
           <Journey t={t} />
+          <Certifications t={t} lang={lang} />
           <VeilleFront t={t} lang={lang} />
           <WatchTools t={t} lang={lang} />
           <Contact t={t} />
