@@ -254,11 +254,6 @@ body{
   display:inline-flex;align-items:center;gap:7px;
   font-size:13px;color:rgba(38,20,102,.65);margin-bottom:16px;font-weight:400;
 }
-.status-dot{
-  width:7px;height:7px;border-radius:50%;background:#22c55e;
-  animation:pulse-dot 2.2s infinite;
-}
-@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
 .hero-intro{font-size:15px;font-style:italic;color:rgba(38,20,102,.6);margin-bottom:10px;font-family:var(--font-display)}
 .hero-headline{
   font-family:var(--font-display);
