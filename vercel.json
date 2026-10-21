@@ -1,1 +1,12 @@
-
+{
+  "rewrites": [
+    {
+      "source": "/bingo8",
+      "destination": "https://bracketcanvas.jesuiskoriel.dev/bingo8/"
+    },
+    {
+      "source": "/bingo8/:path*",
+      "destination": "https://bracketcanvas.jesuiskoriel.dev/bingo8/:path*"
+    }
+  ]
+}
