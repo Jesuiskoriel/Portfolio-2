@@ -1,9 +1,7 @@
 {
-  "rewrites": [
-    {
-      {
   "trailingSlash": false,
   "rewrites": [
+    {
       "source": "/bingo8",
       "destination": "https://bracketcanvas.jesuiskoriel.dev/bingo8/"
     },
